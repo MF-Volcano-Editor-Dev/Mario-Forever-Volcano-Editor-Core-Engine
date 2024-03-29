@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://dm1au2ar8wp71"]
+
+[ext_resource type="Script" path="res://scripts/entities/characters/mario/mario.gd" id="1_es2gk"]
+[ext_resource type="PackedScene" uid="uid://d2a3jxasggppj" path="res://objects/entities/characters/mario/power-ups/mario_small.tscn" id="2_04tbc"]
+[ext_resource type="PackedScene" uid="uid://oi5vyigqsaq1" path="res://objects/entities/characters/mario/power-ups/mario_big.tscn" id="3_ck1o5"]
+[ext_resource type="PackedScene" uid="uid://dh2wi5r4ubr2x" path="res://objects/entities/characters/#deaths/mario_death.tscn" id="4_bceee"]
+
+[node name="Mario" type="EntityBody2D" groups=["character"]]
+gravity_scale = 1.0
+collision_mask = 2
+platform_on_leave = 1
+script = ExtResource("1_es2gk")
+
+[node name="MarioSmall" parent="." instance=ExtResource("2_04tbc")]
+
+[node name="MarioBig" parent="." instance=ExtResource("3_ck1o5")]
+process_mode = 4
+visible = false
+
+[node name="MarioDeath" parent="." groups=["character_death"] instance=ExtResource("4_bceee")]
+process_mode = 4
+visible = false
+position = Vector2(0, -7)

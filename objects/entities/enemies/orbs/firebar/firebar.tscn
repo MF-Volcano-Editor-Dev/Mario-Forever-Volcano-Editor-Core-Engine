@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bn2or7ma5hmmo"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/enemies/orb/orb_center.gd" id="1_pd301"]
+[ext_resource type="Texture2D" uid="uid://dxr0dxmh544lj" path="res://engine/assets/gfx/objects/entities/projectiles/fireball.png" id="2_78yml"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/sprite_flip_facing_h.gd" id="3_abals"]
+
+[node name="Firebar" type="Node2D"]
+editor_description = "WARNING:
+If you want to change the behavior of amplitude changing and display in editor mode, please turn off `preivew` first! Otherwise, an unexpected behavior would happen!"
+script = ExtResource("1_pd301")
+orb_prefix = &"FireballFirebar"
+size = 16.0
+metadata/_edit_pinned_properties_ = [&"size", &"orb_prefix"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_78yml")
+script = ExtResource("3_abals")
+flip_rotaiton_speed = 650.0
+metadata/_edit_pinned_properties_ = [&"texture", &"flip_rotaiton_speed"]

@@ -1,0 +1,53 @@
+[gd_scene load_steps=10 format=3 uid="uid://cmmc0ekq48ety"]
+
+[ext_resource type="PackedScene" uid="uid://crnx40c7hevum" path="res://objects/uis/huds/level_hud.tscn" id="1_brdbf"]
+[ext_resource type="Script" path="res://scripts/scenes/room.gd" id="1_p1njg"]
+[ext_resource type="PackedScene" uid="uid://c8beh6lwuqjvp" path="res://objects/units/general/unit_time_down.tscn" id="2_yrtq0"]
+[ext_resource type="PackedScene" uid="uid://dm1au2ar8wp71" path="res://objects/entities/characters/mario/mario.tscn" id="3_2xf2e"]
+[ext_resource type="Script" path="res://scripts/units/camera/unit_cam_game.gd" id="4_6nwtf"]
+[ext_resource type="PackedScene" uid="uid://cui35mog5pwf8" path="res://objects/units/general/unit_level_completion.tscn" id="4_an7ri"]
+[ext_resource type="PackedScene" uid="uid://mlw61ix1dmoo" path="res://objects/units/general/unit_coin_to_life.tscn" id="4_vw81q"]
+[ext_resource type="TileSet" uid="uid://7f4u48gspyof" path="res://assets/tilesets/overworld.tres" id="7_6y41o"]
+[ext_resource type="PackedScene" uid="uid://ber4ghptyioeg" path="res://objects/entities/areas/fluid/water/water.tscn" id="9_f3ml3"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_p1njg")
+
+[node name="LevelHUD" parent="." instance=ExtResource("1_brdbf")]
+
+[node name="TimeDown" parent="." instance=ExtResource("2_yrtq0")]
+
+[node name="LevelCompletion" parent="." instance=ExtResource("4_an7ri")]
+
+[node name="CoinToLife" parent="." instance=ExtResource("4_vw81q")]
+
+[node name="GameCamera2D" type="Camera2D" parent="."]
+limit_left = 0
+limit_top = 0
+limit_right = 960
+limit_bottom = 480
+editor_draw_limits = true
+script = ExtResource("4_6nwtf")
+_initialized = true
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("7_6y41o")
+format = 2
+layer_0/tile_data = PackedInt32Array(851968, 65537, 0, 917504, 65537, 1, 851969, 65537, 0, 917505, 65537, 1, 851970, 65537, 0, 917506, 65537, 1, 851971, 65537, 0, 917507, 65537, 1, 851972, 65537, 0, 917508, 65537, 1, 851973, 65537, 0, 917509, 65537, 1, 851974, 65537, 0, 917510, 65537, 1, 851975, 65537, 0, 917511, 65537, 1, 851979, 65537, 0, 917515, 65537, 1, 851980, 65537, 0, 917516, 65537, 1, 851981, 65537, 0, 917517, 65537, 1, 851982, 65537, 0, 917518, 65537, 1, 851983, 65537, 0, 917519, 65537, 1, 851985, 65537, 0, 917521, 65537, 1, 851986, 65537, 0, 917522, 65537, 1, 851987, 65537, 0, 917523, 65537, 1, 851990, 65537, 0, 917526, 65537, 1, 851991, 65537, 0, 917527, 65537, 1, 851994, 65537, 0, 917530, 65537, 1, 851995, 65537, 0, 917531, 65537, 1, 851992, 65537, 0, 917528, 65537, 1, 851993, 65537, 0, 917529, 65537, 1, 851996, 65537, 0, 917532, 65537, 1, 851997, 65537, 0, 917533, 65537, 1, 851998, 131073, 0, 917534, 131073, 1, 851977, 65537, 0, 917513, 65537, 1, 851978, 65537, 0, 917514, 65537, 1, 851989, 65537, 0, 917525, 65537, 1, 851976, 65537, 0, 917512, 65537, 1, 851988, 65537, 0, 917524, 65537, 1, 917520, 65537, 1, 851984, 65537, 0, 983070, 131073, 2, 983069, 65537, 2, 983068, 65537, 2, 983067, 65537, 2, 983066, 65537, 2, 983065, 65537, 2, 983064, 65537, 2, 983063, 65537, 2, 983062, 65537, 2, 983061, 65537, 2, 983060, 65537, 2, 983059, 65537, 2, 983058, 65537, 2, 983057, 65537, 2, 983056, 65537, 2, 983055, 65537, 2, 983054, 65537, 2, 983053, 65537, 2, 983052, 65537, 2, 983051, 65537, 2, 983050, 65537, 2, 983049, 65537, 2, 983048, 65537, 2, 983047, 65537, 2, 983046, 65537, 2, 983045, 65537, 2, 983044, 65537, 2, 983043, 65537, 2, 983042, 65537, 2, 983041, 65537, 2, 983040, 65537, 2, 1048575, 1, 2, 983039, 1, 1, 917503, 1, 0)
+metadata/_edit_lock_ = true
+
+[node name="Mario" parent="." instance=ExtResource("3_2xf2e")]
+position = Vector2(128, 400)
+current_powerup = &"fireball"
+
+[node name="Water" parent="." instance=ExtResource("9_f3ml3")]
+offset_left = 192.0
+offset_top = 160.0
+offset_right = 640.0
+offset_bottom = 415.0
+
+[node name="Water2" parent="." instance=ExtResource("9_f3ml3")]
+offset_left = 128.0
+offset_top = -128.0
+offset_right = 320.0
+offset_bottom = 127.0

@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://oohrpdgpi7lm"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/enemies/#death/lakitu_death.gd" id="1_6ymby"]
+[ext_resource type="Texture2D" uid="uid://b4phoomeqyl6f" path="res://engine/assets/gfx/objects/entities/enemies/lakitus/lakitu_normal.png" id="2_ct1mv"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/sprite_flip_facing_h.gd" id="3_lefhr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3hcme"]
+radius = 16.0
+
+[node name="LakituNormalDeath" type="EntityBody2D"]
+gravity_scale = 0.25
+max_falling_speed = 500.0
+global_rotation_to_gravity_direction = false
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_6ymby")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_3hcme")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ct1mv")
+offset = Vector2(0, -8)
+hframes = 12
+vframes = 4
+script = ExtResource("3_lefhr")
+flip_position_x = true
+flip_rotaiton_speed = 400.0

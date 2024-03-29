@@ -1,0 +1,17 @@
+[remap]
+
+importer="dt.abfi"
+type="FontFile"
+uid="uid://8iriiin3t4hc"
+path="res://.godot/imported/score.png-2efb7222decf75958351be8aa675e65c.fontdata"
+
+[deps]
+
+source_file="res://engine/assets/fonts/score.png"
+dest_files=["res://.godot/imported/score.png-2efb7222decf75958351be8aa675e65c.fontdata"]
+
+[params]
+
+ranges=PackedStringArray("0", "9")
+letter_spacing=-1
+mipmaps=false

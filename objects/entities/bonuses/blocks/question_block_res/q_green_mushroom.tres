@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="QuestionBlockItem" load_steps=4 format=3 uid="uid://c2sh36wug0rys"]
+
+[ext_resource type="PackedScene" uid="uid://dsmnib25rmbv3" path="res://engine/objects/entities/bonuses/items/green_mushroom.tscn" id="1_iqqrg"]
+[ext_resource type="Texture2D" uid="uid://y2oqc0tegdxn" path="res://engine/assets/gfx/objects/entities/bonus/items/green_mushroom.png" id="2_qeyx6"]
+[ext_resource type="Script" path="res://engine/scripts/entities/bonuses/blocks/resources/question_block_item.gd" id="3_u5b5o"]
+
+[resource]
+script = ExtResource("3_u5b5o")
+default = ExtResource("1_iqqrg")
+required_powerup_level = -5
+icon = ExtResource("2_qeyx6")

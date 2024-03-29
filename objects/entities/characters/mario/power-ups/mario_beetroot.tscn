@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://eohpty3ehpcp"]
+
+[ext_resource type="PackedScene" uid="uid://oi5vyigqsaq1" path="res://engine/objects/entities/characters/mario/power-ups/mario_big.tscn" id="1_1qpb7"]
+[ext_resource type="SpriteFrames" uid="uid://c2gpka2j7d8ip" path="res://engine/objects/entities/characters/mario/power-ups/animations/anim_mario_beetroot.tres" id="2_x51bi"]
+[ext_resource type="Script" path="res://engine/scripts/components/instantiater/class_instantiater2d.gd" id="3_af06e"]
+[ext_resource type="PackedScene" uid="uid://fkrokt7nq55e" path="res://engine/objects/entities/#projectiles/beetroots/beetroot_player.tscn" id="4_is2mw"]
+[ext_resource type="Script" path="res://engine/scripts/entities/characters/mario/states/mario_non_climbing_projectile.gd" id="4_mpkcp"]
+[ext_resource type="AudioStream" uid="uid://c4wx7vkqy1cd4" path="res://engine/assets/sounds/shoot.wav" id="5_gudps"]
+
+[node name="MarioBeetroot" instance=ExtResource("1_1qpb7")]
+powerup_id = &"beetroot"
+down_to_powerup_id = &"big"
+powerup_level = 2
+metadata/_edit_pinned_properties_ = [&"down_to_powerup_id", &"powerup_id", &"powerup_level"]
+
+[node name="AnimatedSprite2D" parent="." index="4"]
+sprite_frames = ExtResource("2_x51bi")
+
+[node name="Projectile" type="Node2D" parent="." index="6"]
+visible = false
+position = Vector2(6, -22)
+script = ExtResource("3_af06e")
+root_path = NodePath("../..")
+metadata/_edit_pinned_properties_ = [&"root_path"]
+
+[node name="BeetrootPlayer" parent="Projectile" index="0" instance=ExtResource("4_is2mw")]
+velocality = Vector2(100, -250)
+velocity = Vector2(100, -250)
+position = Vector2(-6, 0)
+velocity = Vector2(100, -250)
+metadata/_edit_pinned_properties_ = [&"velocality"]
+
+[node name="NonClimbing" parent="StateMachine" index="0"]
+script = ExtResource("4_mpkcp")
+projectile_instantiater_path = NodePath("../../Projectile")
+projectile_id = 5
+projectile_max_amount = 2
+sound_projectile = ExtResource("5_gudps")
+metadata/_edit_pinned_properties_ = [&"script", &"projectile_id"]
+
+[node name="Climbing" parent="StateMachine" index="1"]
+state_non_climbing_path = NodePath("../NonClimbing")
+metadata/_edit_pinned_properties_ = [&"state_non_climbing_path"]

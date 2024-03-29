@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CircularMIGeneratorTemplate" load_steps=5 format=3 uid="uid://d1c06ft0y6np8"]
+
+[ext_resource type="PackedScene" uid="uid://djbpoxvdjh7dj" path="res://engine/objects/entities/enemies/koopas/troopas/koopa_troopa_yellow.tscn" id="1_e6jwa"]
+[ext_resource type="Texture2D" uid="uid://bh6cfy47bbmrl" path="res://engine/assets/gfx/objects/entities/enemies/koopas/koopa_yellow.png" id="1_gei4t"]
+[ext_resource type="Script" path="res://engine/scripts/entities/generators/circular_generator_template.gd" id="2_g42kx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_smtdc"]
+atlas = ExtResource("1_gei4t")
+region = Rect2(0, 0, 32, 48)
+
+[resource]
+script = ExtResource("2_g42kx")
+packed_scene = ExtResource("1_e6jwa")
+icon = SubResource("AtlasTexture_smtdc")

@@ -1,0 +1,103 @@
+[gd_scene load_steps=12 format=3 uid="uid://ber4ghptyioeg"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/areas/fluid/fluid_area.gd" id="1_0ii7k"]
+[ext_resource type="Script" path="res://engine/scripts/entities/areas/area_fluid.gd" id="1_1vbic"]
+[ext_resource type="Texture2D" uid="uid://kh623gqwn5p6" path="res://engine/assets/gfx/objects/entities/fluid/water.png" id="1_ixjrt"]
+[ext_resource type="Script" path="res://engine/scripts/entities/areas/spray/area_spray.gd" id="3_wyebi"]
+[ext_resource type="PackedScene" uid="uid://delxto2dfc3fa" path="res://engine/objects/entities/#effects/spray_water.tscn" id="4_pv8il"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hv60i"]
+atlas = ExtResource("1_ixjrt")
+region = Rect2(0, 0, 64, 20)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_esvot"]
+b = Vector2(1, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v0q4p"]
+size = Vector2(1, 1)
+
+[sub_resource type="Animation" id="Animation_yayc2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(0, 0, 64, 20)]
+}
+
+[sub_resource type="Animation" id="Animation_hmwlt"]
+resource_name = "water"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(0, 0, 64, 20), Rect2(0, 20, 64, 20), Rect2(0, 40, 64, 20), Rect2(0, 60, 64, 20), Rect2(0, 80, 64, 20), Rect2(0, 100, 64, 20), Rect2(0, 120, 64, 20), Rect2(0, 140, 64, 20)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_330mv"]
+_data = {
+"RESET": SubResource("Animation_yayc2"),
+"water": SubResource("Animation_hmwlt")
+}
+
+[node name="Water" type="NinePatchRect"]
+modulate = Color(1, 1, 1, 0.501961)
+z_index = 20
+offset_right = 32.0
+offset_bottom = 32.0
+texture = SubResource("AtlasTexture_hv60i")
+patch_margin_top = 18
+axis_stretch_horizontal = 1
+script = ExtResource("1_0ii7k")
+area_path = NodePath("AreaWater")
+
+[node name="AreaSpray" type="Area2D" parent="."]
+position = Vector2(0, 8)
+collision_layer = 0
+collision_mask = 5
+monitorable = false
+script = ExtResource("3_wyebi")
+spray = ExtResource("4_pv8il")
+metadata/_edit_pinned_properties_ = [&"spray"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaSpray"]
+shape = SubResource("SegmentShape2D_esvot")
+debug_color = Color(0.764706, 0.45098, 0, 0.419608)
+
+[node name="AreaWater" type="Area2D" parent="." groups=["area_swimmable", "water"]]
+process_physics_priority = -10
+editor_description = "Note: Needs CollisionShape2D(s) or CollisionPolygon2D(s) to work"
+visible = false
+collision_layer = 16
+collision_mask = 5
+gravity_space_override = 3
+gravity = 250.0
+linear_damp_space_override = 3
+linear_damp = 200.0
+script = ExtResource("1_1vbic")
+character_max_falling_speed_scale = 0.3
+state_for_body = &"in_water"
+metadata/_edit_pinned_properties_ = [&"character_max_falling_speed_scale", &"state_for_body"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaWater"]
+shape = SubResource("RectangleShape2D_v0q4p")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_330mv")
+}
+autoplay = "water"

@@ -1,0 +1,113 @@
+[gd_scene load_steps=7 format=3 uid="uid://c8beh6lwuqjvp"]
+
+[ext_resource type="LabelSettings" uid="uid://joejtvag3pdw" path="res://engine/objects/uis/huds/level_hud_theme.tres" id="1_f1vu5"]
+[ext_resource type="Script" path="res://engine/scripts/units/general/unit_time_down.gd" id="1_nkarn"]
+[ext_resource type="Script" path="res://engine/scripts/units/general/unit_characters_killer.gd" id="3_0d4ga"]
+
+[sub_resource type="Animation" id="Animation_a376v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Frame/Time:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_1x265"]
+resource_name = "warning"
+length = 2.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Frame/Time:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2, 2.1, 2.2, 2.3, 2.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0.5), Vector2(1, 1), Vector2(1, 0.5), Vector2(1, 1), Vector2(1, 0.5), Vector2(1, 1), Vector2(1, 0.5), Vector2(1, 1), Vector2(1, 0.5), Vector2(1, 1), Vector2(1, 0.5), Vector2(1, 1), Vector2(1, 0.5), Vector2(1, 1), Vector2(1, 0.5), Vector2(1, 1), Vector2(1, 0.5), Vector2(1, 1), Vector2(1, 0.5), Vector2(1, 1), Vector2(1, 0.5), Vector2(1, 1), Vector2(1, 0.5), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m1nf1"]
+_data = {
+"RESET": SubResource("Animation_a376v"),
+"warning": SubResource("Animation_1x265")
+}
+
+[node name="TimeDown" type="CanvasLayer"]
+layer = 100
+script = ExtResource("1_nkarn")
+
+[node name="Frame" type="Control" parent="."]
+layout_mode = 3
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Time" type="Label" parent="Frame"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -96.0
+offset_top = 24.0
+offset_right = -32.0
+offset_bottom = 41.0
+grow_horizontal = 0
+pivot_offset = Vector2(32, 8)
+text = "TIME"
+label_settings = ExtResource("1_f1vu5")
+horizontal_alignment = 2
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="TimeCount" type="Label" parent="Frame"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -96.0
+offset_top = 43.0
+offset_right = -32.0
+offset_bottom = 60.0
+grow_horizontal = 0
+pivot_offset = Vector2(32, 8)
+text = "0"
+label_settings = ExtResource("1_f1vu5")
+horizontal_alignment = 2
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="TimeUp" type="Label" parent="Frame"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 320.0
+offset_bottom = 240.0
+text = "TIME UP!"
+label_settings = ExtResource("1_f1vu5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_m1nf1")
+}
+
+[node name="CharactersKiller" type="Node" parent="."]
+script = ExtResource("3_0d4ga")
+
+[node name="CountDown" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="time_over" from="." to="CharactersKiller" method="kill_all_characters"]
+[connection signal="timeout" from="CountDown" to="." method="_on_count_down_timeout"]

@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://bg6twsen2esmj"]
+
+[ext_resource type="PackedScene" uid="uid://d28wktlfkunys" path="res://engine/objects/uis/counters/scores_label.tscn" id="1_rgqai"]
+[ext_resource type="LabelSettings" uid="uid://dxb0807crlys7" path="res://engine/objects/uis/counters/lives_label_font.tres" id="2_qa51s"]
+[ext_resource type="Script" path="res://engine/scripts/uis/counters/lives_label.gd" id="3_8jntk"]
+
+[node name="Lives" instance=ExtResource("1_rgqai")]
+offset_left = -17.0
+offset_right = 17.0
+pivot_offset = Vector2(5, 8)
+text = "0UP"
+label_settings = ExtResource("2_qa51s")
+script = ExtResource("3_8jntk")
+change_relevant_data = true
+suffix = "UP"
+metadata/_edit_pinned_properties_ = [&"text", &"label_settings"]

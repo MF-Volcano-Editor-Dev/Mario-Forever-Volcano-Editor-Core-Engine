@@ -1,0 +1,107 @@
+[gd_scene load_steps=16 format=3 uid="uid://d2k1j5ym872mw"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/physics/walker_2d.gd" id="1_70t37"]
+[ext_resource type="Script" path="res://engine/scripts/components/enemy/class_enemy_touch.gd" id="2_fcbhw"]
+[ext_resource type="Script" path="res://engine/scripts/components/attack/class_attackee.gd" id="3_k56w2"]
+[ext_resource type="Script" path="res://engine/scripts/components/entity/entity_solidity.gd" id="4_5qiqs"]
+[ext_resource type="Texture2D" uid="uid://by62qta6t3lup" path="res://engine/assets/gfx/objects/entities/enemies/spinies/spiny_iron.png" id="5_3hwle"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/sprite_flip_facing_h.gd" id="6_xqbte"]
+[ext_resource type="Script" path="res://engine/scripts/components/instantiater/class_enemy_killing_process.gd" id="7_fug8x"]
+[ext_resource type="PackedScene" uid="uid://b6gyvq2ibpx4j" path="res://engine/objects/entities/enemies/#death/spinies/spiny_iron_death.tscn" id="8_bs4pw"]
+[ext_resource type="PackedScene" uid="uid://d28wktlfkunys" path="res://engine/objects/uis/counters/scores_label.tscn" id="9_1bwim"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/on_ready_visible.gd" id="10_1rbt0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_50jj2"]
+size = Vector2(24, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ogmu1"]
+size = Vector2(30, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_71pmp"]
+atlas = ExtResource("5_3hwle")
+region = Rect2(0, 0, 31, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2hrae"]
+atlas = ExtResource("5_3hwle")
+region = Rect2(0, 32, 31, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fds1c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_71pmp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2hrae")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="SpinyIron" type="EntityBody2D"]
+velocality = Vector2(50, -6.82121e-13)
+velocity = Vector2(50, -2.18557e-06)
+threshold_speed_enabled = true
+threshold_speed = 50.0
+gravity_scale = 0.5
+collision_layer = 4
+collision_mask = 8
+velocity = Vector2(50, -2.18557e-06)
+floor_snap_length = 4.0
+script = ExtResource("1_70t37")
+initial_direction = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(3.11137e-06, 4)
+rotation = -1.57079
+shape = SubResource("RectangleShape2D_50jj2")
+
+[node name="EffectBox" type="Area2D" parent="." groups=["entity_collidable"]]
+visible = false
+collision_layer = 4
+collision_mask = 53
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EffectBox"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_ogmu1")
+debug_color = Color(0.964706, 0.192157, 0, 0.419608)
+
+[node name="EnemyTouch" type="Node" parent="EffectBox"]
+script = ExtResource("2_fcbhw")
+
+[node name="Attackee" type="Node" parent="EffectBox"]
+script = ExtResource("3_k56w2")
+
+[node name="EntitySolidity" type="Node" parent="EffectBox"]
+script = ExtResource("4_5qiqs")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_fds1c")
+autoplay = "default"
+script = ExtResource("6_xqbte")
+flip_position_x = true
+
+[node name="EnemyKillingProcess" type="Node2D" parent="."]
+visible = false
+script = ExtResource("7_fug8x")
+defense_damage_level = 1
+metadata/_edit_pinned_properties_ = [&"defense_damage_level"]
+
+[node name="SpinyIronDeath" parent="EnemyKillingProcess" groups=["instantiate_no_failure"] instance=ExtResource("8_bs4pw")]
+
+[node name="Scores" parent="EnemyKillingProcess" groups=["instantiate_no_failure", "instantiate_no_success_combo"] instance=ExtResource("9_1bwim")]
+text = "100"
+amount = 100
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+visible = false
+position = Vector2(1.43051e-06, 4.76837e-07)
+scale = Vector2(1.6, 1.6)
+script = ExtResource("10_1rbt0")
+
+[connection signal="collided_wall" from="." to="." method="turn_wall"]
+[connection signal="on_hit_by_attacker" from="EffectBox/Attackee" to="EnemyKillingProcess" method="killing_process"]
+[connection signal="collided_with_entity" from="EffectBox/EntitySolidity" to="." method="turn_wall"]
+[connection signal="killing_succeeded" from="EnemyKillingProcess" to="." method="queue_free"]

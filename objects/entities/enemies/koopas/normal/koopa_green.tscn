@@ -1,0 +1,110 @@
+[gd_scene load_steps=16 format=3 uid="uid://moyq3gu4vdwh"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/physics/walker_2d.gd" id="1_1iwcr"]
+[ext_resource type="Script" path="res://engine/scripts/components/attack/class_attackee.gd" id="2_45spx"]
+[ext_resource type="Script" path="res://engine/scripts/components/enemy/class_enemy_stompable.gd" id="3_rn06x"]
+[ext_resource type="Script" path="res://engine/scripts/components/entity/entity_solidity.gd" id="4_ejv15"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/sprite_flip_facing_h.gd" id="5_76x5g"]
+[ext_resource type="Texture2D" uid="uid://cdjs2vcf4ju4h" path="res://engine/assets/gfx/objects/entities/enemies/koopas/koopa_green.png" id="5_v2615"]
+[ext_resource type="Script" path="res://engine/scripts/components/instantiater/class_enemy_killing_process.gd" id="6_sweek"]
+[ext_resource type="PackedScene" uid="uid://lodkm1xlcqqw" path="res://engine/objects/entities/enemies/shells/koopa_shell_green.tscn" id="7_cbciw"]
+[ext_resource type="PackedScene" uid="uid://c0hayra4r3ogr" path="res://engine/objects/entities/enemies/#death/shells/shell_koopa_green_death.tscn" id="8_10l7p"]
+[ext_resource type="PackedScene" uid="uid://d28wktlfkunys" path="res://engine/objects/uis/counters/scores_label.tscn" id="9_6eg3f"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/on_ready_visible.gd" id="11_l0vay"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_50jj2"]
+size = Vector2(30, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xys02"]
+atlas = ExtResource("5_v2615")
+region = Rect2(0, 0, 32, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o0kw2"]
+atlas = ExtResource("5_v2615")
+region = Rect2(32, 0, 32, 47)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dvr5l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xys02")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o0kw2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="KoopaGreen" type="EntityBody2D"]
+velocality = Vector2(50, -6.82121e-13)
+velocity = Vector2(50, -2.18557e-06)
+threshold_speed_enabled = true
+threshold_speed = 50.0
+gravity_scale = 0.5
+collision_layer = 4
+collision_mask = 8
+velocity = Vector2(50, -2.18557e-06)
+floor_snap_length = 4.0
+script = ExtResource("1_1iwcr")
+initial_direction = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 1)
+rotation = -1.57079
+shape = SubResource("RectangleShape2D_50jj2")
+
+[node name="EffectBox" type="Area2D" parent="." groups=["entity_collidable"]]
+visible = false
+collision_layer = 4
+collision_mask = 53
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EffectBox"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_50jj2")
+debug_color = Color(0.964706, 0.192157, 0, 0.419608)
+
+[node name="Attackee" type="Node" parent="EffectBox"]
+script = ExtResource("2_45spx")
+
+[node name="EnemyStompable" type="Node" parent="EffectBox"]
+script = ExtResource("3_rn06x")
+
+[node name="EntitySolidity" type="Node" parent="EffectBox"]
+script = ExtResource("4_ejv15")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -7)
+sprite_frames = SubResource("SpriteFrames_dvr5l")
+autoplay = "default"
+script = ExtResource("5_76x5g")
+flip_position_x = true
+
+[node name="EnemyKillingProcess" type="Node2D" parent="."]
+visible = false
+script = ExtResource("6_sweek")
+
+[node name="KoopaShellGreen" parent="EnemyKillingProcess" groups=["instantiate_no_attack"] instance=ExtResource("7_cbciw")]
+velocality = Vector2(350, -1.45519e-11)
+
+[node name="ShellKoopaGreenDeath" parent="EnemyKillingProcess" groups=["instantiate_no_stomp"] instance=ExtResource("8_10l7p")]
+
+[node name="Scores" parent="EnemyKillingProcess" groups=["instantiate_no_success_combo"] instance=ExtResource("9_6eg3f")]
+text = "100"
+amount = 100
+metadata/_edit_pinned_properties_ = [&"amount"]
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+visible = false
+position = Vector2(1.43051e-06, -7)
+scale = Vector2(1.6, 2.3)
+script = ExtResource("11_l0vay")
+
+[connection signal="collided_wall" from="." to="." method="turn_wall"]
+[connection signal="on_hit_by_attacker" from="EffectBox/Attackee" to="EnemyKillingProcess" method="killing_process"]
+[connection signal="on_stomp_succeeded" from="EffectBox/EnemyStompable" to="EnemyKillingProcess" method="stomp_process"]
+[connection signal="collided_with_entity" from="EffectBox/EntitySolidity" to="." method="turn_wall"]
+[connection signal="killing_succeeded" from="EnemyKillingProcess" to="." method="queue_free"]
+[connection signal="stomp_processed" from="EnemyKillingProcess" to="." method="queue_free"]

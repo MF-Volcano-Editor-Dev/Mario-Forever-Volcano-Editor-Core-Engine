@@ -1,0 +1,107 @@
+[gd_scene load_steps=12 format=3 uid="uid://bmjdf645ojtmf"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/goal/goal.gd" id="1_5xwac"]
+[ext_resource type="Texture2D" uid="uid://ret16nysrko2" path="res://engine/assets/gfx/objects/entities/core/goal/goal_gate_left.png" id="1_vxwpx"]
+[ext_resource type="Texture2D" uid="uid://by474ajih6ib6" path="res://engine/assets/gfx/objects/entities/core/goal/goal_gate_right.png" id="2_08bit"]
+[ext_resource type="Script" path="res://engine/scripts/components/instantiater/class_instantiater2d.gd" id="4_5sivj"]
+[ext_resource type="PackedScene" uid="uid://341b246tpam2" path="res://engine/objects/entities/core/goal/#pole/goal_pole.tscn" id="4_oq2td"]
+[ext_resource type="PackedScene" uid="uid://d28wktlfkunys" path="res://engine/objects/uis/counters/scores_label.tscn" id="5_r4hyx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bpmp7"]
+size = Vector2(1, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_avhu1"]
+normal = Vector2(-1, 0)
+
+[sub_resource type="Animation" id="Animation_a2fnw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GoalPole:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -24)]
+}
+
+[sub_resource type="Animation" id="Animation_7x2w4"]
+resource_name = "pole"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GoalPole:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -24), Vector2(0, -256)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qbggr"]
+_data = {
+"RESET": SubResource("Animation_a2fnw"),
+"pole": SubResource("Animation_7x2w4")
+}
+
+[node name="Goal" type="Node2D"]
+script = ExtResource("1_5xwac")
+scores = PackedInt32Array(200, 500, 1000, 2000, 5000, 10000)
+
+[node name="SpriteGate" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="SpriteGateLeft" type="Sprite2D" parent="SpriteGate"]
+z_index = -10
+position = Vector2(-32, -144)
+texture = ExtResource("1_vxwpx")
+
+[node name="SpriteGateRight" type="Sprite2D" parent="SpriteGate"]
+z_index = 10
+position = Vector2(32, -144)
+texture = ExtResource("2_08bit")
+
+[node name="PosTop" type="Marker2D" parent="SpriteGate"]
+visible = false
+position = Vector2(448, -288)
+
+[node name="CompletionDetc" type="Area2D" parent="."]
+visible = false
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="Rectangle" type="CollisionShape2D" parent="CompletionDetc"]
+shape = SubResource("RectangleShape2D_bpmp7")
+
+[node name="Infinite" type="CollisionShape2D" parent="CompletionDetc"]
+shape = SubResource("WorldBoundaryShape2D_avhu1")
+disabled = true
+
+[node name="GoalPole" parent="." instance=ExtResource("4_oq2td")]
+position = Vector2(0, -24)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="GoalPole"]
+remote_path = NodePath("../../Instantiater2D")
+
+[node name="Instantiater2D" type="Node2D" parent="."]
+visible = false
+position = Vector2(0, -24)
+script = ExtResource("4_5sivj")
+
+[node name="Scores2" parent="Instantiater2D" instance=ExtResource("5_r4hyx")]
+change_relevant_data = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qbggr")
+}
+autoplay = "pole"
+
+[connection signal="body_entered" from="CompletionDetc" to="." method="complete_level"]

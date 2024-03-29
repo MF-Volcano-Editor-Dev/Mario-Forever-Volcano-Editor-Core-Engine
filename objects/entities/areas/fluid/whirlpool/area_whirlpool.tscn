@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://rwh7v440isgk"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/areas/area_whirlpool.gd" id="1_cjnp4"]
+[ext_resource type="Texture2D" uid="uid://lv4utypyshag" path="res://engine/assets/gfx/objects/entities/#effects/bubble.png" id="2_l776k"]
+
+[node name="Whirlpool" type="Area2D"]
+editor_description = "Do NOT use any CollisionPolygon2Ds or multiple CollisionShape2Ds for this object!"
+collision_layer = 0
+script = ExtResource("1_cjnp4")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 24
+texture = ExtResource("2_l776k")
+lifetime = 2.0
+visibility_rect = Rect2(-10, -10, 20, 20)

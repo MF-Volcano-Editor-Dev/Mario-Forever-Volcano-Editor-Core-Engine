@@ -1,0 +1,113 @@
+[gd_scene load_steps=17 format=3 uid="uid://dsiafdub20w5h"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/physics/walker_2d.gd" id="1_dc85n"]
+[ext_resource type="Texture2D" uid="uid://3k6tdx4ohaor" path="res://engine/assets/gfx/objects/entities/projectiles/bowser_flame.png" id="2_7nwep"]
+[ext_resource type="Texture2D" uid="uid://3i08m3gbppjg" path="res://engine/assets/gfx/objects/entities/projectiles/fireball_particle.png" id="2_a657v"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/sprite_flip_facing_h.gd" id="3_tn1tb"]
+[ext_resource type="Script" path="res://engine/scripts/components/visible_on_screen/visible_on_screen_directional.gd" id="4_ukfwo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_it8ar"]
+size = Vector2(48, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ive05"]
+size = Vector2(48, 16)
+
+[sub_resource type="Curve" id="Curve_eoorq"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.493333, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.86081, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_vx7ql"]
+curve = SubResource("Curve_eoorq")
+
+[sub_resource type="Curve" id="Curve_526dk"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.00582, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ggbrl"]
+curve = SubResource("Curve_526dk")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_h54us"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 10.0
+initial_velocity_max = 25.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_ggbrl")
+alpha_curve = SubResource("CurveTexture_vx7ql")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d3j40"]
+atlas = ExtResource("2_7nwep")
+region = Rect2(0, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aki54"]
+atlas = ExtResource("2_7nwep")
+region = Rect2(0, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v0fqh"]
+atlas = ExtResource("2_7nwep")
+region = Rect2(0, 64, 64, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t3s02"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d3j40")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aki54")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v0fqh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="FlameBase" type="EntityBody2D"]
+velocality = Vector2(250, 0)
+velocity = Vector2(250, 0)
+global_rotation_to_gravity_direction = false
+collision_layer = 4
+collision_mask = 0
+motion_mode = 1
+velocity = Vector2(250, 0)
+script = ExtResource("1_dc85n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_it8ar")
+
+[node name="EffectBox" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="EffectBox"]
+shape = SubResource("RectangleShape2D_ive05")
+debug_color = Color(0.980392, 0.133333, 0, 0.419608)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_h54us")
+texture = ExtResource("2_a657v")
+lifetime = 0.5
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_t3s02")
+autoplay = "default"
+frame_progress = 0.584398
+script = ExtResource("3_tn1tb")
+
+[node name="VisibleOnScreenNotifierDirectional2D" type="VisibleOnScreenNotifier2D" parent="."]
+visible = false
+position = Vector2(0, 4.76837e-07)
+scale = Vector2(8, 2)
+rect = Rect2(-8, -8, 16, 16)
+script = ExtResource("4_ukfwo")
+direction = 11
+_is_initialized = true
+
+[connection signal="screen_exited_directionally" from="VisibleOnScreenNotifierDirectional2D" to="." method="queue_free"]

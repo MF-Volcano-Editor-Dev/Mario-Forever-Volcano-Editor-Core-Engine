@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   height="16"
+   viewBox="0 0 16 16"
+   width="16"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="flagger.svg"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#111111"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="31.3125"
+     inkscape:cx="7.9840319"
+     inkscape:cy="8"
+     inkscape:window-width="1366"
+     inkscape:window-height="697"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <path
+     style="fill:#f08383;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill"
+     d="M 4.1516966,3.1616766 1.2135728,14.530938 2.3952096,14.786427 5.4306365,3.4580596 Z"
+     id="path2" />
+  <circle
+     style="fill:#f08383;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill"
+     id="path3"
+     cx="5.2854295"
+     cy="1.740519"
+     r="1.005988" />
+  <path
+     style="fill:#f08383;stroke-width:1.0658;stroke-linecap:round;stroke-linejoin:round;paint-order:markers stroke fill"
+     d="M 6.187561,3.5449102 4.1197604,10.219561 c 0,0 1.7050286,-0.8622755 4.6072049,-0.159681 2.9021767,0.702595 3.9542157,1.756487 3.9542157,1.756487 l 2.113845,-6.94495 c 0,0 -1.714796,-1.3265068 -3.855151,-1.6458681 C 8.7995197,2.9061877 6.187561,3.5449102 6.187561,3.5449102 Z"
+     id="path4" />
+</svg>

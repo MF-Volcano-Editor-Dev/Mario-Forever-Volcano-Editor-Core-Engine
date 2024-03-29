@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://ctemgabn5weiy"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/physics/bumping_walker_2d.gd" id="1_7knx5"]
+[ext_resource type="Texture2D" uid="uid://d4ksvj6x6tini" path="res://engine/assets/gfx/objects/entities/projectiles/beetroot.png" id="2_n5ycc"]
+[ext_resource type="Script" path="res://engine/scripts/components/collision/bumper_2d.gd" id="2_r7joc"]
+[ext_resource type="Script" path="res://engine/scripts/components/instantiater/class_instantiater2d.gd" id="3_dw8s5"]
+[ext_resource type="PackedScene" uid="uid://tog1urcypue2" path="res://engine/objects/entities/#effects/explosion_fire.tscn" id="4_dbllf"]
+[ext_resource type="PackedScene" uid="uid://o1jx3mi81p3t" path="res://engine/objects/units/particle/particle_bubble.tscn" id="5_a8mu5"]
+[ext_resource type="Script" path="res://engine/scripts/components/visible_on_screen/visible_on_screen_directional.gd" id="8_5lg8y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_si8wc"]
+size = Vector2(16, 32)
+
+[node name="Beetroot" type="EntityBody2D"]
+damp_enabled = true
+damp_min_speed = 50.0
+gravity_scale = 0.3
+collision_layer = 4
+collision_mask = 8
+script = ExtResource("1_7knx5")
+reflect_mode = 1
+bouncing_velocality = Vector2(0, 350)
+metadata/_edit_pinned_properties_ = [&"bouncing_velocality", &"reflect_mode"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_si8wc")
+
+[node name="Bumper2D" type="ShapeCast2D" parent="." groups=["bricks_breakable", "question_ignore"]]
+visible = false
+shape = SubResource("RectangleShape2D_si8wc")
+target_position = Vector2(0, 0)
+margin = 0.08
+max_results = 4
+collision_mask = 72
+script = ExtResource("2_r7joc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_n5ycc")
+
+[node name="Instantiater2D" type="Node2D" parent="."]
+visible = false
+script = ExtResource("3_dw8s5")
+
+[node name="ExplosionFire" parent="Instantiater2D" instance=ExtResource("4_dbllf")]
+position = Vector2(0, 8)
+
+[node name="Bubble" parent="." instance=ExtResource("5_a8mu5")]
+
+[node name="VisibleOnScreenNotifierDirectional2D" type="VisibleOnScreenNotifier2D" parent="."]
+visible = false
+rect = Rect2(-16, -16, 32, 32)
+script = ExtResource("8_5lg8y")
+direction = 11
+_is_initialized = true
+metadata/_edit_pinned_properties_ = [&"direction"]
+
+[connection signal="bump_called" from="." to="Instantiater2D" method="instantiate_all"]
+[connection signal="bumped_over" from="." to="Bumper2D" method="queue_free"]
+[connection signal="bumped_block" from="Bumper2D" to="." method="bump"]
+[connection signal="screen_exited_directionally" from="VisibleOnScreenNotifierDirectional2D" to="." method="queue_free"]

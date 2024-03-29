@@ -1,0 +1,6 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://bmp7x6mynklq7"]
+
+[ext_resource type="FontFile" uid="uid://8iriiin3t4hc" path="res://assets/fonts/score.png" id="1_hmi8g"]
+
+[resource]
+font = ExtResource("1_hmi8g")

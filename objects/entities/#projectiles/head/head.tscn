@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctc1hbirftcw"]
+
+[ext_resource type="Script" path="res://engine/scripts/components/attack/class_attacker.gd" id="1_hluyq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pekwa"]
+size = Vector2(32, 4)
+
+[node name="Head" type="Area2D"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_pekwa")
+
+[node name="Attacker" type="Node" parent="."]
+script = ExtResource("1_hluyq")
+id = 2
+damage_level = 5
+metadata/_edit_pinned_properties_ = [&"damage_level", &"id"]
+
+[node name="Destroy" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Destroy" to="." method="queue_free"]

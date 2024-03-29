@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://mlw61ix1dmoo"]
+
+[ext_resource type="Script" path="res://engine/scripts/units/general/unit_coin_to_life.gd" id="1_xgfe4"]
+
+[node name="CoinToLife" type="Node"]
+script = ExtResource("1_xgfe4")

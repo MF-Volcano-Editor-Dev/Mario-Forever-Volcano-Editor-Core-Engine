@@ -1,0 +1,80 @@
+[gd_scene load_steps=7 format=3 uid="uid://c4fjmx6pfp0xp"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/enemies/bowser/health/bowser_health.gd" id="1_0pkqg"]
+[ext_resource type="Texture2D" uid="uid://cxjfmf6838vc6" path="res://engine/assets/gfx/huds/bowser_lives.png" id="1_x1nov"]
+[ext_resource type="Texture2D" uid="uid://cxex4b6320iej" path="res://engine/assets/gfx/huds/bowser_life_unit.png" id="2_yg68a"]
+
+[sub_resource type="Animation" id="Animation_tdcqo"]
+resource_name = "display"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Frame:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ar61g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Frame:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_614it"]
+_data = {
+"RESET": SubResource("Animation_ar61g"),
+"display": SubResource("Animation_tdcqo")
+}
+
+[node name="BowserHealth" type="CanvasLayer"]
+layer = 100
+script = ExtResource("1_0pkqg")
+
+[node name="Frame" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Avatar" type="TextureRect" parent="Frame"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -96.0
+offset_top = 64.0
+offset_right = -32.0
+offset_bottom = 106.0
+grow_horizontal = 0
+texture = ExtResource("1_x1nov")
+
+[node name="Health" type="TextureRect" parent="Frame/Avatar"]
+layout_mode = 0
+offset_left = -10.0
+offset_top = 7.0
+offset_bottom = 39.0
+texture = ExtResource("2_yg68a")
+stretch_mode = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_614it")
+}
+autoplay = "RESET"

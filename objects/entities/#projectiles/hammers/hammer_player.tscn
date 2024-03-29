@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cj0phoyefwror"]
+
+[ext_resource type="PackedScene" uid="uid://dwktt7v0x867s" path="res://engine/objects/entities/#projectiles/hammers/hammer_base.tscn" id="1_khhwi"]
+[ext_resource type="Script" path="res://engine/scripts/components/attack/class_attacker.gd" id="2_pgrlf"]
+
+[node name="HammerPlayer" instance=ExtResource("1_khhwi")]
+
+[node name="EffectBox" parent="." index="1"]
+collision_mask = 4
+
+[node name="Attacker" type="Node" parent="EffectBox" index="1"]
+script = ExtResource("2_pgrlf")
+id = 7
+metadata/_edit_pinned_properties_ = [&"id"]

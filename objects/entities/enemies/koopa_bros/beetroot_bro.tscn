@@ -1,0 +1,181 @@
+[gd_scene load_steps=17 format=3 uid="uid://ujc2r62x2hox"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/enemies/bros/koopa_bros.gd" id="1_jfu0y"]
+[ext_resource type="Script" path="res://engine/scripts/components/attack/class_attackee.gd" id="2_e54by"]
+[ext_resource type="Script" path="res://engine/scripts/components/enemy/class_enemy_stompable.gd" id="3_8cvg3"]
+[ext_resource type="Texture2D" uid="uid://bivnlhty7ghj0" path="res://engine/assets/gfx/objects/entities/enemies/koopa_bros/pink_bro.png" id="4_wff1h"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/sprite_flip_facing_h.gd" id="5_jnpcu"]
+[ext_resource type="Texture2D" uid="uid://d4ksvj6x6tini" path="res://engine/assets/gfx/objects/entities/projectiles/beetroot.png" id="6_mh4fm"]
+[ext_resource type="Script" path="res://engine/scripts/components/instantiater/class_instantiater2d.gd" id="7_rwm3f"]
+[ext_resource type="PackedScene" uid="uid://d4a6tko77wifd" path="res://engine/objects/entities/#projectiles/beetroots/beetroot_enemy.tscn" id="8_sbnm2"]
+[ext_resource type="Script" path="res://engine/scripts/components/instantiater/class_enemy_killing_process.gd" id="9_cw6uv"]
+[ext_resource type="PackedScene" uid="uid://canr6sinr4jvx" path="res://engine/objects/entities/enemies/#death/koopa_bros/pink_bro_death.tscn" id="11_1o6dy"]
+[ext_resource type="PackedScene" uid="uid://d28wktlfkunys" path="res://engine/objects/uis/counters/scores_label.tscn" id="11_1vq35"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/on_ready_visible.gd" id="12_o7uub"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5iujq"]
+size = Vector2(32, 47)
+
+[sub_resource type="Animation" id="Animation_wque6"]
+resource_name = "RESET"
+length = 0.2
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D/Weapon:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_kwbpa"]
+resource_name = "attack"
+length = 0.2
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D/Weapon:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yct0e"]
+_data = {
+"RESET": SubResource("Animation_wque6"),
+"attack": SubResource("Animation_kwbpa")
+}
+
+[node name="BeetrootBro" type="EntityBody2D"]
+velocality = Vector2(100, -1.36424e-12)
+velocity = Vector2(100, -4.37114e-06)
+gravity_scale = 0.2
+collision_layer = 4
+collision_mask = 8
+velocity = Vector2(100, -4.37114e-06)
+script = ExtResource("1_jfu0y")
+attack_random = false
+metadata/_edit_pinned_properties_ = [&"attack_random"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -7.5)
+shape = SubResource("RectangleShape2D_5iujq")
+
+[node name="EffectBox" type="Area2D" parent="." groups=["entity_collidable"]]
+visible = false
+collision_layer = 4
+collision_mask = 53
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EffectBox"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_5iujq")
+debug_color = Color(0.964706, 0.192157, 0, 0.419608)
+
+[node name="Attackee" type="Node" parent="EffectBox"]
+script = ExtResource("2_e54by")
+
+[node name="EnemyStompable" type="Node" parent="EffectBox"]
+script = ExtResource("3_8cvg3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = ExtResource("4_wff1h")
+vframes = 3
+script = ExtResource("5_jnpcu")
+flip_position_x = true
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Sprite2D"]
+position = Vector2(8, 0)
+remote_path = NodePath("../../Thrower")
+script = ExtResource("5_jnpcu")
+
+[node name="Weapon" type="Sprite2D" parent="Sprite2D"]
+visible = false
+position = Vector2(8, 0)
+texture = ExtResource("6_mh4fm")
+script = ExtResource("5_jnpcu")
+flip_position_x = true
+
+[node name="Thrower" type="Node2D" parent="."]
+visible = false
+position = Vector2(8, -8)
+script = ExtResource("7_rwm3f")
+
+[node name="BeetrootEnemy" parent="Thrower" instance=ExtResource("8_sbnm2")]
+velocality = Vector2(100, -250)
+velocity = Vector2(100, -250)
+velocity = Vector2(100, -250)
+metadata/_edit_pinned_properties_ = [&"velocality"]
+
+[node name="EnemyKillingProcess" type="Node2D" parent="."]
+visible = false
+script = ExtResource("9_cw6uv")
+
+[node name="Scores" parent="EnemyKillingProcess" groups=["instantiate_no_success_combo"] instance=ExtResource("11_1vq35")]
+text = "200"
+amount = 200
+
+[node name="PinkBroDeath" parent="EnemyKillingProcess" instance=ExtResource("11_1o6dy")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_yct0e")
+}
+autoplay = "RESET"
+
+[node name="TimerWalk" type="Timer" parent="."]
+process_callback = 0
+one_shot = true
+
+[node name="TimerJump" type="Timer" parent="."]
+process_callback = 0
+one_shot = true
+
+[node name="TimerAttack" type="Timer" parent="."]
+one_shot = true
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+visible = false
+position = Vector2(4.76837e-07, -12)
+scale = Vector2(2.4, 2.8)
+script = ExtResource("12_o7uub")
+
+[connection signal="on_hit_by_attacker" from="EffectBox/Attackee" to="EnemyKillingProcess" method="killing_process"]
+[connection signal="on_stomp_succeeded" from="EffectBox/EnemyStompable" to="EnemyKillingProcess" method="stomp_process"]
+[connection signal="killing_succeeded" from="EnemyKillingProcess" to="." method="queue_free"]
+[connection signal="stomp_processed" from="EnemyKillingProcess" to="." method="queue_free"]

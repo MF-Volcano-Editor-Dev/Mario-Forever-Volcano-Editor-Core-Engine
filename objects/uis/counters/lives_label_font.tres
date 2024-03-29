@@ -1,0 +1,6 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://dxb0807crlys7"]
+
+[ext_resource type="FontFile" uid="uid://cpn7yxeia2wgs" path="res://assets/fonts/life.png" id="1_gecob"]
+
+[resource]
+font = ExtResource("1_gecob")

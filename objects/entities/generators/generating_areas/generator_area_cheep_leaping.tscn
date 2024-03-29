@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://rtn5pi28ccp1"]
+
+[ext_resource type="PackedScene" uid="uid://cdu0dekaj8vnm" path="res://engine/objects/entities/generators/generating_areas/generator_area_base.tscn" id="1_a47vp"]
+[ext_resource type="Script" path="res://engine/scripts/entities/generators/generator_area_with_random_initial_speed.gd" id="2_lwkhk"]
+[ext_resource type="PackedScene" uid="uid://xdkt00n8hitv" path="res://engine/objects/entities/enemies/cheeps/cheep_red_leap.tscn" id="2_ubw82"]
+
+[node name="GeneratorAreaCheepLeaping" instance=ExtResource("1_a47vp")]
+script = ExtResource("2_lwkhk")
+initial_speed = 304.0
+initial_speed_extra = 400.0
+velocality_angle_min = 30.0
+velocality_angle_max = 78.0
+
+[node name="CheepRedLeap" parent="Instantiater2D" index="0" instance=ExtResource("2_ubw82")]
+initial_direction = 0

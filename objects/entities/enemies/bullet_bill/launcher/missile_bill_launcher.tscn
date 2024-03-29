@@ -1,0 +1,93 @@
+[gd_scene load_steps=12 format=3 uid="uid://7twip8mvvk7n"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/enemies/bullet_bill/bullet_bill_launcher.gd" id="1_piig1"]
+[ext_resource type="AudioStream" uid="uid://ox4gvgcy8jiw" path="res://engine/assets/sounds/missile_bullet.ogg" id="2_j3wjh"]
+[ext_resource type="Texture2D" uid="uid://l7ownwenu3q" path="res://engine/assets/gfx/objects/entities/enemies/bullet_bill/bullet_bill_launcher.png" id="2_twhg5"]
+[ext_resource type="Script" path="res://engine/scripts/components/instantiater/class_instantiater2d.gd" id="3_tiic0"]
+[ext_resource type="PackedScene" uid="uid://b6u54ly504xrm" path="res://engine/objects/entities/enemies/bullet_bill/bullet/missile_bill.tscn" id="4_fx11r"]
+[ext_resource type="PackedScene" uid="uid://tog1urcypue2" path="res://engine/objects/entities/#effects/explosion_fire.tscn" id="5_sahxd"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/on_ready_visible.gd" id="6_lk355"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_adccf"]
+size = Vector2(32, 32)
+
+[sub_resource type="Animation" id="Animation_xst4e"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_q61th"]
+resource_name = "missile"
+length = 0.1
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.909804, 0.184314, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_55p8r"]
+_data = {
+"RESET": SubResource("Animation_xst4e"),
+"missile": SubResource("Animation_q61th")
+}
+
+[node name="MissileBillLauncher" type="AnimatableBody2D"]
+collision_layer = 10
+collision_mask = 0
+script = ExtResource("1_piig1")
+first_launch_delay = 2.0
+interval = 3.5
+interval_extra = 3.0
+sound_launching = ExtResource("2_j3wjh")
+metadata/_edit_pinned_properties_ = [&"first_launch_delay", &"interval", &"interval_extra", &"sound_launching"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_adccf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_twhg5")
+
+[node name="Instantiater2D" type="Node2D" parent="."]
+visible = false
+show_behind_parent = true
+position = Vector2(16, 0)
+script = ExtResource("3_tiic0")
+
+[node name="MissileBill" parent="Instantiater2D" instance=ExtResource("4_fx11r")]
+
+[node name="ExplosionFire" parent="Instantiater2D" instance=ExtResource("5_sahxd")]
+
+[node name="TimerInterval" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+visible = false
+position = Vector2(1.43051e-06, 1.43051e-06)
+scale = Vector2(1.6, 1.6)
+script = ExtResource("6_lk355")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_55p8r")
+}
+autoplay = "missile"

@@ -1,0 +1,104 @@
+[gd_scene load_steps=15 format=3 uid="uid://dk1hyin3bj2nl"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/enemies/cheeps/cheep_underwater_common.gd" id="1_pnsrk"]
+[ext_resource type="Script" path="res://engine/scripts/components/attack/class_attackee.gd" id="2_dskog"]
+[ext_resource type="Script" path="res://engine/scripts/components/enemy/class_enemy_touch.gd" id="3_4h3ji"]
+[ext_resource type="Texture2D" uid="uid://c2n2wbltg38h7" path="res://engine/assets/gfx/objects/entities/enemies/cheeps/cheep_green.png" id="4_dmdhb"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/sprite_flip_facing_h.gd" id="5_dbvwe"]
+[ext_resource type="Script" path="res://engine/scripts/components/instantiater/class_enemy_killing_process.gd" id="6_h4fsd"]
+[ext_resource type="PackedScene" uid="uid://dld7an31sjqyu" path="res://engine/objects/entities/enemies/#death/cheeps/cheep_green_death.tscn" id="7_jc2t7"]
+[ext_resource type="PackedScene" uid="uid://d28wktlfkunys" path="res://engine/objects/uis/counters/scores_label.tscn" id="8_10mm2"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/on_ready_visible.gd" id="9_j0qyp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gmhw1"]
+radius = 16.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a7kp4"]
+atlas = ExtResource("4_dmdhb")
+region = Rect2(0, 0, 31, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_frr0d"]
+atlas = ExtResource("4_dmdhb")
+region = Rect2(0, 32, 31, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x21p1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a7kp4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_frr0d")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7saar"]
+radius = 1.0
+
+[node name="CheepGreen" type="Node2D"]
+script = ExtResource("1_pnsrk")
+swimming_mode = 1
+
+[node name="EffectBox" type="Area2D" parent="." groups=["entity_collidable"]]
+visible = false
+collision_layer = 4
+collision_mask = 53
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EffectBox"]
+shape = SubResource("CircleShape2D_gmhw1")
+debug_color = Color(0.964706, 0.192157, 0, 0.419608)
+
+[node name="Attackee" type="Node" parent="EffectBox"]
+script = ExtResource("2_dskog")
+filter_ids = Array[int]([2])
+
+[node name="EnemyTouch" type="Node" parent="EffectBox"]
+script = ExtResource("3_4h3ji")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_x21p1")
+autoplay = "default"
+script = ExtResource("5_dbvwe")
+
+[node name="ColliderX" type="ShapeCast2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_7saar")
+target_position = Vector2(0, 0)
+max_results = 2
+collision_mask = 24
+collide_with_areas = true
+
+[node name="ColliderY" type="ShapeCast2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_7saar")
+target_position = Vector2(0, 0)
+max_results = 2
+collision_mask = 24
+collide_with_areas = true
+
+[node name="EnemyKillingProcess" type="Node2D" parent="."]
+visible = false
+script = ExtResource("6_h4fsd")
+
+[node name="CheepGreenDeath" parent="EnemyKillingProcess" instance=ExtResource("7_jc2t7")]
+
+[node name="Scores" parent="EnemyKillingProcess" groups=["instantiate_no_success_combo"] instance=ExtResource("8_10mm2")]
+text = "100"
+amount = 100
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+visible = false
+position = Vector2(1.90735e-06, 0)
+scale = Vector2(6.4, 6.4)
+script = ExtResource("9_j0qyp")
+
+[node name="TimerInterval" type="Timer" parent="."]
+
+[connection signal="cheep_collided_wall" from="." to="." method="return_to_water"]
+[connection signal="cheep_out_of_fluid" from="." to="EnemyKillingProcess" method="forced_kill"]
+[connection signal="on_hit_by_attacker" from="EffectBox/Attackee" to="EnemyKillingProcess" method="killing_process"]
+[connection signal="killing_succeeded" from="EnemyKillingProcess" to="." method="queue_free"]
+[connection signal="screen_exited" from="VisibleOnScreenEnabler2D" to="." method="_on_screen_exited"]

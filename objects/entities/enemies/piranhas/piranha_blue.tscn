@@ -1,0 +1,112 @@
+[gd_scene load_steps=17 format=3 uid="uid://dgvtfgs85pmhy"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/enemies/piranhas/piranha.gd" id="1_ohptw"]
+[ext_resource type="Script" path="res://engine/scripts/components/enemy/class_enemy_touch.gd" id="2_3ynea"]
+[ext_resource type="Script" path="res://engine/scripts/components/attack/class_attackee.gd" id="3_b6p8h"]
+[ext_resource type="Texture2D" uid="uid://drl7st4jqv7x8" path="res://engine/assets/gfx/objects/entities/enemies/piranha/piranha_head_blue.png" id="4_fp2kx"]
+[ext_resource type="Texture2D" uid="uid://b608qc3ovtk5f" path="res://engine/assets/gfx/objects/entities/enemies/piranha/piranha_stem_orange.png" id="5_2pve8"]
+[ext_resource type="Script" path="res://engine/scripts/components/instantiater/class_enemy_killing_process.gd" id="6_hybee"]
+[ext_resource type="PackedScene" uid="uid://b5hxwr5nx4fmx" path="res://engine/objects/entities/enemies/#death/piranhas/piranha_blue_death.tscn" id="7_geupa"]
+[ext_resource type="PackedScene" uid="uid://d28wktlfkunys" path="res://engine/objects/uis/counters/scores_label.tscn" id="8_clvqr"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/on_ready_visible.gd" id="9_e4sop"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_17fhj"]
+size = Vector2(32, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xi4fa"]
+size = Vector2(32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6unln"]
+atlas = ExtResource("4_fp2kx")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yjckm"]
+atlas = ExtResource("4_fp2kx")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_txo24"]
+atlas = ExtResource("4_fp2kx")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2yu55"]
+atlas = ExtResource("4_fp2kx")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gvff2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6unln")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yjckm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_txo24")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2yu55")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="PiranhaBlue" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_ohptw")
+stop_stretching_margin = 0.0
+metadata/_edit_pinned_properties_ = [&"stop_stretching_margin"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_17fhj")
+
+[node name="EffectBox" type="Area2D" parent="."]
+visible = false
+collision_layer = 4
+collision_mask = 53
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EffectBox"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_xi4fa")
+debug_color = Color(0.964706, 0.192157, 0, 0.419608)
+
+[node name="EnemyTouch" type="Node" parent="EffectBox"]
+script = ExtResource("2_3ynea")
+
+[node name="Attackee" type="Node" parent="EffectBox"]
+script = ExtResource("3_b6p8h")
+filter_ids = Array[int]([2])
+metadata/_edit_pinned_properties_ = [&"filter_ids"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1, -16)
+sprite_frames = SubResource("SpriteFrames_gvff2")
+autoplay = "default"
+
+[node name="Sprite2D" type="Sprite2D" parent="AnimatedSprite2D"]
+position = Vector2(1, 24)
+texture = ExtResource("5_2pve8")
+
+[node name="EnemyKillingProcess" type="Node2D" parent="."]
+visible = false
+script = ExtResource("6_hybee")
+
+[node name="PiranhaBlueDeath" parent="EnemyKillingProcess" instance=ExtResource("7_geupa")]
+
+[node name="Scores" parent="EnemyKillingProcess" groups=["instantiate_no_success_combo"] instance=ExtResource("8_clvqr")]
+text = "200"
+amount = 200
+metadata/_edit_pinned_properties_ = [&"amount"]
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+visible = false
+position = Vector2(1.43051e-06, -8)
+scale = Vector2(1.6, 2.4)
+script = ExtResource("9_e4sop")
+
+[connection signal="on_hit_by_attacker" from="EffectBox/Attackee" to="EnemyKillingProcess" method="killing_process"]
+[connection signal="killing_succeeded" from="EnemyKillingProcess" to="." method="queue_free"]

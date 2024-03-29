@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://csjk5q6idlgca"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/enemies/orb/orb_center.gd" id="1_tqmyl"]
+[ext_resource type="Texture2D" uid="uid://cr5schylv2dap" path="res://engine/assets/gfx/objects/entities/enemies/orbs/orb_center.png" id="2_g4hi7"]
+
+[node name="OrbCenter" type="Node2D"]
+editor_description = "WARNING:
+If you want to change the behavior of amplitude changing and display in editor mode, please turn off `preivew` first! Otherwise, an unexpected behavior would happen!"
+script = ExtResource("1_tqmyl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_g4hi7")

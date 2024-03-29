@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://canr6sinr4jvx"]
+
+[ext_resource type="PackedScene" uid="uid://3uucskv1h2f1" path="res://objects/entities/enemies/#death/koopa_bros/green_bro_death.tscn" id="1_32ffj"]
+[ext_resource type="Texture2D" uid="uid://bivnlhty7ghj0" path="res://assets/gfx/objects/entities/enemies/koopa_bros/pink_bro.png" id="2_ute0h"]
+
+[node name="PinkBroDeath" instance=ExtResource("1_32ffj")]
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_ute0h")
+metadata/_edit_pinned_properties_ = [&"texture"]

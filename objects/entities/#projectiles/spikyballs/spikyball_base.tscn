@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3 uid="uid://b666b8ca7klyk"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/physics/walker_2d.gd" id="1_8sggj"]
+[ext_resource type="Texture2D" uid="uid://df1pjr7nceri6" path="res://engine/assets/gfx/objects/entities/projectiles/spikyball.png" id="2_farfi"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/sprite_flip_facing_h.gd" id="3_en4ew"]
+[ext_resource type="Script" path="res://engine/scripts/components/visible_on_screen/visible_on_screen_directional.gd" id="4_lbd8k"]
+[ext_resource type="Script" path="res://engine/scripts/entities/particles/phantom.gd" id="4_ovjwn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mdxmi"]
+radius = 20.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vux5u"]
+radius = 20.0
+
+[node name="SpikyballBase" type="EntityBody2D"]
+gravity_scale = 0.12
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_8sggj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_mdxmi")
+
+[node name="EffectBox" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="EffectBox"]
+shape = SubResource("CircleShape2D_vux5u")
+debug_color = Color(0.980392, 0.133333, 0, 0.419608)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_farfi")
+script = ExtResource("3_en4ew")
+flip_position_x = true
+flip_rotaiton_speed = 1200.0
+metadata/_edit_pinned_properties_ = [&"flip_rotaiton_speed"]
+
+[node name="Phantom2D" type="Node2D" parent="Sprite2D"]
+script = ExtResource("4_ovjwn")
+source_path = NodePath("..")
+sync_props = Array[StringName]([&"global_rotation", &"flip_h"])
+lifetime = 0.25
+interval = 0.05
+root_path = NodePath("../..")
+metadata/_edit_pinned_properties_ = [&"source_path", &"sync_props", &"root_path", &"interval", &"lifetime"]
+
+[node name="VisibleOnScreenNotifierDirectional2D" type="VisibleOnScreenNotifier2D" parent="."]
+visible = false
+script = ExtResource("4_lbd8k")
+direction = 11
+_is_initialized = true
+
+[connection signal="screen_exited_directionally" from="VisibleOnScreenNotifierDirectional2D" to="." method="queue_free"]

@@ -1,0 +1,64 @@
+[gd_scene load_steps=9 format=3 uid="uid://b7xxcal305dss"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/physics/bumping_walker_2d.gd" id="1_e8s7c"]
+[ext_resource type="Script" path="res://engine/scripts/components/collision/bumper_2d.gd" id="2_nrn7f"]
+[ext_resource type="Texture2D" uid="uid://cmnsfake6uobv" path="res://engine/assets/gfx/objects/entities/projectiles/silver_hammer.png" id="3_trn6e"]
+[ext_resource type="Script" path="res://engine/scripts/components/instantiater/class_instantiater2d.gd" id="4_0ac30"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/sprite_flip_facing_h.gd" id="4_ts32n"]
+[ext_resource type="PackedScene" uid="uid://tog1urcypue2" path="res://engine/objects/entities/#effects/explosion_fire.tscn" id="5_228fn"]
+[ext_resource type="Script" path="res://engine/scripts/components/visible_on_screen/visible_on_screen_directional.gd" id="7_fknac"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_meas4"]
+radius = 16.0
+
+[node name="SilverHammerBase" type="EntityBody2D"]
+damp_enabled = true
+damp_min_speed = 50.0
+gravity_scale = 0.3
+collision_layer = 4
+collision_mask = 8
+script = ExtResource("1_e8s7c")
+bouncing_times = 2
+reflect_mode = 1
+bouncing_velocality = Vector2(0, 250)
+metadata/_edit_pinned_properties_ = [&"bouncing_velocality", &"reflect_mode", &"bouncing_times"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_meas4")
+
+[node name="Bumper2D" type="ShapeCast2D" parent="." groups=["bricks_breakable", "question_ignore"]]
+visible = false
+shape = SubResource("CircleShape2D_meas4")
+target_position = Vector2(0, 0)
+margin = 0.02
+max_results = 4
+collision_mask = 72
+script = ExtResource("2_nrn7f")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_trn6e")
+offset = Vector2(-2, 0)
+script = ExtResource("4_ts32n")
+flip_position_x = true
+flip_rotaiton_speed = 1125.0
+metadata/_edit_pinned_properties_ = [&"flip_rotaiton_speed"]
+
+[node name="Instantiater2D" type="Node2D" parent="."]
+visible = false
+script = ExtResource("4_0ac30")
+
+[node name="ExplosionFire" parent="Instantiater2D" instance=ExtResource("5_228fn")]
+position = Vector2(0, 8)
+
+[node name="VisibleOnScreenNotifierDirectional2D" type="VisibleOnScreenNotifier2D" parent="."]
+visible = false
+rect = Rect2(-16, -16, 32, 32)
+script = ExtResource("7_fknac")
+direction = 11
+_is_initialized = true
+
+[connection signal="bump_called" from="." to="Instantiater2D" method="instantiate_all"]
+[connection signal="bumped_over" from="." to="Bumper2D" method="queue_free"]
+[connection signal="bumped_block" from="Bumper2D" to="." method="bump"]
+[connection signal="screen_exited_directionally" from="VisibleOnScreenNotifierDirectional2D" to="." method="queue_free"]

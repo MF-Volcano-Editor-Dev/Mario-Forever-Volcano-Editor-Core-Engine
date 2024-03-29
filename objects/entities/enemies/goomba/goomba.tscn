@@ -1,0 +1,128 @@
+[gd_scene load_steps=15 format=3 uid="uid://nknpp6qs7t1y"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/physics/walker_2d.gd" id="1_j0h4q"]
+[ext_resource type="Texture2D" uid="uid://bj71tv2ix6ut0" path="res://engine/assets/gfx/objects/entities/enemies/goomba/goomba.png" id="2_54fqe"]
+[ext_resource type="Script" path="res://engine/scripts/components/enemy/class_enemy_stompable.gd" id="2_wh1t8"]
+[ext_resource type="Script" path="res://engine/scripts/components/attack/class_attackee.gd" id="4_61spu"]
+[ext_resource type="Script" path="res://engine/scripts/components/entity/entity_solidity.gd" id="4_ncbpl"]
+[ext_resource type="PackedScene" uid="uid://buaqk48dgfoj8" path="res://engine/objects/entities/enemies/#death/goomba/goomba_stomped.tscn" id="6_dasc0"]
+[ext_resource type="PackedScene" uid="uid://d28wktlfkunys" path="res://engine/objects/uis/counters/scores_label.tscn" id="6_ejjdu"]
+[ext_resource type="Script" path="res://engine/scripts/components/instantiater/class_enemy_killing_process.gd" id="8_2ug5b"]
+[ext_resource type="PackedScene" uid="uid://jh77s512qfrr" path="res://engine/objects/entities/enemies/#death/goomba/goomba_death.tscn" id="9_au68h"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/on_ready_visible.gd" id="10_vbpxw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_50jj2"]
+size = Vector2(30, 32)
+
+[sub_resource type="Animation" id="Animation_s5pdu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_amnd6"]
+resource_name = "walk"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vcqae"]
+_data = {
+"RESET": SubResource("Animation_s5pdu"),
+"walk": SubResource("Animation_amnd6")
+}
+
+[node name="Goomba" type="EntityBody2D"]
+velocality = Vector2(50, -6.82121e-13)
+velocity = Vector2(50, -2.18557e-06)
+threshold_speed_enabled = true
+threshold_speed = 50.0
+gravity_scale = 0.5
+collision_layer = 4
+collision_mask = 8
+velocity = Vector2(50, -2.18557e-06)
+floor_snap_length = 4.0
+script = ExtResource("1_j0h4q")
+initial_direction = 3
+metadata/_edit_pinned_properties_ = [&"initial_direction"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 1)
+rotation = -1.57079
+shape = SubResource("RectangleShape2D_50jj2")
+
+[node name="EffectBox" type="Area2D" parent="." groups=["entity_collidable"]]
+visible = false
+collision_layer = 4
+collision_mask = 53
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EffectBox"]
+shape = SubResource("RectangleShape2D_50jj2")
+debug_color = Color(0.964706, 0.192157, 0, 0.419608)
+
+[node name="Attackee" type="Node" parent="EffectBox"]
+script = ExtResource("4_61spu")
+
+[node name="EnemyStompable" type="Node" parent="EffectBox"]
+script = ExtResource("2_wh1t8")
+
+[node name="EntitySolidity" type="Node" parent="EffectBox"]
+script = ExtResource("4_ncbpl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_54fqe")
+
+[node name="EnemyKillingProcess" type="Node2D" parent="."]
+visible = false
+script = ExtResource("8_2ug5b")
+
+[node name="GoombaStomped" parent="EnemyKillingProcess" groups=["instantiate_no_attack"] instance=ExtResource("6_dasc0")]
+position = Vector2(0, 8)
+
+[node name="GoombaDeath" parent="EnemyKillingProcess" groups=["instantiate_no_stomp"] instance=ExtResource("9_au68h")]
+
+[node name="Scores" parent="EnemyKillingProcess" groups=["instantiate_no_success_combo"] instance=ExtResource("6_ejjdu")]
+text = "100"
+amount = 100
+metadata/_edit_pinned_properties_ = [&"amount"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_vcqae")
+}
+autoplay = "walk"
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+visible = false
+position = Vector2(1.43051e-06, 4.76837e-07)
+scale = Vector2(1.6, 1.6)
+script = ExtResource("10_vbpxw")
+
+[connection signal="collided_wall" from="." to="." method="turn_wall"]
+[connection signal="on_hit_by_attacker" from="EffectBox/Attackee" to="EnemyKillingProcess" method="killing_process"]
+[connection signal="on_stomp_succeeded" from="EffectBox/EnemyStompable" to="EnemyKillingProcess" method="stomp_process"]
+[connection signal="collided_with_entity" from="EffectBox/EntitySolidity" to="." method="turn_wall"]
+[connection signal="killing_succeeded" from="EnemyKillingProcess" to="." method="queue_free"]
+[connection signal="stomp_processed" from="EnemyKillingProcess" to="." method="queue_free"]

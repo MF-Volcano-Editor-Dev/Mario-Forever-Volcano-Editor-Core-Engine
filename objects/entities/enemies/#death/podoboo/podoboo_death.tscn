@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddityy8viypy8"]
+
+[ext_resource type="PackedScene" uid="uid://jh77s512qfrr" path="res://objects/entities/enemies/#death/goomba/goomba_death.tscn" id="1_2jko7"]
+[ext_resource type="Texture2D" uid="uid://ck3j0mxuuan1o" path="res://assets/gfx/objects/entities/enemies/podoboo/podoboo.png" id="2_c0ujw"]
+
+[node name="PodobooDeath" instance=ExtResource("1_2jko7")]
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_c0ujw")
+hframes = 3
+frame = 1
+metadata/_edit_pinned_properties_ = [&"texture"]

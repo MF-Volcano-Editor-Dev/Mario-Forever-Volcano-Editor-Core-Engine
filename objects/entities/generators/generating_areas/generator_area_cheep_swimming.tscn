@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvb3578w2t27e"]
+
+[ext_resource type="PackedScene" uid="uid://cdu0dekaj8vnm" path="res://objects/entities/generators/generating_areas/generator_area_base.tscn" id="1_jy5r6"]
+[ext_resource type="PackedScene" uid="uid://46gy2fsftig8" path="res://objects/entities/enemies/cheeps/cheep_red.tscn" id="2_scqct"]
+
+[node name="GeneratorAreaCheepSwimming" instance=ExtResource("1_jy5r6")]
+
+[node name="Instantiater2D" parent="." index="0"]
+visible = false
+
+[node name="CheepRed" parent="Instantiater2D" index="0" instance=ExtResource("2_scqct")]
+is_created_by_generator = true
+metadata/_edit_pinned_properties_ = [&"is_created_by_generator"]

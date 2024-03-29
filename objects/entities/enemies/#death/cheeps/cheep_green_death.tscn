@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dld7an31sjqyu"]
+
+[ext_resource type="PackedScene" uid="uid://bjp3iqqqg38e8" path="res://objects/entities/enemies/#death/cheeps/cheep_red_death.tscn" id="1_ifoe5"]
+[ext_resource type="Texture2D" uid="uid://c2n2wbltg38h7" path="res://assets/gfx/objects/entities/enemies/cheeps/cheep_green.png" id="2_5gqd1"]
+
+[node name="CheepGreenDeath" instance=ExtResource("1_ifoe5")]
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_5gqd1")
+metadata/_edit_pinned_properties_ = [&"texture"]

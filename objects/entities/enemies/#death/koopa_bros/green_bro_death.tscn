@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://3uucskv1h2f1"]
+
+[ext_resource type="PackedScene" uid="uid://2eise5wobrbd" path="res://engine/objects/entities/enemies/#death/enemy_death.tscn" id="1_5tjmt"]
+[ext_resource type="Texture2D" uid="uid://dv2soclu2o6c8" path="res://engine/assets/gfx/objects/entities/enemies/koopa_bros/green_bro.png" id="2_wg247"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/sprite_flip_facing_h.gd" id="3_ao3iq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_407s7"]
+radius = 16.0
+
+[node name="GreenBroDeath" instance=ExtResource("1_5tjmt")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+visible = false
+shape = SubResource("CircleShape2D_407s7")
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_wg247")
+offset = Vector2(0, -8)
+vframes = 3
+script = ExtResource("3_ao3iq")
+flip_position_x = true
+flip_rotaiton_speed = 300.0
+metadata/_edit_pinned_properties_ = [&"flip_rotaiton_speed"]

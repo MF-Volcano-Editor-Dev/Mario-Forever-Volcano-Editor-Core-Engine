@@ -1,0 +1,124 @@
+[gd_scene load_steps=8 format=3 uid="uid://crnx40c7hevum"]
+
+[ext_resource type="Script" path="res://engine/scripts/uis/huds/level_hud.gd" id="1_miil0"]
+[ext_resource type="Texture2D" uid="uid://dsyjs6cnau2sf" path="res://engine/assets/gfx/huds/hud_coin.png" id="2_140qo"]
+[ext_resource type="LabelSettings" uid="uid://joejtvag3pdw" path="res://engine/objects/uis/huds/level_hud_theme.tres" id="2_kw8o3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xnhei"]
+atlas = ExtResource("2_140qo")
+region = Rect2(0, 0, 28, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c0ndj"]
+atlas = ExtResource("2_140qo")
+region = Rect2(0, 16, 28, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o7vkw"]
+atlas = ExtResource("2_140qo")
+region = Rect2(0, 32, 28, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5wm8c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xnhei")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c0ndj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o7vkw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c0ndj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="LevelHUD" type="CanvasLayer"]
+layer = 100
+script = ExtResource("1_miil0")
+
+[node name="Frame" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 640.0
+offset_bottom = 480.0
+
+[node name="PlayerName" type="Label" parent="Frame"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 24.0
+offset_right = 104.0
+offset_bottom = 41.0
+text = "MARIO"
+label_settings = ExtResource("2_kw8o3")
+justification_flags = 227
+
+[node name="X" type="Label" parent="Frame/PlayerName"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 0.941
+offset_left = 8.0
+offset_right = 24.0
+offset_bottom = 1.003
+grow_horizontal = 2
+text = "×"
+label_settings = ExtResource("2_kw8o3")
+
+[node name="Lives" type="Label" parent="Frame/PlayerName/X"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 0.941
+offset_left = 6.0
+offset_right = 21.0
+offset_bottom = 1.003
+text = "X"
+label_settings = ExtResource("2_kw8o3")
+
+[node name="Scores" type="Label" parent="Frame/PlayerName/X/Lives"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 19.0
+offset_bottom = 36.0
+grow_horizontal = 2
+text = "0"
+label_settings = ExtResource("2_kw8o3")
+horizontal_alignment = 2
+autowrap_mode = 2
+
+[node name="CoinX" type="AnimatedSprite2D" parent="Frame"]
+position = Vector2(230, 52)
+sprite_frames = SubResource("SpriteFrames_5wm8c")
+autoplay = "default"
+
+[node name="Coins" type="Label" parent="Frame/CoinX"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 18.0
+offset_top = -9.0
+offset_right = 22.0
+offset_bottom = 8.0
+grow_horizontal = 2
+text = "0"
+label_settings = ExtResource("2_kw8o3")
+horizontal_alignment = 2
+autowrap_mode = 2
+
+[node name="GameOver" type="Label" parent="."]
+visible = false
+anchors_preset = -1
+anchor_right = 0.5
+anchor_bottom = 0.483
+offset_right = 320.0
+offset_bottom = 248.16
+text = "GAME OVER"
+label_settings = ExtResource("2_kw8o3")
+horizontal_alignment = 1
+vertical_alignment = 1

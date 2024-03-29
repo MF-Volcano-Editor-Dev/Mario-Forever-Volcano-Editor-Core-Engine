@@ -1,0 +1,96 @@
+[gd_scene load_steps=14 format=3 uid="uid://xdkt00n8hitv"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/physics/walker_2d.gd" id="1_gpuac"]
+[ext_resource type="Script" path="res://engine/scripts/components/attack/class_attackee.gd" id="2_pdf2g"]
+[ext_resource type="Script" path="res://engine/scripts/components/enemy/class_enemy_stompable.gd" id="3_f3qmr"]
+[ext_resource type="Texture2D" uid="uid://i0e55xkl3x2y" path="res://engine/assets/gfx/objects/entities/enemies/cheeps/cheep_red.png" id="4_p7ok8"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/sprite_flip_facing_h.gd" id="5_33mlf"]
+[ext_resource type="Script" path="res://engine/scripts/components/instantiater/class_enemy_killing_process.gd" id="6_2hl0e"]
+[ext_resource type="PackedScene" uid="uid://bjp3iqqqg38e8" path="res://engine/objects/entities/enemies/#death/cheeps/cheep_red_death.tscn" id="7_lsyao"]
+[ext_resource type="PackedScene" uid="uid://d28wktlfkunys" path="res://engine/objects/uis/counters/scores_label.tscn" id="8_ci3po"]
+[ext_resource type="Script" path="res://engine/scripts/components/visible_on_screen/visible_on_screen_directional.gd" id="9_2wik6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gmhw1"]
+radius = 16.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxx2d"]
+atlas = ExtResource("4_p7ok8")
+region = Rect2(0, 0, 31, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shhsy"]
+atlas = ExtResource("4_p7ok8")
+region = Rect2(0, 32, 31, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hyhxs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qxx2d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shhsy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="CheepRedLeap" type="EntityBody2D"]
+gravity_scale = 0.25
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_gpuac")
+initial_direction = 3
+metadata/_edit_pinned_properties_ = [&"initial_direction"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_gmhw1")
+
+[node name="EffectBox" type="Area2D" parent="." groups=["entity_collidable"]]
+visible = false
+collision_layer = 4
+collision_mask = 53
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EffectBox"]
+shape = SubResource("CircleShape2D_gmhw1")
+debug_color = Color(0.964706, 0.192157, 0, 0.419608)
+
+[node name="Attackee" type="Node" parent="EffectBox"]
+script = ExtResource("2_pdf2g")
+filter_ids = Array[int]([2])
+
+[node name="EnemyStompable" type="Node" parent="EffectBox"]
+script = ExtResource("3_f3qmr")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_hyhxs")
+autoplay = "default"
+script = ExtResource("5_33mlf")
+
+[node name="EnemyKillingProcess" type="Node2D" parent="."]
+visible = false
+script = ExtResource("6_2hl0e")
+
+[node name="CheepRedDeath" parent="EnemyKillingProcess" instance=ExtResource("7_lsyao")]
+
+[node name="Scores" parent="EnemyKillingProcess" groups=["instantiate_no_success_combo"] instance=ExtResource("8_ci3po")]
+text = "100"
+amount = 100
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenNotifier2D" parent="."]
+visible = false
+position = Vector2(1.90735e-06, 0)
+scale = Vector2(6.4, 6.4)
+script = ExtResource("9_2wik6")
+direction = 8
+with_global_transform = true
+_is_initialized = true
+
+[node name="TimerInterval" type="Timer" parent="."]
+
+[connection signal="on_hit_by_attacker" from="EffectBox/Attackee" to="EnemyKillingProcess" method="killing_process"]
+[connection signal="on_stomp_succeeded" from="EffectBox/EnemyStompable" to="EnemyKillingProcess" method="stomp_process"]
+[connection signal="killing_succeeded" from="EnemyKillingProcess" to="." method="queue_free"]
+[connection signal="stomp_processed" from="EnemyKillingProcess" to="." method="queue_free"]
+[connection signal="screen_exited_directionally" from="VisibleOnScreenEnabler2D" to="." method="queue_free"]

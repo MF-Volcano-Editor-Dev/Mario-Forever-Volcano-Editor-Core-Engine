@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dh2wi5r4ubr2x"]
+
+[ext_resource type="Texture2D" uid="uid://bcdyfo4qdu3oa" path="res://engine/assets/gfx/objects/entities/characters/mario_dead.png" id="1_tjhx6"]
+[ext_resource type="Script" path="res://engine/scripts/entities/characters/mario/mario_death.gd" id="1_x4ql0"]
+
+[node name="MarioDeath" type="Node2D"]
+script = ExtResource("1_x4ql0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_tjhx6")

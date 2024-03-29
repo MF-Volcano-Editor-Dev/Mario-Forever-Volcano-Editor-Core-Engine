@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://1pda7f8kgr4d"]
+
+[ext_resource type="PackedScene" uid="uid://b7xxcal305dss" path="res://engine/objects/entities/#projectiles/silver_hammers/silver_hammer_base.tscn" id="1_y0js8"]
+[ext_resource type="Script" path="res://engine/scripts/components/enemy/class_enemy_touch.gd" id="2_kw8hp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ivll6"]
+radius = 16.0
+
+[node name="SilverHammerEnemy" instance=ExtResource("1_y0js8")]
+
+[node name="EffectBox" type="Area2D" parent="." index="2"]
+visible = false
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EffectBox" index="0"]
+shape = SubResource("CircleShape2D_ivll6")
+debug_color = Color(1, 0, 0.0901961, 0.419608)
+
+[node name="EnemyTouch" type="Node" parent="EffectBox" index="1"]
+script = ExtResource("2_kw8hp")

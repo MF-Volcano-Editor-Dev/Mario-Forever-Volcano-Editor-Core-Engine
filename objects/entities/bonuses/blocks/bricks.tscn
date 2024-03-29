@@ -1,0 +1,122 @@
+[gd_scene load_steps=15 format=3 uid="uid://d33jhjao1hoee"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/bonuses/blocks/bricks.gd" id="1_dn52m"]
+[ext_resource type="Texture2D" uid="uid://bmol3lccppr3x" path="res://engine/assets/gfx/objects/entities/bonus/blocks/bricks.png" id="2_ti6ka"]
+[ext_resource type="Material" uid="uid://bxn4axwj3cqpy" path="res://engine/assets/particles/bricks.tres" id="3_r1gtu"]
+[ext_resource type="Texture2D" uid="uid://dm1d7d58iemnb" path="res://engine/assets/gfx/objects/entities/bonus/blocks/hittable_empty.png" id="3_uan0g"]
+[ext_resource type="Texture2D" uid="uid://crkfj2c4iqj7m" path="res://engine/assets/gfx/objects/entities/#effects/brick_scrap.png" id="4_7mbty"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/on_ready_visible.gd" id="6_s6wav"]
+[ext_resource type="Script" path="res://engine/scripts/entities/bonuses/blocks/question_block_tool.gd" id="7_mr4ml"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wna3r"]
+size = Vector2(32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_66pgw"]
+atlas = ExtResource("2_ti6ka")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cg1kc"]
+atlas = ExtResource("3_uan0g")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lbmlf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_66pgw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cg1kc")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_45u3s"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_docu5"]
+resource_name = "hit"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -6), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x58u5"]
+_data = {
+"RESET": SubResource("Animation_45u3s"),
+"hit": SubResource("Animation_docu5")
+}
+
+[node name="Bricks" type="AnimatableBody2D"]
+collision_layer = 10
+collision_mask = 5
+script = ExtResource("1_dn52m")
+particles_path = NodePath("GPUParticles2D")
+items = Array[Resource("res://scripts/entities/bonuses/blocks/resources/question_block_item.gd")]([])
+animated_sprite_path = NodePath("AnimatedSprite2D")
+visible_node_path = NodePath("AnimatedSprite2D")
+invisible_collision_layer = 64
+metadata/_edit_pinned_properties_ = [&"animated_sprite_path", &"visible_node_path", &"items", &"particles_path"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_wna3r")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_lbmlf")
+autoplay = "default"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 6
+process_material = ExtResource("3_r1gtu")
+texture = ExtResource("4_7mbty")
+lifetime = 3.0
+one_shot = true
+explosiveness = 1.0
+visibility_rect = Rect2(-320, -128, 640, 800)
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+visible = false
+position = Vector2(1.43051e-06, 1.43051e-06)
+scale = Vector2(1.6, 1.6)
+script = ExtResource("6_s6wav")
+
+[node name="Tool" type="Node2D" parent="."]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("7_mr4ml")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_x58u5")
+}
+
+[connection signal="bumped" from="." to="AnimationPlayer" method="play" binds= [&"hit"]]

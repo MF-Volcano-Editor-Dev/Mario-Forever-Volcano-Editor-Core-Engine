@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://8yogi7oiwk4s"]
+
+[ext_resource type="PackedScene" uid="uid://cdu0dekaj8vnm" path="res://objects/entities/generators/generating_areas/generator_area_base.tscn" id="1_wxsc6"]
+[ext_resource type="PackedScene" uid="uid://dxeslfkw87yta" path="res://objects/entities/enemies/bullet_bill/bullet/bullet_bill.tscn" id="2_3t2mw"]
+[ext_resource type="AudioStream" uid="uid://blxnhp57rwumn" path="res://assets/sounds/bullet.ogg" id="2_rp6qk"]
+
+[node name="GeneratorAreaBulletBill" instance=ExtResource("1_wxsc6")]
+sound_generating = ExtResource("2_rp6qk")
+metadata/_edit_pinned_properties_ = [&"sound_generating"]
+
+[node name="BulletBill" parent="Instantiater2D" index="0" instance=ExtResource("2_3t2mw")]
+initial_direction = 3
+metadata/_edit_pinned_properties_ = [&"initial_direction"]

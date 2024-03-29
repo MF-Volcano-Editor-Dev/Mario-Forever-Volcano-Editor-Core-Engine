@@ -1,0 +1,248 @@
+[gd_scene load_steps=17 format=3 uid="uid://d2a3jxasggppj"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/characters/mario/mario_powerup.gd" id="1_igb6y"]
+[ext_resource type="Shape2D" uid="uid://6oma0liuhhjr" path="res://engine/objects/entities/characters/mario/power-ups/shapes/shape_mario_small.tres" id="2_bu1ev"]
+[ext_resource type="SpriteFrames" uid="uid://dx5y52kdx4f4m" path="res://engine/objects/entities/characters/mario/power-ups/animations/anim_mario_small.tres" id="2_pbsaf"]
+[ext_resource type="Script" path="res://engine/scripts/entities/characters/mario/mario_underwater.gd" id="3_2jggs"]
+[ext_resource type="Shape2D" uid="uid://dypbl1pshqi13" path="res://engine/objects/entities/characters/mario/power-ups/shapes/shape_mario_head.tres" id="3_gvdfx"]
+[ext_resource type="Script" path="res://engine/scripts/components/state_machine/class_state_machine.gd" id="4_boade"]
+[ext_resource type="Script" path="res://engine/scripts/entities/characters/mario/states/mario_non_climbing.gd" id="4_j3ux2"]
+[ext_resource type="Script" path="res://engine/scripts/components/collision/bumper_2d.gd" id="4_qv516"]
+[ext_resource type="Shape2D" uid="uid://nt4e4ksken1" path="res://engine/objects/entities/characters/mario/power-ups/shapes/shape_mario_head_detector.tres" id="4_vc5iu"]
+[ext_resource type="PackedScene" uid="uid://o1jx3mi81p3t" path="res://engine/objects/units/particle/particle_bubble.tscn" id="5_8kxji"]
+[ext_resource type="Script" path="res://engine/scripts/components/attack/class_attacker.gd" id="6_mmgss"]
+[ext_resource type="Script" path="res://engine/scripts/entities/characters/mario/states/mario_climbing.gd" id="6_nfgd5"]
+[ext_resource type="Script" path="res://engine/scripts/entities/characters/mario/mario_starman_combo.gd" id="6_phcw5"]
+
+[sub_resource type="Animation" id="Animation_h00pe"]
+resource_name = "CROUCH"
+length = 0.001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Head/HeadCB:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -11)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body/BodyCB:shape")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_bu1ev")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body/BodyCB:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CollisionShape2D:shape")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_bu1ev")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CollisionShape2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_84fd7"]
+length = 0.001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Head/HeadCB:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -11)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body/BodyCB:shape")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_bu1ev")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body/BodyCB:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CollisionShape2D:shape")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_bu1ev")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CollisionShape2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 3)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xgudl"]
+_data = {
+"CROUCH": SubResource("Animation_h00pe"),
+"RESET": SubResource("Animation_84fd7")
+}
+
+[node name="MarioSmall" type="Node2D"]
+script = ExtResource("1_igb6y")
+features = {
+"is_small": true
+}
+metadata/_edit_pinned_properties_ = [&"features"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 3)
+shape = ExtResource("2_bu1ev")
+
+[node name="Head" type="Area2D" parent="."]
+visible = false
+collision_mask = 50
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="HeadCB" type="CollisionShape2D" parent="Head"]
+position = Vector2(0, -11)
+shape = ExtResource("3_gvdfx")
+debug_color = Color(0.878431, 0.341176, 0, 0.419608)
+
+[node name="HeadDetc" type="ShapeCast2D" parent="Head/HeadCB" groups=["bumper_head"]]
+position = Vector2(0, 2)
+shape = ExtResource("4_vc5iu")
+target_position = Vector2(0, 0)
+margin = 0.5
+max_results = 2
+collision_mask = 66
+script = ExtResource("4_qv516")
+body_path = NodePath("../../../..")
+metadata/_edit_pinned_properties_ = [&"body_path"]
+
+[node name="Body" type="Area2D" parent="."]
+visible = false
+position = Vector2(0, 2)
+collision_mask = 52
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="BodyCB" type="CollisionShape2D" parent="Body"]
+position = Vector2(0, 1)
+shape = ExtResource("2_bu1ev")
+debug_color = Color(0.984314, 0, 0.356863, 0.419608)
+
+[node name="Attacker" type="Node" parent="Body" groups=["combo"]]
+script = ExtResource("6_mmgss")
+
+[node name="Combo" type="Node" parent="Body"]
+script = ExtResource("6_phcw5")
+enabled = false
+body_path = NodePath("../../..")
+metadata/_edit_pinned_properties_ = [&"enabled", &"body_path"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -16)
+sprite_frames = ExtResource("2_pbsaf")
+autoplay = "default"
+metadata/_edit_group_ = true
+
+[node name="Bubble" parent="." instance=ExtResource("5_8kxji")]
+manual_emission = true
+metadata/_edit_pinned_properties_ = [&"manual_emission"]
+
+[node name="AreaDetection" type="Node" parent="."]
+script = ExtResource("3_2jggs")
+
+[node name="StateMachine" type="Node" parent="."]
+editor_description = "`root` should refer to the owner node that is an instance of `MarioPower`."
+script = ExtResource("4_boade")
+current_state_path = NodePath("NonClimbing")
+metadata/_edit_pinned_properties_ = [&"current_state_path"]
+
+[node name="NonClimbing" type="Node" parent="StateMachine"]
+editor_description = "`root` should refer to the owner node that is an instance of `MarioPower`.
+
+If you don't expect the powerup crouchable, please add an metadata \"is_small\" and set its value to `true`, or set it, if existing, to `true`."
+script = ExtResource("4_j3ux2")
+state_id = &"non_climbing"
+root_path = NodePath("../..")
+metadata/_edit_pinned_properties_ = [&"state_id", &"root_path"]
+
+[node name="Climbing" type="Node" parent="StateMachine"]
+editor_description = "`root` should refer to the owner node that is an instance of `MarioPower`."
+script = ExtResource("6_nfgd5")
+state_id = &"climbing"
+root_path = NodePath("../..")
+metadata/_edit_pinned_properties_ = [&"state_id", &"root_path"]
+
+[node name="ShapeController" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_xgudl")
+}
+autoplay = "RESET"
+
+[connection signal="attack_succeeded" from="Body/Attacker" to="Body/Combo" method="combo"]

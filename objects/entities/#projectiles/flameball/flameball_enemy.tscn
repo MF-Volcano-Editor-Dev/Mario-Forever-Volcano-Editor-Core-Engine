@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://u83r1exlv46g"]
+
+[ext_resource type="PackedScene" uid="uid://blsa04ddga00h" path="res://engine/objects/entities/#projectiles/flameball/flameball_base.tscn" id="1_n6kvl"]
+[ext_resource type="Script" path="res://engine/scripts/components/enemy/class_enemy_touch.gd" id="2_6q481"]
+
+[node name="FlameballEnemy" instance=ExtResource("1_n6kvl")]
+
+[node name="EnemyTouch" type="Node" parent="EffectBox" index="1"]
+script = ExtResource("2_6q481")

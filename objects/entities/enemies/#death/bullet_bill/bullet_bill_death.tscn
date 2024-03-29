@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmu6yd6u7d877"]
+
+[ext_resource type="PackedScene" uid="uid://jh77s512qfrr" path="res://objects/entities/enemies/#death/goomba/goomba_death.tscn" id="1_ruwox"]
+[ext_resource type="Texture2D" uid="uid://b0uvc2tbp1rau" path="res://assets/gfx/objects/entities/enemies/bullet_bill/bullet_bill.png" id="2_on4nl"]
+
+[node name="BulletBillDeath" instance=ExtResource("1_ruwox")]
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_on4nl")
+metadata/_edit_pinned_properties_ = [&"texture"]

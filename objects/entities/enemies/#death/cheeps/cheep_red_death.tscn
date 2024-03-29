@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjp3iqqqg38e8"]
+
+[ext_resource type="PackedScene" uid="uid://jh77s512qfrr" path="res://objects/entities/enemies/#death/goomba/goomba_death.tscn" id="1_xwdqh"]
+[ext_resource type="Texture2D" uid="uid://i0e55xkl3x2y" path="res://assets/gfx/objects/entities/enemies/cheeps/cheep_red.png" id="2_5enok"]
+
+[node name="CheepRedDeath" instance=ExtResource("1_xwdqh")]
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_5enok")
+vframes = 2
+frame = 1
+flip_position_x = true
+metadata/_edit_pinned_properties_ = [&"flip_position_x"]

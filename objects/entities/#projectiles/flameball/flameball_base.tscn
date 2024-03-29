@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://blsa04ddga00h"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/physics/walker_2d.gd" id="1_2oliv"]
+[ext_resource type="Texture2D" uid="uid://b15xfynqk1acu" path="res://engine/assets/gfx/objects/entities/projectiles/flameball.png" id="2_hjjtj"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/sprite_flip_facing_h.gd" id="3_erg2q"]
+[ext_resource type="Script" path="res://engine/scripts/components/visible_on_screen/visible_on_screen_directional.gd" id="4_dro10"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w2obo"]
+radius = 12.0
+
+[node name="FlameballBase" type="EntityBody2D"]
+gravity_scale = 0.25
+global_rotation_to_gravity_direction = false
+collision_layer = 4
+collision_mask = 0
+motion_mode = 1
+script = ExtResource("1_2oliv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_w2obo")
+
+[node name="EffectBox" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="EffectBox"]
+shape = SubResource("CircleShape2D_w2obo")
+debug_color = Color(0.980392, 0.133333, 0, 0.419608)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_hjjtj")
+script = ExtResource("3_erg2q")
+flip_position_x = true
+flip_rotaiton_speed = 400.0
+
+[node name="VisibleOnScreenNotifierDirectional2D" type="VisibleOnScreenNotifier2D" parent="."]
+visible = false
+rect = Rect2(-8, -8, 16, 16)
+script = ExtResource("4_dro10")
+direction = 11
+_is_initialized = true
+
+[connection signal="screen_exited_directionally" from="VisibleOnScreenNotifierDirectional2D" to="." method="queue_free"]

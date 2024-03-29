@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdu0dekaj8vnm"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/generators/generator_area.gd" id="1_s1n2a"]
+[ext_resource type="Script" path="res://engine/scripts/components/instantiater/class_instantiater2d.gd" id="2_c6ap7"]
+
+[node name="GeneratorAreaBase" type="Area2D"]
+collision_layer = 0
+monitorable = false
+script = ExtResource("1_s1n2a")
+
+[node name="Instantiater2D" type="Node2D" parent="."]
+visible = false
+script = ExtResource("2_c6ap7")
+
+[node name="TimerInterval" type="Timer" parent="."]

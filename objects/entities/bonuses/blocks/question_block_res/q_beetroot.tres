@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="QuestionBlockItem" load_steps=6 format=3 uid="uid://b41uta1q8kc55"]
+
+[ext_resource type="PackedScene" uid="uid://b7k1en2v1osja" path="res://engine/objects/entities/bonuses/items/beetroot.tscn" id="1_i2inb"]
+[ext_resource type="PackedScene" uid="uid://c1f5xsr1b2y7g" path="res://engine/objects/entities/bonuses/items/red_mushroom.tscn" id="2_75ixr"]
+[ext_resource type="Texture2D" uid="uid://b7y67pgo6yuiv" path="res://engine/assets/gfx/objects/entities/bonus/items/beetroot.png" id="2_in5e7"]
+[ext_resource type="Script" path="res://engine/scripts/entities/bonuses/blocks/resources/question_block_item.gd" id="3_m0gf1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yo1fo"]
+atlas = ExtResource("2_in5e7")
+region = Rect2(0, 0, 27, 33)
+
+[resource]
+script = ExtResource("3_m0gf1")
+default = ExtResource("1_i2inb")
+fallback = ExtResource("2_75ixr")
+required_powerup_level = 1
+icon = SubResource("AtlasTexture_yo1fo")

@@ -1,0 +1,292 @@
+[gd_scene load_steps=15 format=3 uid="uid://bkue80kxyghsr"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/goal/check_point.gd" id="1_bd0wv"]
+[ext_resource type="Texture2D" uid="uid://coa7714jstl7h" path="res://engine/assets/gfx/objects/entities/core/checkpoint/sign.png" id="2_cy03q"]
+[ext_resource type="Shader" path="res://engine/shaders/glow.gdshader" id="3_v14n5"]
+[ext_resource type="LabelSettings" uid="uid://s7ludydwdbvn" path="res://engine/assets/fonts/font_themes/sign_text_theme.tres" id="4_mtuk7"]
+[ext_resource type="Material" uid="uid://bixeh15idohh2" path="res://engine/assets/particles/star.tres" id="5_vfp1i"]
+[ext_resource type="Texture2D" uid="uid://b73w0jl0nt8x7" path="res://engine/assets/gfx/objects/entities/#effects/star.png" id="6_id48h"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/on_ready_visible.gd" id="7_sm1ho"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5x2np"]
+shader = ExtResource("3_v14n5")
+shader_parameter/glow = true
+shader_parameter/glow_scalar = 2.0
+shader_parameter/width = 2.0
+shader_parameter/outline_color = Color(0, 0, 0.439216, 0.513726)
+shader_parameter/threshold = 0.5
+shader_parameter/pixel_size = 1
+
+[sub_resource type="Animation" id="Animation_7jq0t"]
+resource_name = "RESET"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextBackbuffer/Text:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-29, -88)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextBackbuffer/Text:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.854902, 0.698039, 0.466667, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_02vjb"]
+resource_name = "checked"
+length = 0.9
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextBackbuffer/Text:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-29, -88), Vector2(-29, -91), Vector2(-29, -85), Vector2(-29, -88)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextBackbuffer/Text:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i4w7c"]
+_data = {
+"RESET": SubResource("Animation_7jq0t"),
+"checked": SubResource("Animation_02vjb")
+}
+
+[sub_resource type="Animation" id="Animation_kbkls"]
+resource_name = "RESET"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextBackbuffer/Effect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextBackbuffer/Effect:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-29, -88)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TextBackbuffer/Effect:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GPUParticles2D:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("TextBackbuffer/Effect:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_t53j6"]
+resource_name = "checked"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextBackbuffer/Effect:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextBackbuffer/Effect:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-29, -88), Vector2(-29, -192)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TextBackbuffer/Effect:rotation")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GPUParticles2D:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("TextBackbuffer/Effect:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(3, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_isysv"]
+_data = {
+"RESET": SubResource("Animation_kbkls"),
+"checked": SubResource("Animation_t53j6")
+}
+
+[node name="CheckPoint" type="Area2D"]
+z_index = -3
+collision_layer = 0
+monitorable = false
+script = ExtResource("1_bd0wv")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PackedVector2Array(-48, -96, -48, -40, -8, -40, -8, 16, 8, 16, 8, -40, 48, -40, 48, -96)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-9, -9)
+texture = ExtResource("2_cy03q")
+offset = Vector2(9, -39)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(0, -69)
+emitting = false
+amount = 20
+process_material = ExtResource("5_vfp1i")
+texture = ExtResource("6_id48h")
+lifetime = 0.75
+
+[node name="TextBackbuffer" type="CanvasGroup" parent="."]
+material = SubResource("ShaderMaterial_5x2np")
+
+[node name="Text" type="Label" parent="TextBackbuffer"]
+modulate = Color(0.854902, 0.698039, 0.466667, 1)
+offset_left = -29.0
+offset_top = -88.0
+offset_right = 29.0
+offset_bottom = -51.0
+pivot_offset = Vector2(29, 19)
+text = "CHECK
+POINT!"
+label_settings = ExtResource("4_mtuk7")
+horizontal_alignment = 1
+vertical_alignment = 1
+text_overrun_behavior = 1
+
+[node name="Effect" type="Label" parent="TextBackbuffer"]
+visible = false
+offset_left = -29.0
+offset_top = -88.0
+offset_right = 29.0
+offset_bottom = -51.0
+pivot_offset = Vector2(29, 19)
+text = "CHECK
+POINT!"
+label_settings = ExtResource("4_mtuk7")
+horizontal_alignment = 1
+vertical_alignment = 1
+text_overrun_behavior = 1
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="TextBackbuffer/Effect"]
+position = Vector2(29, 19)
+remote_path = NodePath("../../../GPUParticles2D")
+
+[node name="AnimationSwing" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_i4w7c")
+}
+autoplay = "RESET"
+
+[node name="AnimationEffect" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_isysv")
+}
+autoplay = "RESET"
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+visible = false
+position = Vector2(-9.53674e-07, -112)
+scale = Vector2(6.4, 14.4)
+enable_node_path = NodePath(".")
+script = ExtResource("7_sm1ho")

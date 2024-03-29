@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="QuestionBlockItem" load_steps=5 format=3 uid="uid://bpjevh4xo67s3"]
+
+[ext_resource type="PackedScene" uid="uid://bmt6h4n242mv2" path="res://engine/objects/entities/bonuses/items/super_star.tscn" id="1_8oghn"]
+[ext_resource type="Texture2D" uid="uid://b2unpm6r5dx1a" path="res://engine/assets/gfx/objects/entities/bonus/items/super_star.png" id="2_ux02l"]
+[ext_resource type="Script" path="res://engine/scripts/entities/bonuses/blocks/resources/question_block_item.gd" id="3_qjky6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lo47f"]
+atlas = ExtResource("2_ux02l")
+region = Rect2(99, 0, 33, 32)
+
+[resource]
+script = ExtResource("3_qjky6")
+default = ExtResource("1_8oghn")
+required_powerup_level = -5
+icon = SubResource("AtlasTexture_lo47f")

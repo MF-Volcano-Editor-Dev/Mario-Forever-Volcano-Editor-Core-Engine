@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://tog1urcypue2"]
+
+[ext_resource type="Texture2D" uid="uid://omvpxqty1buy" path="res://engine/assets/gfx/objects/entities/#effects/explosion_fire.png" id="1_hvtp5"]
+[ext_resource type="Script" path="res://engine/scripts/entities/effects/once_only_animation_effect.gd" id="2_dludi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qo3ro"]
+atlas = ExtResource("1_hvtp5")
+region = Rect2(0, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i434j"]
+atlas = ExtResource("1_hvtp5")
+region = Rect2(36, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ja2sq"]
+atlas = ExtResource("1_hvtp5")
+region = Rect2(72, 0, 36, 36)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_df45i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qo3ro")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i434j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ja2sq")
+}],
+"loop": false,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="ExplosionFire" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_df45i")
+autoplay = "default"
+script = ExtResource("2_dludi")

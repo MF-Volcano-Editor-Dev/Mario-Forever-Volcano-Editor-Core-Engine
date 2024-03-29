@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cui35mog5pwf8"]
+
+[ext_resource type="Script" path="res://engine/scripts/units/general/unit_level_completion.gd" id="1_janvd"]
+
+[node name="LevelCompletion" type="Node"]
+script = ExtResource("1_janvd")

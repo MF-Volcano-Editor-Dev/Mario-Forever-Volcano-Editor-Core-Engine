@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://jh77s512qfrr"]
+
+[ext_resource type="PackedScene" uid="uid://2eise5wobrbd" path="res://engine/objects/entities/enemies/#death/enemy_death.tscn" id="1_yotuv"]
+[ext_resource type="Texture2D" uid="uid://bj71tv2ix6ut0" path="res://engine/assets/gfx/objects/entities/enemies/goomba/goomba.png" id="2_1yiha"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/sprite_flip_facing_h.gd" id="3_6avny"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3hcme"]
+radius = 16.0
+
+[node name="GoombaDeath" instance=ExtResource("1_yotuv")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+visible = false
+shape = SubResource("CircleShape2D_3hcme")
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_1yiha")
+script = ExtResource("3_6avny")
+flip_rotaiton_speed = 400.0
+metadata/_edit_pinned_properties_ = [&"flip_rotaiton_speed"]
+
+[node name="VisibleOnScreenNotifierDirectional2D" parent="." index="2"]
+visible = false
+rect = Rect2(-16, -16, 32, 32)
+_is_initialized = true

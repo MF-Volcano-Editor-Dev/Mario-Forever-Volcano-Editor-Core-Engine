@@ -1,0 +1,86 @@
+[gd_scene load_steps=14 format=3 uid="uid://dqb28p54am6ov"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/physics/walker_2d.gd" id="1_qhnal"]
+[ext_resource type="Script" path="res://engine/scripts/components/enemy/class_enemy_touch.gd" id="2_ojboh"]
+[ext_resource type="Script" path="res://engine/scripts/components/attack/class_attackee.gd" id="3_8mbmy"]
+[ext_resource type="Script" path="res://engine/scripts/components/entity/entity_solidity.gd" id="4_wp4d1"]
+[ext_resource type="Texture2D" uid="uid://dbmmqdlg1fm04" path="res://engine/assets/gfx/objects/entities/enemies/spinies/spiny_egg_iron.png" id="5_nt15i"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/sprite_flip_facing_h.gd" id="6_eycqb"]
+[ext_resource type="Script" path="res://engine/scripts/components/instantiater/class_instantiater2d.gd" id="7_q35jv"]
+[ext_resource type="PackedScene" uid="uid://d2k1j5ym872mw" path="res://engine/objects/entities/enemies/spinies/spiny_iron.tscn" id="8_so7l1"]
+[ext_resource type="Script" path="res://engine/scripts/components/instantiater/class_enemy_killing_process.gd" id="9_io5rs"]
+[ext_resource type="PackedScene" uid="uid://cch8cjenpduql" path="res://engine/objects/entities/enemies/#death/spinies/spiny_red_death.tscn" id="10_qqdpb"]
+[ext_resource type="PackedScene" uid="uid://d28wktlfkunys" path="res://engine/objects/uis/counters/scores_label.tscn" id="11_htcfq"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/on_ready_visible.gd" id="12_co8n0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pjfoc"]
+radius = 16.0
+
+[node name="SpinyIronEgg" type="EntityBody2D"]
+damp_enabled = true
+damp_min_speed = 50.0
+gravity_scale = 0.3
+collision_layer = 4
+collision_mask = 8
+script = ExtResource("1_qhnal")
+initial_direction = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(3.11137e-06, 0)
+rotation = -1.57079
+shape = SubResource("CircleShape2D_pjfoc")
+
+[node name="EffectBox" type="Area2D" parent="." groups=["entity_collidable"]]
+visible = false
+collision_layer = 4
+collision_mask = 53
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EffectBox"]
+shape = SubResource("CircleShape2D_pjfoc")
+debug_color = Color(0.964706, 0.192157, 0, 0.419608)
+
+[node name="EnemyTouch" type="Node" parent="EffectBox"]
+script = ExtResource("2_ojboh")
+
+[node name="Attackee" type="Node" parent="EffectBox"]
+script = ExtResource("3_8mbmy")
+
+[node name="EntitySolidity" type="Node" parent="EffectBox"]
+script = ExtResource("4_wp4d1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("5_nt15i")
+script = ExtResource("6_eycqb")
+flip_position_x = true
+flip_rotaiton_speed = 562.5
+
+[node name="Spawn" type="Node2D" parent="."]
+visible = false
+script = ExtResource("7_q35jv")
+
+[node name="SpinyIron" parent="Spawn" instance=ExtResource("8_so7l1")]
+
+[node name="EnemyKillingProcess" type="Node2D" parent="."]
+visible = false
+script = ExtResource("9_io5rs")
+
+[node name="SpinyRedDeath" parent="EnemyKillingProcess" instance=ExtResource("10_qqdpb")]
+
+[node name="Scores" parent="EnemyKillingProcess" groups=["instantiate_no_success_combo"] instance=ExtResource("11_htcfq")]
+text = "100"
+amount = 100
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+visible = false
+position = Vector2(1.43051e-06, 4.76837e-07)
+scale = Vector2(1.6, 1.6)
+script = ExtResource("12_co8n0")
+
+[connection signal="collided_floor" from="." to="." method="queue_free"]
+[connection signal="collided_floor" from="." to="Spawn" method="instantiate_all"]
+[connection signal="collided_wall" from="." to="." method="turn_wall"]
+[connection signal="on_hit_by_attacker" from="EffectBox/Attackee" to="EnemyKillingProcess" method="killing_process"]
+[connection signal="collided_with_entity" from="EffectBox/EntitySolidity" to="." method="turn_wall"]
+[connection signal="killing_succeeded" from="EnemyKillingProcess" to="." method="queue_free"]
+[connection signal="stomp_processed" from="EnemyKillingProcess" to="." method="queue_free"]

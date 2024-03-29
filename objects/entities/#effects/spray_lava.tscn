@@ -1,0 +1,59 @@
+[gd_scene load_steps=10 format=3 uid="uid://mcaaukfgaam8"]
+
+[ext_resource type="PackedScene" uid="uid://delxto2dfc3fa" path="res://objects/entities/#effects/spray_water.tscn" id="1_bdkdj"]
+[ext_resource type="Texture2D" uid="uid://bs3fdld15i20s" path="res://assets/gfx/objects/entities/#effects/spray_lava.png" id="2_2n3dh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6xws6"]
+atlas = ExtResource("2_2n3dh")
+region = Rect2(0, 0, 85, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pr4jc"]
+atlas = ExtResource("2_2n3dh")
+region = Rect2(0, 27, 85, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q7yic"]
+atlas = ExtResource("2_2n3dh")
+region = Rect2(0, 54, 85, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fduau"]
+atlas = ExtResource("2_2n3dh")
+region = Rect2(0, 81, 85, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ayy6n"]
+atlas = ExtResource("2_2n3dh")
+region = Rect2(0, 108, 85, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fyxd2"]
+atlas = ExtResource("2_2n3dh")
+region = Rect2(0, 135, 85, 27)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yaitg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6xws6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pr4jc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q7yic")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fduau")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ayy6n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fyxd2")
+}],
+"loop": false,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="SprayLava" instance=ExtResource("1_bdkdj")]
+sprite_frames = SubResource("SpriteFrames_yaitg")
+offset = Vector2(0, -8)
+metadata/_edit_pinned_properties_ = [&"sprite_frames"]

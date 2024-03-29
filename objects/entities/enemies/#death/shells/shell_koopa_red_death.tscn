@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnl67vxi1wbhs"]
+
+[ext_resource type="PackedScene" uid="uid://c0hayra4r3ogr" path="res://objects/entities/enemies/#death/shells/shell_koopa_green_death.tscn" id="1_d2013"]
+[ext_resource type="Texture2D" uid="uid://bnq4lmetbvjmf" path="res://assets/gfx/objects/entities/enemies/shells/shell_koopa_red.png" id="2_ilnm7"]
+
+[node name="ShellKoopaRedDeath" instance=ExtResource("1_d2013")]
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_ilnm7")
+metadata/_edit_pinned_properties_ = [&"texture"]

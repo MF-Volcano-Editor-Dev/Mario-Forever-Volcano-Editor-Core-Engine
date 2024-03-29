@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="QuestionBlockItem" load_steps=4 format=3 uid="uid://bbr3h5f0aicfd"]
+
+[ext_resource type="PackedScene" uid="uid://dmvagbelmyw0i" path="res://engine/objects/entities/bonuses/items/entity_carriers/entity_carrier_goomba.tscn" id="1_y6moo"]
+[ext_resource type="Texture2D" uid="uid://bj71tv2ix6ut0" path="res://engine/assets/gfx/objects/entities/enemies/goomba/goomba.png" id="2_ywva5"]
+[ext_resource type="Script" path="res://engine/scripts/entities/bonuses/blocks/resources/question_block_item.gd" id="3_0k43k"]
+
+[resource]
+script = ExtResource("3_0k43k")
+default = ExtResource("1_y6moo")
+required_powerup_level = 0
+icon = ExtResource("2_ywva5")

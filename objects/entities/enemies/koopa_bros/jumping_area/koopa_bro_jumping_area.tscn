@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://d268f4f8djvuf"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/enemies/bros/koopa_bros_jumping_area.gd" id="1_jbpj8"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/on_ready_visible.gd" id="2_pltrr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kw1om"]
+size = Vector2(128, 16)
+
+[node name="KoopaBroJumpingArea" type="Area2D"]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+script = ExtResource("1_jbpj8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = -1
+shape = SubResource("RectangleShape2D_kw1om")
+debug_color = Color(0.643137, 0.337255, 1, 0.419608)
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+visible = false
+position = Vector2(-1.90735e-06, 4.17233e-07)
+scale = Vector2(6.4, 0.8)
+script = ExtResource("2_pltrr")

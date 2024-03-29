@@ -1,0 +1,119 @@
+[gd_scene load_steps=18 format=3 uid="uid://da8osf4x77m36"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/bonuses/items/coin.gd" id="1_876hi"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/on_ready_visible.gd" id="1_d4a7o"]
+[ext_resource type="Texture2D" uid="uid://c8m4kwu3g4ofn" path="res://engine/assets/gfx/objects/entities/bonus/items/coin.png" id="1_wrbjw"]
+[ext_resource type="Script" path="res://engine/scripts/components/instantiater/class_instantiater2d.gd" id="3_012et"]
+[ext_resource type="Texture2D" uid="uid://cviaa5cvksf33" path="res://engine/assets/gfx/objects/entities/bonus/items/coin_hit.png" id="3_fyecf"]
+[ext_resource type="PackedScene" uid="uid://c1a60p1qvmepc" path="res://engine/objects/entities/#effects/coin_effect.tscn" id="4_i83v2"]
+[ext_resource type="PackedScene" uid="uid://d28wktlfkunys" path="res://engine/objects/uis/counters/scores_label.tscn" id="6_05kln"]
+[ext_resource type="Script" path="res://engine/scripts/components/attack/class_attackee.gd" id="8_rh6xn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_83306"]
+size = Vector2(16, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8t7wl"]
+atlas = ExtResource("1_wrbjw")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7tlnt"]
+atlas = ExtResource("1_wrbjw")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_awv2v"]
+atlas = ExtResource("1_wrbjw")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cetgn"]
+atlas = ExtResource("3_fyecf")
+region = Rect2(0, 0, 37, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ec3jk"]
+atlas = ExtResource("3_fyecf")
+region = Rect2(74, 0, 37, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxvp2"]
+atlas = ExtResource("3_fyecf")
+region = Rect2(37, 0, 37, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ubo3f"]
+atlas = ExtResource("3_fyecf")
+region = Rect2(111, 0, 37, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6nwt1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8t7wl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7tlnt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awv2v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7tlnt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cetgn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ec3jk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cxvp2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ubo3f")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 20.0
+}]
+
+[node name="Coin" type="Area2D" groups=["item"]]
+collision_layer = 4
+collision_mask = 5
+script = ExtResource("1_876hi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_83306")
+
+[node name="HeadHit" type="Node" parent="."]
+script = ExtResource("8_rh6xn")
+filter_ids = Array[int]([1])
+filter_ids_mode = 0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_6nwt1")
+autoplay = "default"
+
+[node name="Instantiater2D" type="Node2D" parent="."]
+visible = false
+script = ExtResource("3_012et")
+
+[node name="CoinEffect" parent="Instantiater2D" instance=ExtResource("4_i83v2")]
+
+[node name="Scores" parent="Instantiater2D" instance=ExtResource("6_05kln")]
+text = "200"
+amount = 200
+metadata/_edit_pinned_properties_ = [&"amount"]
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+visible = false
+position = Vector2(4.76837e-07, 1.43051e-06)
+scale = Vector2(1.6, 1.6)
+script = ExtResource("1_d4a7o")
+
+[connection signal="coin_got" from="." to="." method="queue_free"]
+[connection signal="coin_got" from="." to="Instantiater2D" method="instantiate" binds= [0]]
+[connection signal="coin_hit" from="." to="." method="queue_free"]
+[connection signal="coin_hit" from="." to="Instantiater2D" method="instantiate_all"]
+[connection signal="on_hit_by_attacker" from="HeadHit" to="." method="hit" unbinds=1]

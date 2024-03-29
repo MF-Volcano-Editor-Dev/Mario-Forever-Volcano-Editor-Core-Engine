@@ -1,0 +1,97 @@
+[gd_scene load_steps=13 format=3 uid="uid://bxqiqpoflepne"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/physics/item_walker_2d.gd" id="1_meyx5"]
+[ext_resource type="Script" path="res://engine/scripts/entities/bonuses/items/item_powerup.gd" id="2_s0pib"]
+[ext_resource type="Texture2D" uid="uid://diq03gtki5y2j" path="res://engine/assets/gfx/objects/entities/bonus/items/fire_flower.png" id="3_aier2"]
+[ext_resource type="Script" path="res://engine/scripts/components/instantiater/class_instantiater2d.gd" id="4_1k7eq"]
+[ext_resource type="PackedScene" uid="uid://d28wktlfkunys" path="res://engine/objects/uis/counters/scores_label.tscn" id="5_56lnq"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/on_ready_visible.gd" id="6_p55ri"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3c1ts"]
+size = Vector2(32, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7syf5"]
+atlas = ExtResource("3_aier2")
+region = Rect2(66, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8hf1r"]
+atlas = ExtResource("3_aier2")
+region = Rect2(99, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u1exc"]
+atlas = ExtResource("3_aier2")
+region = Rect2(0, 0, 33, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_spr1l"]
+atlas = ExtResource("3_aier2")
+region = Rect2(33, 0, 33, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_87uv0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7syf5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8hf1r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u1exc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_spr1l")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="FireFlower" type="EntityBody2D"]
+gravity_scale = 0.4
+collision_layer = 4
+collision_mask = 8
+script = ExtResource("1_meyx5")
+effect_box_path = NodePath("EffectBox")
+initial_direction = 0
+metadata/_edit_pinned_properties_ = [&"initial_direction", &"effect_box_path"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_3c1ts")
+
+[node name="EffectBox" type="Area2D" parent="."]
+visible = false
+collision_layer = 4
+collision_mask = 5
+script = ExtResource("2_s0pib")
+requirement_powerup_level = 1
+default_powerup = &"fireball"
+fallback_powerup = &"big"
+metadata/_edit_pinned_properties_ = [&"default_powerup", &"fallback_powerup", &"requirement_powerup_level"]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="EffectBox"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_3c1ts")
+debug_color = Color(0.933333, 0.258824, 0, 0.419608)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_87uv0")
+autoplay = "default"
+
+[node name="Instantiater2D" type="Node2D" parent="."]
+visible = false
+script = ExtResource("4_1k7eq")
+
+[node name="Scores" parent="Instantiater2D" instance=ExtResource("5_56lnq")]
+text = "1000"
+amount = 1000
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+visible = false
+position = Vector2(2.08616e-07, 1.43051e-06)
+scale = Vector2(1.6, 1.6)
+script = ExtResource("6_p55ri")
+
+[connection signal="powerup_got" from="EffectBox" to="." method="queue_free"]
+[connection signal="powerup_got" from="EffectBox" to="Instantiater2D" method="instantiate_all"]

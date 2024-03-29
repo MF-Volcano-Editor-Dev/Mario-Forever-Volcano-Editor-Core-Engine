@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cej30s8jmjkc2"]
+
+[ext_resource type="PackedScene" uid="uid://jh77s512qfrr" path="res://objects/entities/enemies/#death/goomba/goomba_death.tscn" id="1_ed6ic"]
+[ext_resource type="Texture2D" uid="uid://qp6gk8snrpo1" path="res://assets/gfx/objects/entities/enemies/blooper/blooper_preparing.png" id="2_fqh7d"]
+
+[node name="BlooperDeath" instance=ExtResource("1_ed6ic")]
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_fqh7d")

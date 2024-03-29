@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://2eise5wobrbd"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/enemies/#death/enemy_death.gd" id="1_ar7mb"]
+[ext_resource type="Script" path="res://engine/scripts/components/visible_on_screen/visible_on_screen_directional.gd" id="2_wqbe7"]
+
+[node name="EnemyDeath" type="EntityBody2D"]
+gravity_scale = 0.25
+max_falling_speed = 500.0
+global_rotation_to_gravity_direction = false
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_ar7mb")
+
+[node name="VisibleOnScreenNotifierDirectional2D" type="VisibleOnScreenNotifier2D" parent="."]
+visible = false
+script = ExtResource("2_wqbe7")
+direction = 8
+with_global_transform = true
+_is_initialized = true
+
+[connection signal="screen_exited_directionally" from="VisibleOnScreenNotifierDirectional2D" to="." method="queue_free"]

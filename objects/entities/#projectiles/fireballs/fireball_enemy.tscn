@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbuq6ofytbij"]
+
+[ext_resource type="PackedScene" uid="uid://b7df0l8ps4x6v" path="res://engine/objects/entities/#projectiles/fireballs/fireball_base.tscn" id="1_of8xh"]
+[ext_resource type="Script" path="res://engine/scripts/components/enemy/class_enemy_touch.gd" id="2_n67mj"]
+
+[node name="FireballEnemy" instance=ExtResource("1_of8xh")]
+
+[node name="EffectBox" parent="." index="1"]
+collision_mask = 1
+
+[node name="EnemyTouch" type="Node" parent="EffectBox" index="1"]
+script = ExtResource("2_n67mj")
+
+[connection signal="on_touched_by" from="EffectBox/EnemyTouch" to="." method="queue_free" unbinds=1]
+[connection signal="on_touched_by" from="EffectBox/EnemyTouch" to="Instantiater2D" method="instantiate_all" unbinds=1]

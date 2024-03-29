@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cm5hb6r5eqfuw"]
+
+[ext_resource type="PackedScene" uid="uid://b7df0l8ps4x6v" path="res://engine/objects/entities/#projectiles/fireballs/fireball_base.tscn" id="1_iyb6m"]
+[ext_resource type="Script" path="res://engine/scripts/components/attack/class_attacker.gd" id="2_8davd"]
+
+[node name="FireballPlayer" instance=ExtResource("1_iyb6m")]
+
+[node name="EffectBox" parent="." index="1"]
+collision_mask = 4
+
+[node name="Attacker" type="Node" parent="EffectBox" index="1"]
+script = ExtResource("2_8davd")
+id = 5
+metadata/_edit_pinned_properties_ = [&"id"]
+
+[connection signal="jumping_times_over" from="." to="." method="queue_free"]
+[connection signal="jumping_times_over" from="." to="Instantiater2D" method="instantiate_all"]
+[connection signal="attacked_target" from="EffectBox/Attacker" to="." method="queue_free" unbinds=1]
+[connection signal="attacked_target" from="EffectBox/Attacker" to="Instantiater2D" method="instantiate_all" unbinds=1]

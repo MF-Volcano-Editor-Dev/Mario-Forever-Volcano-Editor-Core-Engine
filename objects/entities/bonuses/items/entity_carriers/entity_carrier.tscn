@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://d0546sfgmdjxp"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/physics/item_walker_2d.gd" id="1_4htlc"]
+[ext_resource type="Script" path="res://engine/scripts/components/instantiater/class_instantiater2d.gd" id="2_2df3c"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/on_ready_visible.gd" id="3_jptof"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3c1ts"]
+size = Vector2(32, 30)
+
+[node name="EntityCarrier" type="EntityBody2D"]
+collision_layer = 4
+collision_mask = 8
+script = ExtResource("1_4htlc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_3c1ts")
+
+[node name="Instantiater2D" type="Node2D" parent="."]
+script = ExtResource("2_2df3c")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+visible = false
+position = Vector2(2.08616e-07, 1.43051e-06)
+scale = Vector2(1.6, 1.6)
+script = ExtResource("3_jptof")
+
+[connection signal="started_movement" from="." to="." method="queue_free"]
+[connection signal="started_movement" from="." to="Instantiater2D" method="instantiate_all"]

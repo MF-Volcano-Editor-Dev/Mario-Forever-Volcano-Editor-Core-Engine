@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://b6gyvq2ibpx4j"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/enemies/#death/enemy_death.gd" id="1_xa87g"]
+[ext_resource type="Texture2D" uid="uid://by62qta6t3lup" path="res://engine/assets/gfx/objects/entities/enemies/spinies/spiny_iron.png" id="2_mbcni"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/sprite_flip_facing_h.gd" id="3_em6nk"]
+[ext_resource type="Script" path="res://engine/scripts/components/visible_on_screen/visible_on_screen_directional.gd" id="4_fmrr4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3hcme"]
+radius = 16.0
+
+[node name="SpinyIronDeath" type="EntityBody2D"]
+gravity_scale = 0.25
+max_falling_speed = 500.0
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_xa87g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_3hcme")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_mbcni")
+vframes = 2
+frame = 1
+script = ExtResource("3_em6nk")
+flip_position_x = true
+flip_rotaiton_speed = 400.0
+metadata/_edit_pinned_properties_ = [&"flip_rotaiton_speed"]
+
+[node name="VisibleOnScreenNotifierDirectional2D" type="VisibleOnScreenNotifier2D" parent="."]
+visible = false
+rect = Rect2(-16, -16, 32, 32)
+script = ExtResource("4_fmrr4")
+direction = 8
+with_global_transform = true
+_is_initialized = true
+
+[connection signal="screen_exited_directionally" from="VisibleOnScreenNotifierDirectional2D" to="." method="queue_free"]

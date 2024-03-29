@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://o1jx3mi81p3t"]
+
+[ext_resource type="Material" uid="uid://dwxmwsep7htcn" path="res://engine/assets/particles/bubble_underwater.tres" id="1_3vrx5"]
+[ext_resource type="Texture2D" uid="uid://lv4utypyshag" path="res://engine/assets/gfx/objects/entities/#effects/bubble.png" id="2_1kh2l"]
+[ext_resource type="Script" path="res://engine/scripts/entities/particles/underwater_bubbles.gd" id="3_vabx4"]
+
+[node name="Bubble" type="GPUParticles2D"]
+emitting = false
+amount = 4
+process_material = ExtResource("1_3vrx5")
+texture = ExtResource("2_1kh2l")
+lifetime = 3.0
+randomness = 0.5
+visibility_rect = Rect2(-26.6504, -104.691, 53.5119, 114.534)
+draw_order = 0
+script = ExtResource("3_vabx4")

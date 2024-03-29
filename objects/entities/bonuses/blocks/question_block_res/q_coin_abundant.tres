@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="QuestionBlockItemAbundant" load_steps=5 format=3 uid="uid://cm8vq6osdom6g"]
+
+[ext_resource type="PackedScene" uid="uid://da8osf4x77m36" path="res://engine/objects/entities/bonuses/items/coin.tscn" id="1_234r6"]
+[ext_resource type="Script" path="res://engine/scripts/entities/bonuses/blocks/resources/question_block_item_abundant.gd" id="1_jeg2c"]
+[ext_resource type="Texture2D" uid="uid://c8m4kwu3g4ofn" path="res://engine/assets/gfx/objects/entities/bonus/items/coin.png" id="2_mykmn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2oqgt"]
+atlas = ExtResource("2_mykmn")
+region = Rect2(0, 0, 32, 32)
+
+[resource]
+script = ExtResource("1_jeg2c")
+limitation = 0
+time = 6.0
+amount = 10
+default = ExtResource("1_234r6")
+required_powerup_level = 0
+icon = SubResource("AtlasTexture_2oqgt")

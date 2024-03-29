@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://gns06uwhf8e1"]
+
+[ext_resource type="PackedScene" uid="uid://jh77s512qfrr" path="res://objects/entities/enemies/#death/goomba/goomba_death.tscn" id="1_uynlq"]
+[ext_resource type="Texture2D" uid="uid://b1fo672avxlq2" path="res://assets/gfx/objects/entities/enemies/thwomp/thwomp.png" id="2_bom1k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uc3lf"]
+size = Vector2(48, 64)
+
+[node name="GoombaDeath" instance=ExtResource("1_uynlq")]
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_uc3lf")
+metadata/_edit_pinned_properties_ = [&"shape"]
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_bom1k")
+offset = Vector2(-1, 0)
+hframes = 10
+metadata/_edit_pinned_properties_ = [&"texture"]

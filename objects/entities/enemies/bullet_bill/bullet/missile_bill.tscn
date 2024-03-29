@@ -1,0 +1,124 @@
+[gd_scene load_steps=14 format=3 uid="uid://b6u54ly504xrm"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/physics/chasing_walker_2d.gd" id="1_qkq2w"]
+[ext_resource type="Script" path="res://engine/scripts/components/attack/class_attackee.gd" id="2_yor2e"]
+[ext_resource type="Script" path="res://engine/scripts/components/enemy/class_enemy_stompable.gd" id="3_ttfy7"]
+[ext_resource type="Texture2D" uid="uid://b0uvc2tbp1rau" path="res://engine/assets/gfx/objects/entities/enemies/bullet_bill/bullet_bill.png" id="4_v5j75"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/sprite_flip_facing_h.gd" id="5_8hold"]
+[ext_resource type="Script" path="res://engine/scripts/components/instantiater/class_enemy_killing_process.gd" id="6_xenw4"]
+[ext_resource type="PackedScene" uid="uid://dmu6yd6u7d877" path="res://engine/objects/entities/enemies/#death/bullet_bill/bullet_bill_death.tscn" id="7_at4u2"]
+[ext_resource type="PackedScene" uid="uid://d28wktlfkunys" path="res://engine/objects/uis/counters/scores_label.tscn" id="8_snsw7"]
+[ext_resource type="Script" path="res://engine/scripts/components/visible_on_screen/visible_on_screen_directional.gd" id="9_b0dnw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l8ecm"]
+radius = 16.0312
+
+[sub_resource type="Animation" id="Animation_p5ifj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_px7j0"]
+resource_name = "missile"
+length = 0.1
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.909804, 0.184314, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7f8rw"]
+_data = {
+"RESET": SubResource("Animation_p5ifj"),
+"missile": SubResource("Animation_px7j0")
+}
+
+[node name="MissileBill" type="EntityBody2D"]
+velocality = Vector2(200, -8.74228e-06)
+velocity = Vector2(200, -8.74228e-06)
+global_rotation_to_gravity_direction = false
+collision_layer = 4
+collision_mask = 0
+motion_mode = 1
+velocity = Vector2(200, -8.74228e-06)
+floor_snap_length = 4.0
+script = ExtResource("1_qkq2w")
+acceleration = 250.0
+metadata/_edit_pinned_properties_ = [&"acceleration"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_l8ecm")
+
+[node name="EffectBox" type="Area2D" parent="."]
+visible = false
+collision_layer = 4
+collision_mask = 53
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EffectBox"]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_l8ecm")
+debug_color = Color(0.964706, 0.192157, 0, 0.419608)
+
+[node name="Attackee" type="Node" parent="EffectBox"]
+script = ExtResource("2_yor2e")
+filter_ids = Array[int]([2])
+
+[node name="EnemyStompable" type="Node" parent="EffectBox"]
+script = ExtResource("3_ttfy7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("4_v5j75")
+script = ExtResource("5_8hold")
+
+[node name="EnemyKillingProcess" type="Node2D" parent="."]
+visible = false
+script = ExtResource("6_xenw4")
+immune_to_ids = Array[int]([5, 6])
+
+[node name="BulletBillDeath" parent="EnemyKillingProcess" groups=["instantiate_no_failure"] instance=ExtResource("7_at4u2")]
+
+[node name="Scores" parent="EnemyKillingProcess" groups=["instantiate_no_failure", "instantiate_no_success_combo"] instance=ExtResource("8_snsw7")]
+text = "200"
+amount = 200
+metadata/_edit_pinned_properties_ = [&"amount"]
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenNotifier2D" parent="."]
+visible = false
+position = Vector2(7.62939e-06, 4.76837e-07)
+scale = Vector2(25.6, 1.6)
+script = ExtResource("9_b0dnw")
+direction = 3
+with_global_transform = true
+_is_initialized = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_7f8rw")
+}
+autoplay = "missile"
+
+[connection signal="on_hit_by_attacker" from="EffectBox/Attackee" to="EnemyKillingProcess" method="killing_process"]
+[connection signal="on_stomp_succeeded" from="EffectBox/EnemyStompable" to="EnemyKillingProcess" method="stomp_process"]
+[connection signal="killing_succeeded" from="EnemyKillingProcess" to="." method="queue_free"]
+[connection signal="stomp_processed" from="EnemyKillingProcess" to="." method="queue_free"]
+[connection signal="screen_exited_directionally" from="VisibleOnScreenEnabler2D" to="." method="queue_free"]

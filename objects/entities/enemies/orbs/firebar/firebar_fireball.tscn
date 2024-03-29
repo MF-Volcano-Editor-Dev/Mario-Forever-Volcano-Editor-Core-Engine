@@ -1,0 +1,58 @@
+[gd_scene load_steps=11 format=3 uid="uid://12md6vcx5b82"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/physics/circular_movement_objects.gd" id="1_rdud7"]
+[ext_resource type="Script" path="res://engine/scripts/components/enemy/class_enemy_touch.gd" id="2_ihgg4"]
+[ext_resource type="Texture2D" uid="uid://dxr0dxmh544lj" path="res://engine/assets/gfx/objects/entities/projectiles/fireball.png" id="3_6de7y"]
+[ext_resource type="Texture2D" uid="uid://3i08m3gbppjg" path="res://engine/assets/gfx/objects/entities/projectiles/fireball_particle.png" id="3_8pjr0"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/sprite_flip_facing_h.gd" id="4_ia571"]
+
+[sub_resource type="Curve" id="Curve_41rex"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.493333, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.86081, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_vx7ql"]
+curve = SubResource("Curve_41rex")
+
+[sub_resource type="Curve" id="Curve_ed50b"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.00582, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ggbrl"]
+curve = SubResource("Curve_ed50b")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ojf1a"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 10.0
+initial_velocity_max = 25.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_ggbrl")
+alpha_curve = SubResource("CurveTexture_vx7ql")
+
+[node name="FireballFirebar" type="Node2D"]
+script = ExtResource("1_rdud7")
+frequency = 100.0
+metadata/_edit_pinned_properties_ = [&"frequency"]
+
+[node name="EffectBox" type="Area2D" parent="."]
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EffectBox"]
+
+[node name="EnemyTouch" type="Node" parent="EffectBox"]
+script = ExtResource("2_ihgg4")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 3
+process_material = SubResource("ParticleProcessMaterial_ojf1a")
+texture = ExtResource("3_8pjr0")
+lifetime = 0.5
+visibility_rect = Rect2(-64, -64, 128, 128)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_6de7y")
+script = ExtResource("4_ia571")
+flip_rotaiton_speed = 650.0
+metadata/_edit_pinned_properties_ = [&"flip_rotaiton_speed"]

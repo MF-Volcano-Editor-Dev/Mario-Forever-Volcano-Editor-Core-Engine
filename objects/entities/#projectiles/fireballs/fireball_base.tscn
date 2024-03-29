@@ -1,0 +1,95 @@
+[gd_scene load_steps=14 format=3 uid="uid://b7df0l8ps4x6v"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/physics/jumping_walker_2d.gd" id="1_o0yl1"]
+[ext_resource type="Texture2D" uid="uid://3i08m3gbppjg" path="res://engine/assets/gfx/objects/entities/projectiles/fireball_particle.png" id="2_lxa3f"]
+[ext_resource type="Texture2D" uid="uid://dxr0dxmh544lj" path="res://engine/assets/gfx/objects/entities/projectiles/fireball.png" id="2_ym67n"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/sprite_flip_facing_h.gd" id="4_0ihwn"]
+[ext_resource type="Script" path="res://engine/scripts/components/instantiater/class_instantiater2d.gd" id="5_80q70"]
+[ext_resource type="PackedScene" uid="uid://tog1urcypue2" path="res://engine/objects/entities/#effects/explosion_fire.tscn" id="6_dkidl"]
+[ext_resource type="Script" path="res://engine/scripts/components/visible_on_screen/visible_on_screen_directional.gd" id="7_na506"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w2obo"]
+radius = 8.0
+
+[sub_resource type="Curve" id="Curve_ovbf4"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.493333, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.86081, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_vx7ql"]
+curve = SubResource("Curve_ovbf4")
+
+[sub_resource type="Curve" id="Curve_yvcmu"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.00582, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ggbrl"]
+curve = SubResource("Curve_yvcmu")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_v5jod"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 10.0
+initial_velocity_max = 25.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_ggbrl")
+alpha_curve = SubResource("CurveTexture_vx7ql")
+
+[node name="Fireball" type="EntityBody2D"]
+damp_enabled = true
+damp_min_speed = 50.0
+gravity_scale = 0.5
+collision_layer = 4
+collision_mask = 8
+script = ExtResource("1_o0yl1")
+jumping_times = 20
+jumping_speed = 250.0
+enable_real_velocity = true
+metadata/_edit_pinned_properties_ = [&"jumping_times", &"jumping_speed"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_w2obo")
+
+[node name="EffectBox" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="EffectBox"]
+shape = SubResource("CircleShape2D_w2obo")
+debug_color = Color(0.980392, 0.133333, 0, 0.419608)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_v5jod")
+texture = ExtResource("2_lxa3f")
+lifetime = 0.1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ym67n")
+script = ExtResource("4_0ihwn")
+flip_position_x = true
+flip_rotaiton_speed = 650.0
+metadata/_edit_pinned_properties_ = [&"flip_rotaiton_speed"]
+
+[node name="Instantiater2D" type="Node2D" parent="."]
+visible = false
+script = ExtResource("5_80q70")
+
+[node name="ExplosionFire" parent="Instantiater2D" instance=ExtResource("6_dkidl")]
+
+[node name="VisibleOnScreenNotifierDirectional2D" type="VisibleOnScreenNotifier2D" parent="."]
+visible = false
+rect = Rect2(-8, -8, 16, 16)
+script = ExtResource("7_na506")
+direction = 11
+_is_initialized = true
+metadata/_edit_pinned_properties_ = [&"direction"]
+
+[connection signal="collided_ceiling" from="." to="." method="queue_free"]
+[connection signal="collided_ceiling" from="." to="Instantiater2D" method="instantiate_all"]
+[connection signal="collided_wall" from="." to="." method="queue_free"]
+[connection signal="collided_wall" from="." to="Instantiater2D" method="instantiate_all"]
+[connection signal="screen_exited_directionally" from="VisibleOnScreenNotifierDirectional2D" to="." method="queue_free"]

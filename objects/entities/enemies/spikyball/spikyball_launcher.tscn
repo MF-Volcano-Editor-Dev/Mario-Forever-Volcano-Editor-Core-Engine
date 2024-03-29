@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://b8wrmmcvkr82w"]
+
+[ext_resource type="Texture2D" uid="uid://h8mvqcol5eyb" path="res://engine/assets/gfx/objects/entities/enemies/spikyball_launcher/spikyballl_launcher.png" id="1_eu76h"]
+[ext_resource type="Script" path="res://engine/scripts/entities/enemies/spiky_ball/spikyball_launcher.gd" id="1_gbrwv"]
+[ext_resource type="Script" path="res://engine/scripts/components/instantiater/class_instantiater2d.gd" id="2_rb4m0"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/on_ready_visible.gd" id="3_hmf4r"]
+[ext_resource type="PackedScene" uid="uid://tog1urcypue2" path="res://engine/objects/entities/#effects/explosion_fire.tscn" id="3_kcrc7"]
+[ext_resource type="PackedScene" uid="uid://bjf8sn44v2u36" path="res://engine/objects/entities/#projectiles/spikyballs/spikyball_enemy.tscn" id="4_uut7t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_43ctd"]
+size = Vector2(64, 40)
+
+[node name="SpikyballLauncher" type="AnimatableBody2D"]
+collision_layer = 10
+collision_mask = 5
+script = ExtResource("1_gbrwv")
+launching_central_angle = 45.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 12)
+shape = SubResource("RectangleShape2D_43ctd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_eu76h")
+
+[node name="Launcher" type="Node2D" parent="."]
+visible = false
+script = ExtResource("2_rb4m0")
+
+[node name="ExplosionFire" parent="Launcher" instance=ExtResource("3_kcrc7")]
+
+[node name="SpikyballEnemy" parent="Launcher" instance=ExtResource("4_uut7t")]
+
+[node name="TimerInterval" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+visible = false
+position = Vector2(1.90735e-06, 8)
+scale = Vector2(3.2, 2.4)
+script = ExtResource("3_hmf4r")

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://ce28yo7na7g27"]
+
+[ext_resource type="PackedScene" uid="uid://dwktt7v0x867s" path="res://engine/objects/entities/#projectiles/hammers/hammer_base.tscn" id="1_5l7ul"]
+[ext_resource type="Script" path="res://engine/scripts/components/enemy/class_enemy_touch.gd" id="2_swo8y"]
+
+[node name="HammerEnemy" instance=ExtResource("1_5l7ul")]
+
+[node name="EffectBox" parent="." index="1"]
+collision_mask = 1
+metadata/_edit_pinned_properties_ = [&"collision_mask"]
+
+[node name="EnemyTouch" type="Node" parent="EffectBox" index="1"]
+script = ExtResource("2_swo8y")

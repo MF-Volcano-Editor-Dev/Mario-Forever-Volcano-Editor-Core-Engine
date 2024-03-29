@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://hofq6lwouer5"]
+
+[ext_resource type="PackedScene" uid="uid://b7xxcal305dss" path="res://engine/objects/entities/#projectiles/silver_hammers/silver_hammer_base.tscn" id="1_jm3ai"]
+[ext_resource type="Script" path="res://engine/scripts/components/attack/class_attacker.gd" id="2_vdd4y"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pa2b3"]
+radius = 16.0
+
+[node name="SilverHammerBase" instance=ExtResource("1_jm3ai")]
+
+[node name="EffectBox" type="Area2D" parent="." index="2"]
+visible = false
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EffectBox" index="0"]
+shape = SubResource("CircleShape2D_pa2b3")
+debug_color = Color(1, 0, 0.0901961, 0.419608)
+
+[node name="Attacker" type="Node" parent="EffectBox" index="1"]
+script = ExtResource("2_vdd4y")
+id = 7
+metadata/_edit_pinned_properties_ = [&"id"]

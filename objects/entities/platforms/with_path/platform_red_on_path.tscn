@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://ceoc2bd1yn0j"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/platforms/platform_path_2d.gd" id="1_7rpdv"]
+[ext_resource type="PackedScene" uid="uid://j8svcol1xe" path="res://engine/objects/entities/platforms/platform_red.tscn" id="2_lvr36"]
+
+[node name="Platform" type="Path2D"]
+
+[node name="PlatformPathFollower2D" type="PathFollow2D" parent="."]
+loop = false
+script = ExtResource("1_7rpdv")
+transformer_path = NodePath("PlatformTransRemoter2D")
+
+[node name="PlatformTransRemoter2D" type="RemoteTransform2D" parent="PlatformPathFollower2D"]
+remote_path = NodePath("../../Platform")
+update_rotation = false
+
+[node name="Platform" parent="." instance=ExtResource("2_lvr36")]

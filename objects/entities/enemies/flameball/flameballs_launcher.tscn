@@ -1,0 +1,58 @@
+[gd_scene load_steps=9 format=3 uid="uid://roa7gs2dobj"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/enemies/flameball/flameballs_launcher.gd" id="1_y86lc"]
+[ext_resource type="Texture2D" uid="uid://cckps7h0c0y4g" path="res://engine/assets/gfx/objects/entities/enemies/flameball_launcher/flameball_launcher_head.png" id="2_mhhwq"]
+[ext_resource type="Script" path="res://engine/scripts/components/instantiater/class_instantiater2d.gd" id="3_5r8qc"]
+[ext_resource type="Texture2D" uid="uid://xulmt4ly6nxi" path="res://engine/assets/gfx/objects/entities/enemies/flameball_launcher/flameball_launcher_tail.png" id="3_vnfa3"]
+[ext_resource type="PackedScene" uid="uid://u83r1exlv46g" path="res://engine/objects/entities/#projectiles/flameball/flameball_enemy.tscn" id="4_tabd4"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/on_ready_visible.gd" id="5_k5o1t"]
+[ext_resource type="Script" path="res://engine/scripts/entities/physics/jumping_walker_2d.gd" id="6_muh52"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a6kg6"]
+size = Vector2(64, 32)
+
+[node name="FlameballLauncher" type="AnimatableBody2D"]
+collision_layer = 10
+collision_mask = 0
+script = ExtResource("1_y86lc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+process_mode = 1
+visible = false
+position = Vector2(16, 0)
+shape = SubResource("RectangleShape2D_a6kg6")
+
+[node name="Head" type="Sprite2D" parent="."]
+texture = ExtResource("2_mhhwq")
+centered = false
+offset = Vector2(-16, -16)
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 32)
+
+[node name="Tail" type="Sprite2D" parent="Head"]
+position = Vector2(32, 0)
+texture = ExtResource("3_vnfa3")
+
+[node name="Instantiater2D" type="Node2D" parent="."]
+visible = false
+show_behind_parent = true
+position = Vector2(-8, 0)
+script = ExtResource("3_5r8qc")
+
+[node name="FlameballEnemy" parent="Instantiater2D" instance=ExtResource("4_tabd4")]
+velocality = Vector2(412.5, 4.72937e-11)
+velocity = Vector2(412.5, -1.80309e-05)
+velocity = Vector2(412.5, -1.80309e-05)
+script = ExtResource("6_muh52")
+jumping_times = -1
+jumping_speed = 0.0
+
+[node name="TimerInterval" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+visible = false
+position = Vector2(-3.81469e-07, 1.43051e-06)
+scale = Vector2(1.6, 1.6)
+script = ExtResource("5_k5o1t")

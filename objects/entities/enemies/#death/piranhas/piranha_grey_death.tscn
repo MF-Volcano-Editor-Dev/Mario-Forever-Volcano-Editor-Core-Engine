@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpat15wcgc0xc"]
+
+[ext_resource type="PackedScene" uid="uid://bev5s4tli31dl" path="res://objects/entities/enemies/#death/piranhas/piranha_green_death.tscn" id="1_vcl0k"]
+[ext_resource type="Texture2D" uid="uid://gkxv37wh8p03" path="res://assets/gfx/objects/entities/enemies/piranha/piranha_head_gray.png" id="2_ijnqh"]
+
+[node name="PiranhaGreenDeath" instance=ExtResource("1_vcl0k")]
+
+[node name="Head" parent="." index="1"]
+texture = ExtResource("2_ijnqh")
+metadata/_edit_pinned_properties_ = [&"texture"]

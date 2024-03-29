@@ -1,0 +1,288 @@
+[gd_scene load_steps=37 format=3 uid="uid://dm670pr38isks"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/enemies/bowser/bowser.gd" id="1_u0h8j"]
+[ext_resource type="Script" path="res://engine/scripts/components/attack/class_attackee.gd" id="2_itpdc"]
+[ext_resource type="Script" path="res://engine/scripts/components/enemy/class_enemy_stompable.gd" id="3_gj6jc"]
+[ext_resource type="Texture2D" uid="uid://dcnggxokf1d5t" path="res://engine/assets/gfx/objects/entities/enemies/bowser/bowser_idle.png" id="4_dna2u"]
+[ext_resource type="Texture2D" uid="uid://3mxw0icd2m3q" path="res://engine/assets/gfx/objects/entities/enemies/bowser/bowser_burst.png" id="4_onfcb"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/sprite_flip_facing_h.gd" id="5_5ddd5"]
+[ext_resource type="Texture2D" uid="uid://bk3xjsawl3i84" path="res://engine/assets/gfx/objects/entities/enemies/bowser/bowser_jump.png" id="5_ds66a"]
+[ext_resource type="Texture2D" uid="uid://bpcw7auo0q2o6" path="res://engine/assets/gfx/objects/entities/enemies/bowser/bowser_flame.png" id="5_f3yci"]
+[ext_resource type="Script" path="res://engine/scripts/components/instantiater/class_enemy_killing_process.gd" id="6_fb1y1"]
+[ext_resource type="Texture2D" uid="uid://d2obe87nmgrb4" path="res://engine/assets/gfx/objects/entities/enemies/bowser/bowser_triple_flame.png" id="7_12y05"]
+[ext_resource type="Texture2D" uid="uid://cnafsbq1ebcmb" path="res://engine/assets/gfx/objects/entities/enemies/bowser/bowser_hammer.png" id="7_jn6p7"]
+[ext_resource type="Script" path="res://engine/scripts/components/instantiater/class_instantiater2d.gd" id="8_mm1ym"]
+[ext_resource type="PackedScene" uid="uid://c2emtxs7wdx4q" path="res://engine/objects/entities/enemies/#death/bowser/bowser_death.tscn" id="9_fnw5w"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/on_ready_visible.gd" id="10_k1ela"]
+[ext_resource type="PackedScene" uid="uid://c4fjmx6pfp0xp" path="res://engine/objects/uis/huds/bowser_health.tscn" id="13_4xmdl"]
+[ext_resource type="PackedScene" uid="uid://fjy05w2ma1lj" path="res://engine/objects/entities/#projectiles/flame/flame_enemy.tscn" id="13_dyhwe"]
+[ext_resource type="PackedScene" uid="uid://ce28yo7na7g27" path="res://engine/objects/entities/#projectiles/hammers/hammer_enemy.tscn" id="14_a7ksb"]
+[ext_resource type="PackedScene" uid="uid://dy3mf177bgoj0" path="res://engine/objects/entities/#projectiles/flameball/flameball_bowser.tscn" id="14_acxmu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_50jj2"]
+size = Vector2(63.9998, 64.0002)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4srw4"]
+atlas = ExtResource("4_dna2u")
+region = Rect2(0, 0, 64, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2hoal"]
+atlas = ExtResource("4_dna2u")
+region = Rect2(0, 72, 64, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jpiy7"]
+atlas = ExtResource("4_dna2u")
+region = Rect2(0, 144, 64, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vcf4e"]
+atlas = ExtResource("5_f3yci")
+region = Rect2(0, 144, 64, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yedj0"]
+atlas = ExtResource("5_f3yci")
+region = Rect2(0, 0, 64, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ajwk3"]
+atlas = ExtResource("5_f3yci")
+region = Rect2(0, 72, 64, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v0nm6"]
+atlas = ExtResource("7_12y05")
+region = Rect2(0, 0, 64, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t13ou"]
+atlas = ExtResource("7_12y05")
+region = Rect2(0, 72, 64, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8k07y"]
+atlas = ExtResource("7_12y05")
+region = Rect2(0, 144, 64, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4a1f7"]
+atlas = ExtResource("7_jn6p7")
+region = Rect2(0, 0, 64, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lv83b"]
+atlas = ExtResource("7_jn6p7")
+region = Rect2(0, 72, 64, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lfgtj"]
+atlas = ExtResource("5_ds66a")
+region = Rect2(0, 0, 64, 74)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nvn21"]
+atlas = ExtResource("4_onfcb")
+region = Rect2(0, 0, 64, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jcfo7"]
+atlas = ExtResource("4_onfcb")
+region = Rect2(0, 72, 64, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mv4j5"]
+atlas = ExtResource("4_onfcb")
+region = Rect2(0, 144, 64, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vcbvq"]
+atlas = ExtResource("5_f3yci")
+region = Rect2(0, 144, 64, 72)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_igpi6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4srw4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2hoal")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4srw4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jpiy7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vcf4e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yedj0")
+}, {
+"duration": 7.0,
+"texture": SubResource("AtlasTexture_ajwk3")
+}],
+"loop": false,
+"name": &"flame",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v0nm6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t13ou")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8k07y")
+}],
+"loop": true,
+"name": &"flame_charged",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4a1f7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lv83b")
+}],
+"loop": true,
+"name": &"hammer",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lfgtj")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nvn21")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jcfo7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mv4j5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jcfo7")
+}],
+"loop": true,
+"name": &"laugh",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_vcbvq")
+}],
+"loop": false,
+"name": &"open_mouth",
+"speed": 10.0
+}]
+
+[node name="Bowser" type="EntityBody2D" groups=["boss"]]
+velocality = Vector2(100, -1.36424e-12)
+velocity = Vector2(100, -4.37114e-06)
+gravity_scale = 0.2
+process_mode = 4
+collision_layer = 4
+collision_mask = 8
+velocity = Vector2(100, -4.37114e-06)
+floor_snap_length = 4.0
+script = ExtResource("1_u0h8j")
+initial_direction = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0.000176731, 9.82285e-05)
+rotation = -1.57079
+shape = SubResource("RectangleShape2D_50jj2")
+
+[node name="EffectBox" type="Area2D" parent="." groups=["entity_collidable"]]
+visible = false
+collision_layer = 4
+collision_mask = 53
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EffectBox"]
+shape = SubResource("RectangleShape2D_50jj2")
+debug_color = Color(0.964706, 0.192157, 0, 0.419608)
+
+[node name="Attackee" type="Node" parent="EffectBox"]
+script = ExtResource("2_itpdc")
+
+[node name="EnemyStompable" type="Node" parent="EffectBox"]
+script = ExtResource("3_gj6jc")
+sound_stomped = null
+metadata/_edit_pinned_properties_ = [&"sound_stomped"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -4)
+sprite_frames = SubResource("SpriteFrames_igpi6")
+autoplay = "default"
+script = ExtResource("5_5ddd5")
+
+[node name="RemoFlame" type="RemoteTransform2D" parent="AnimatedSprite2D"]
+position = Vector2(16, -4)
+remote_path = NodePath("../../Flame")
+script = ExtResource("5_5ddd5")
+flip_position_x = true
+
+[node name="RemoHammer" type="RemoteTransform2D" parent="AnimatedSprite2D"]
+visible = false
+position = Vector2(22, 1)
+remote_path = NodePath("../../Hammer")
+script = ExtResource("5_5ddd5")
+flip_position_x = true
+
+[node name="EnemyKillingProcess" type="Node2D" parent="."]
+visible = false
+script = ExtResource("6_fb1y1")
+
+[node name="Flame" type="Node2D" parent="."]
+visible = false
+position = Vector2(16, -8)
+script = ExtResource("8_mm1ym")
+
+[node name="FlameballEnemy" parent="Flame" instance=ExtResource("13_dyhwe")]
+editor_description = "Should be the first child!"
+
+[node name="FlameballEnemy2" parent="Flame" instance=ExtResource("14_acxmu")]
+editor_description = "Should be the second child!"
+
+[node name="Hammer" type="Node2D" parent="."]
+visible = false
+position = Vector2(22, -3)
+script = ExtResource("8_mm1ym")
+
+[node name="HammerEnemy" parent="Hammer" instance=ExtResource("14_a7ksb")]
+
+[node name="Corpse" type="Node2D" parent="."]
+visible = false
+script = ExtResource("8_mm1ym")
+
+[node name="BowserDeath" parent="Corpse" instance=ExtResource("9_fnw5w")]
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenNotifier2D" parent="."]
+process_mode = 1
+visible = false
+position = Vector2(2.27374e-13, -4)
+scale = Vector2(3.2, 3.6)
+script = ExtResource("10_k1ela")
+
+[node name="TimerHalt" type="Timer" parent="."]
+one_shot = true
+
+[node name="TimerJump" type="Timer" parent="."]
+one_shot = true
+
+[node name="TimerAttack" type="Timer" parent="."]
+one_shot = true
+
+[node name="BowserHealth" parent="." instance=ExtResource("13_4xmdl")]
+
+[connection signal="bowser_defeated" from="." to="." method="_on_bowser_defeated"]
+[connection signal="bowser_defeated" from="." to="." method="queue_free"]
+[connection signal="collided_wall" from="." to="." method="turn_wall"]
+[connection signal="on_hit_by_attacker" from="EffectBox/Attackee" to="EnemyKillingProcess" method="killing_process"]
+[connection signal="on_stomp_succeeded" from="EffectBox/EnemyStompable" to="EnemyKillingProcess" method="stomp_process"]
+[connection signal="killing_succeeded" from="EnemyKillingProcess" to="." method="_on_attacker_attacked"]
+[connection signal="stomp_processed" from="EnemyKillingProcess" to="." method="_on_stomped"]
+[connection signal="screen_entered" from="VisibleOnScreenEnabler2D" to="." method="_on_bowser_entered_screen"]

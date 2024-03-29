@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://b7k1en2v1osja"]
+
+[ext_resource type="PackedScene" uid="uid://bxqiqpoflepne" path="res://objects/entities/bonuses/items/fire_flower.tscn" id="1_tf6kk"]
+[ext_resource type="Texture2D" uid="uid://b7y67pgo6yuiv" path="res://assets/gfx/objects/entities/bonus/items/beetroot.png" id="2_l8ogf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f10mi"]
+atlas = ExtResource("2_l8ogf")
+region = Rect2(0, 0, 27, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qcg8g"]
+atlas = ExtResource("2_l8ogf")
+region = Rect2(27, 0, 27, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8snng"]
+atlas = ExtResource("2_l8ogf")
+region = Rect2(54, 0, 27, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_guvfd"]
+atlas = ExtResource("2_l8ogf")
+region = Rect2(81, 0, 27, 33)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qrkdy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f10mi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qcg8g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8snng")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_guvfd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Beetroot" instance=ExtResource("1_tf6kk")]
+gravity_scale = 0.5
+metadata/_edit_pinned_properties_ = [&"gravity_scale"]
+
+[node name="EffectBox" parent="." index="1"]
+requirement_powerup_level = 1
+default_powerup = &"beetroot"
+metadata/_edit_pinned_properties_ = [&"default_powerup", &"requirement_powerup_level"]
+
+[node name="AnimatedSprite2D" parent="." index="2"]
+sprite_frames = SubResource("SpriteFrames_qrkdy")
+metadata/_edit_pinned_properties_ = [&"sprite_frames"]

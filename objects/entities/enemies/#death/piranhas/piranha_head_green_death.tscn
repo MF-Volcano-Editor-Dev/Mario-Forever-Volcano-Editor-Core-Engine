@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbdfsoyd37ee3"]
+
+[ext_resource type="PackedScene" uid="uid://jh77s512qfrr" path="res://objects/entities/enemies/#death/goomba/goomba_death.tscn" id="1_0f8nw"]
+[ext_resource type="Texture2D" uid="uid://c1qrpffgh84e7" path="res://assets/gfx/objects/entities/enemies/piranha/piranha_head_green.png" id="2_anngg"]
+
+[node name="PiranhaHeadGreenDeath" instance=ExtResource("1_0f8nw")]
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(-1, 0)
+texture = ExtResource("2_anngg")
+hframes = 4

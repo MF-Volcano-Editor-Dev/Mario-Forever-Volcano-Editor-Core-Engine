@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   height="16"
+   viewBox="0 0 16 16"
+   width="16"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="behaviors_center.svg"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#111111"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="31.3125"
+     inkscape:cx="8"
+     inkscape:cy="6.3393214"
+     inkscape:window-width="1366"
+     inkscape:window-height="697"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <circle
+     cx="8.0718231"
+     cy="6.475018"
+     r="4.873559"
+     fill="none"
+     stroke-width="1.94942"
+     stroke="#8da5f3"
+     id="circle1"
+     style="stroke:#e8ce27;stroke-opacity:1" />
+  <circle
+     style="fill:#e8ce27;fill-opacity:1;stroke:none;stroke-width:2.2705;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;paint-order:markers stroke fill"
+     id="path1"
+     cx="8.102953"
+     cy="6.475018"
+     r="2.1945608" />
+  <rect
+     style="fill:none;fill-opacity:1;stroke:#e8ce27;stroke-width:1.94844;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1;paint-order:stroke fill markers"
+     id="rect1"
+     width="0.027509069"
+     height="3.2670255"
+     x="8.0801506"
+     y="11.384997" />
+</svg>

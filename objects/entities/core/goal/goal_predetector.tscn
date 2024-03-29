@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://bmwc6v75lebwb"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/goal/goal_pre_detector.gd" id="1_q5hhr"]
+[ext_resource type="Texture2D" uid="uid://bu0t7vxntnt1k" path="res://engine/assets/gfx/objects/entities/core/goal/goal_gate_detector.png" id="2_ivbym"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uquoj"]
+atlas = ExtResource("2_ivbym")
+region = Rect2(0, 0, 31, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vjptj"]
+atlas = ExtResource("2_ivbym")
+region = Rect2(0, 32, 31, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i08lm"]
+atlas = ExtResource("2_ivbym")
+region = Rect2(0, 64, 31, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dmy2n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uquoj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vjptj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i08lm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vjptj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 25.0
+}]
+
+[node name="GoalPreDetector" type="Node2D"]
+script = ExtResource("1_q5hhr")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+z_index = -5
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_dmy2n")
+autoplay = "default"

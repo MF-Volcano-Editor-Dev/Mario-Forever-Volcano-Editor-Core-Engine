@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://jjcm44c8tds3"]
+
+[ext_resource type="PackedScene" uid="uid://oi5vyigqsaq1" path="res://engine/objects/entities/characters/mario/power-ups/mario_big.tscn" id="1_hep3t"]
+[ext_resource type="SpriteFrames" uid="uid://bxwr607ejynqa" path="res://engine/objects/entities/characters/mario/power-ups/animations/anim_mario_fireball.tres" id="2_omltk"]
+[ext_resource type="Script" path="res://engine/scripts/components/instantiater/class_instantiater2d.gd" id="3_4ik2q"]
+[ext_resource type="PackedScene" uid="uid://cm5hb6r5eqfuw" path="res://engine/objects/entities/#projectiles/fireballs/fireball_player.tscn" id="4_lk2jk"]
+[ext_resource type="Script" path="res://engine/scripts/entities/characters/mario/states/mario_non_climbing_projectile.gd" id="4_o3tyu"]
+[ext_resource type="AudioStream" uid="uid://c4wx7vkqy1cd4" path="res://engine/assets/sounds/shoot.wav" id="6_6t1b6"]
+
+[node name="MarioFireball" instance=ExtResource("1_hep3t")]
+powerup_id = &"fireball"
+down_to_powerup_id = &"big"
+powerup_level = 2
+metadata/_edit_pinned_properties_ = [&"powerup_id", &"down_to_powerup_id", &"powerup_level"]
+
+[node name="AnimatedSprite2D" parent="." index="4"]
+sprite_frames = ExtResource("2_omltk")
+
+[node name="Projectile" type="Node2D" parent="." index="6"]
+visible = false
+position = Vector2(0, -22)
+script = ExtResource("3_4ik2q")
+root_path = NodePath("../..")
+metadata/_edit_pinned_properties_ = [&"root_path"]
+
+[node name="FireballPlayer" parent="Projectile" index="0" instance=ExtResource("4_lk2jk")]
+velocality = Vector2(412.5, -1)
+velocity = Vector2(412.5, -1.00002)
+velocity = Vector2(412.5, -1.00002)
+metadata/_edit_pinned_properties_ = [&"velocality"]
+
+[node name="NonClimbing" parent="StateMachine" index="0"]
+script = ExtResource("4_o3tyu")
+projectile_instantiater_path = NodePath("../../Projectile")
+projectile_id = 4
+projectile_max_amount = 2
+sound_projectile = ExtResource("6_6t1b6")
+metadata/_edit_pinned_properties_ = [&"script"]

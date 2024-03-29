@@ -1,0 +1,17 @@
+[remap]
+
+importer="dt.abfi"
+type="FontFile"
+uid="uid://bfwu40p3hdvgu"
+path="res://.godot/imported/hud_font.png-90c63e41a37a454afb49e579e23ddc42.fontdata"
+
+[deps]
+
+source_file="res://engine/assets/fonts/hud_font.png"
+dest_files=["res://.godot/imported/hud_font.png-90c63e41a37a454afb49e579e23ddc42.fontdata"]
+
+[params]
+
+ranges=PackedStringArray(" ", "z", "×", "×")
+letter_spacing=0
+mipmaps=false

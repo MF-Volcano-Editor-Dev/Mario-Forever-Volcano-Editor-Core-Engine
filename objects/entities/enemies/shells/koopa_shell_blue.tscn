@@ -1,0 +1,159 @@
+[gd_scene load_steps=21 format=3 uid="uid://b3j2ki68blqrr"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/enemies/shells/shell.gd" id="1_iu0xh"]
+[ext_resource type="Script" path="res://engine/scripts/components/collision/bumper_2d.gd" id="2_ciut0"]
+[ext_resource type="Texture2D" uid="uid://cinx7eh0sqr8j" path="res://engine/assets/gfx/objects/entities/enemies/shells/shell_koopa_blue.png" id="2_mubnl"]
+[ext_resource type="Script" path="res://engine/scripts/components/entity/entity_solidity.gd" id="3_kfia4"]
+[ext_resource type="Script" path="res://engine/scripts/components/enemy/class_enemy_stompable.gd" id="4_tputa"]
+[ext_resource type="Script" path="res://engine/scripts/components/attack/class_attacker.gd" id="5_7gvwg"]
+[ext_resource type="Script" path="res://engine/scripts/components/attack/class_attackee.gd" id="6_u0uox"]
+[ext_resource type="Script" path="res://engine/scripts/components/bonus/class_combo.gd" id="7_k80rl"]
+[ext_resource type="Script" path="res://engine/scripts/components/instantiater/class_enemy_killing_process.gd" id="9_5s6ik"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/sprite_flip_facing_h.gd" id="9_7vv2s"]
+[ext_resource type="PackedScene" uid="uid://japk33e6nfj1" path="res://engine/objects/entities/enemies/#death/shells/shell_koopa_blue_death.tscn" id="10_muc2e"]
+[ext_resource type="PackedScene" uid="uid://d28wktlfkunys" path="res://engine/objects/uis/counters/scores_label.tscn" id="11_4e443"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/on_ready_visible.gd" id="12_c5jvi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_apsub"]
+size = Vector2(32, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rs78c"]
+atlas = ExtResource("2_mubnl")
+region = Rect2(96, 0, 32, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n3yen"]
+atlas = ExtResource("2_mubnl")
+region = Rect2(0, 0, 32, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jk78s"]
+atlas = ExtResource("2_mubnl")
+region = Rect2(96, 0, 32, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e8c7f"]
+atlas = ExtResource("2_mubnl")
+region = Rect2(64, 0, 32, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8kg2t"]
+atlas = ExtResource("2_mubnl")
+region = Rect2(32, 0, 32, 28)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gfv64"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rs78c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n3yen")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jk78s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e8c7f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8kg2t")
+}],
+"loop": true,
+"name": &"run",
+"speed": 30.0
+}]
+
+[node name="KoopaShellBlue" type="EntityBody2D"]
+velocality = Vector2(350, -1.45519e-11)
+velocity = Vector2(350, -1.5299e-05)
+gravity_scale = 0.5
+collision_layer = 4
+collision_mask = 8
+velocity = Vector2(350, -1.5299e-05)
+floor_snap_length = 4.0
+script = ExtResource("1_iu0xh")
+initial_direction = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_apsub")
+
+[node name="Bumper2D" type="ShapeCast2D" parent="." groups=["bricks_breakable", "bumper_head", "bumper_side"]]
+visible = false
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_apsub")
+target_position = Vector2(0, 0)
+margin = 0.5
+max_results = 4
+collision_mask = 72
+script = ExtResource("2_ciut0")
+body_path = NodePath("../EffectBox")
+
+[node name="EffectBox" type="Area2D" parent="." groups=["entity_collidable"]]
+visible = false
+collision_layer = 4
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EffectBox"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_apsub")
+debug_color = Color(0.960784, 0.196078, 0, 0.419608)
+
+[node name="EntitySolidity" type="Node" parent="EffectBox"]
+script = ExtResource("3_kfia4")
+
+[node name="EnemyStompable" type="Node" parent="EffectBox"]
+script = ExtResource("4_tputa")
+
+[node name="Attacker" type="Node" parent="EffectBox" groups=["combo"]]
+script = ExtResource("5_7gvwg")
+id = 4
+metadata/_edit_pinned_properties_ = [&"id"]
+
+[node name="Attackee" type="Node" parent="EffectBox"]
+script = ExtResource("6_u0uox")
+
+[node name="Combo" type="Node" parent="EffectBox"]
+script = ExtResource("7_k80rl")
+body_path = NodePath("../..")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 2)
+sprite_frames = SubResource("SpriteFrames_gfv64")
+autoplay = "default"
+script = ExtResource("9_7vv2s")
+metadata/_edit_pinned_properties_ = [&"sprite_frames"]
+
+[node name="EnemyAttackProcess2D" type="Node2D" parent="."]
+visible = false
+script = ExtResource("9_5s6ik")
+
+[node name="ShellKoopaBlueDeath" parent="EnemyAttackProcess2D" groups=["instantiate_no_stomp"] instance=ExtResource("10_muc2e")]
+
+[node name="Scores" parent="EnemyAttackProcess2D" groups=["instantiate_no_success_combo"] instance=ExtResource("11_4e443")]
+text = "100"
+amount = 100
+metadata/_edit_pinned_properties_ = [&"amount"]
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+visible = false
+position = Vector2(1.43051e-06, 2)
+scale = Vector2(1.6, 1.4)
+script = ExtResource("12_c5jvi")
+
+[connection signal="collided_wall" from="." to="." method="turn_wall"]
+[connection signal="shell_moved" from="." to="EffectBox" method="remove_from_group" binds= [&"entity_collidable"]]
+[connection signal="shell_moved" from="." to="AnimatedSprite2D" method="play" binds= [&"run"]]
+[connection signal="shell_stopped" from="." to="EffectBox/Combo" method="reset"]
+[connection signal="shell_stopped" from="." to="EffectBox" method="add_to_group" binds= [&"entity_collidable"]]
+[connection signal="shell_stopped" from="." to="AnimatedSprite2D" method="play" binds= [&"default"]]
+[connection signal="on_stomp_failed" from="EffectBox/EnemyStompable" to="." method="_on_shell_kicked"]
+[connection signal="on_stomp_succeeded" from="EffectBox/EnemyStompable" to="." method="_on_shell_stomp_succeeded"]
+[connection signal="on_stomp_succeeded" from="EffectBox/EnemyStompable" to="EnemyAttackProcess2D" method="stomp_process"]
+[connection signal="attack_failed" from="EffectBox/Attacker" to="EnemyAttackProcess2D" method="forced_kill"]
+[connection signal="attack_succeeded" from="EffectBox/Attacker" to="EffectBox/Combo" method="combo"]
+[connection signal="on_hit_by_attacker" from="EffectBox/Attackee" to="EnemyAttackProcess2D" method="killing_process"]
+[connection signal="killing_succeeded" from="EnemyAttackProcess2D" to="." method="queue_free"]

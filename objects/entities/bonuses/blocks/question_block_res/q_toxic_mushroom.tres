@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="QuestionBlockItem" load_steps=5 format=3 uid="uid://bn3j55v203vvu"]
+
+[ext_resource type="PackedScene" uid="uid://dimaup6ouxgst" path="res://engine/objects/entities/bonuses/items/toxic_mushroom.tscn" id="1_u8agx"]
+[ext_resource type="Texture2D" uid="uid://4blcadyfnfle" path="res://engine/assets/gfx/objects/entities/bonus/items/toxic_mushroom.png" id="2_ehth7"]
+[ext_resource type="Script" path="res://engine/scripts/entities/bonuses/blocks/resources/question_block_item.gd" id="3_3ckpw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r1k32"]
+atlas = ExtResource("2_ehth7")
+region = Rect2(0, 0, 32, 32)
+
+[resource]
+script = ExtResource("3_3ckpw")
+default = ExtResource("1_u8agx")
+required_powerup_level = -5
+icon = SubResource("AtlasTexture_r1k32")

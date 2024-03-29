@@ -1,0 +1,59 @@
+[gd_resource type="Resource" script_class="ComboBonusList" load_steps=12 format=3 uid="uid://buhpbb2i2f5yf"]
+
+[ext_resource type="Script" path="res://engine/scripts/components/bonus/combo_bonus.gd" id="1_puvl5"]
+[ext_resource type="Script" path="res://engine/scripts/components/bonus/combo_bonus_list.gd" id="1_xoklr"]
+[ext_resource type="AudioStream" uid="uid://be3uvqev2c1p6" path="res://engine/assets/sounds/kick.wav" id="2_snuhx"]
+[ext_resource type="AudioStream" uid="uid://dxg5kc3bpqmxp" path="res://engine/assets/sounds/life_up.wav" id="2_yntki"]
+
+[sub_resource type="Resource" id="Resource_dlhgi"]
+script = ExtResource("1_puvl5")
+bonus_type = 0
+bonus_amount = 100
+sound_bonus = ExtResource("2_snuhx")
+sound_pitch = 1.0
+
+[sub_resource type="Resource" id="Resource_b8p40"]
+script = ExtResource("1_puvl5")
+bonus_type = 0
+bonus_amount = 200
+sound_bonus = ExtResource("2_snuhx")
+sound_pitch = 1.16
+
+[sub_resource type="Resource" id="Resource_hpbfb"]
+script = ExtResource("1_puvl5")
+bonus_type = 0
+bonus_amount = 500
+sound_bonus = ExtResource("2_snuhx")
+sound_pitch = 1.32
+
+[sub_resource type="Resource" id="Resource_0u1d3"]
+script = ExtResource("1_puvl5")
+bonus_type = 0
+bonus_amount = 1000
+sound_bonus = ExtResource("2_snuhx")
+sound_pitch = 1.48
+
+[sub_resource type="Resource" id="Resource_qlaa6"]
+script = ExtResource("1_puvl5")
+bonus_type = 0
+bonus_amount = 2000
+sound_bonus = ExtResource("2_snuhx")
+sound_pitch = 1.64
+
+[sub_resource type="Resource" id="Resource_r2q7r"]
+script = ExtResource("1_puvl5")
+bonus_type = 0
+bonus_amount = 5000
+sound_bonus = ExtResource("2_snuhx")
+sound_pitch = 1.8
+
+[sub_resource type="Resource" id="Resource_42lfu"]
+script = ExtResource("1_puvl5")
+bonus_type = 1
+bonus_amount = 1
+sound_bonus = ExtResource("2_yntki")
+sound_pitch = 1.0
+
+[resource]
+script = ExtResource("1_xoklr")
+bonuses = Array[ExtResource("1_puvl5")]([SubResource("Resource_dlhgi"), SubResource("Resource_b8p40"), SubResource("Resource_hpbfb"), SubResource("Resource_0u1d3"), SubResource("Resource_qlaa6"), SubResource("Resource_r2q7r"), SubResource("Resource_42lfu")])

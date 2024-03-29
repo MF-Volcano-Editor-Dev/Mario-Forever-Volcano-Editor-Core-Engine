@@ -1,0 +1,95 @@
+[gd_scene load_steps=15 format=3 uid="uid://f2odvfw05me7"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/enemies/bloopers/blooper.gd" id="1_lcus8"]
+[ext_resource type="Script" path="res://engine/scripts/components/attack/class_attackee.gd" id="2_q7uun"]
+[ext_resource type="Script" path="res://engine/scripts/components/enemy/class_enemy_touch.gd" id="3_rwy4j"]
+[ext_resource type="Texture2D" uid="uid://cku1qakepxl5y" path="res://engine/assets/gfx/objects/entities/enemies/blooper/blooper.png" id="4_c3bc2"]
+[ext_resource type="Texture2D" uid="uid://qp6gk8snrpo1" path="res://engine/assets/gfx/objects/entities/enemies/blooper/blooper_preparing.png" id="5_kg1e3"]
+[ext_resource type="Script" path="res://engine/scripts/components/instantiater/class_enemy_killing_process.gd" id="6_rsgff"]
+[ext_resource type="PackedScene" uid="uid://cej30s8jmjkc2" path="res://engine/objects/entities/enemies/#death/blooper/blooper_death.tscn" id="8_0e5qe"]
+[ext_resource type="PackedScene" uid="uid://d28wktlfkunys" path="res://engine/objects/uis/counters/scores_label.tscn" id="8_j1hi1"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/on_ready_visible.gd" id="9_386jc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gmhw1"]
+radius = 16.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iji84"]
+atlas = ExtResource("4_c3bc2")
+region = Rect2(0, 0, 30, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fbrax"]
+atlas = ExtResource("5_kg1e3")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e8ant"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iji84")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fbrax")
+}],
+"loop": true,
+"name": &"prepare",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0jlmc"]
+radius = 4.0
+
+[node name="Blooper" type="Node2D"]
+script = ExtResource("1_lcus8")
+
+[node name="EffectBox" type="Area2D" parent="." groups=["entity_collidable"]]
+visible = false
+collision_layer = 4
+collision_mask = 53
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EffectBox"]
+shape = SubResource("CircleShape2D_gmhw1")
+debug_color = Color(0.964706, 0.192157, 0, 0.419608)
+
+[node name="Attackee" type="Node" parent="EffectBox"]
+script = ExtResource("2_q7uun")
+filter_ids = Array[int]([2])
+
+[node name="EnemyTouch" type="Node" parent="EffectBox"]
+script = ExtResource("3_rwy4j")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_e8ant")
+autoplay = "default"
+
+[node name="Collider" type="ShapeCast2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_0jlmc")
+target_position = Vector2(0, 0)
+max_results = 2
+collision_mask = 16
+collide_with_areas = true
+
+[node name="EnemyKillingProcess" type="Node2D" parent="."]
+visible = false
+script = ExtResource("6_rsgff")
+
+[node name="BlooperDeath" parent="EnemyKillingProcess" instance=ExtResource("8_0e5qe")]
+
+[node name="Scores" parent="EnemyKillingProcess" groups=["instantiate_no_success_combo"] instance=ExtResource("8_j1hi1")]
+text = "300"
+amount = 300
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+visible = false
+position = Vector2(1.43051e-06, 6.25849e-07)
+scale = Vector2(1.6, 2.4)
+script = ExtResource("9_386jc")
+
+[connection signal="blooper_out_of_fluid" from="." to="EnemyKillingProcess" method="forced_kill"]
+[connection signal="on_hit_by_attacker" from="EffectBox/Attackee" to="EnemyKillingProcess" method="killing_process"]
+[connection signal="killing_succeeded" from="EnemyKillingProcess" to="." method="queue_free"]

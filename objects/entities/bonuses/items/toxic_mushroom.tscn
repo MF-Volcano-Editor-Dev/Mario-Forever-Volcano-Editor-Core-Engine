@@ -1,0 +1,81 @@
+[gd_scene load_steps=11 format=3 uid="uid://dimaup6ouxgst"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/physics/item_walker_2d.gd" id="1_fpf4r"]
+[ext_resource type="Script" path="res://engine/scripts/entities/enemies/universal/killer.gd" id="2_da64k"]
+[ext_resource type="Texture2D" uid="uid://4blcadyfnfle" path="res://engine/assets/gfx/objects/entities/bonus/items/toxic_mushroom.png" id="4_p1nsu"]
+[ext_resource type="PackedScene" uid="uid://tog1urcypue2" path="res://engine/objects/entities/#effects/explosion_fire.tscn" id="5_40dqh"]
+[ext_resource type="Script" path="res://engine/scripts/components/instantiater/class_instantiater2d.gd" id="5_tc70y"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/on_ready_visible.gd" id="6_1lseq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3c1ts"]
+size = Vector2(32, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g8hj4"]
+atlas = ExtResource("4_p1nsu")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yo3ua"]
+atlas = ExtResource("4_p1nsu")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j528i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g8hj4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yo3ua")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="ToxicMushroom" type="EntityBody2D"]
+velocality = Vector2(100, -1.36424e-12)
+velocity = Vector2(100, -4.37114e-06)
+gravity_scale = 0.4
+collision_layer = 4
+collision_mask = 8
+velocity = Vector2(100, -4.37114e-06)
+script = ExtResource("1_fpf4r")
+effect_box_path = NodePath("EffectBox")
+initial_direction = 3
+metadata/_edit_pinned_properties_ = [&"initial_direction", &"effect_box_path"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_3c1ts")
+
+[node name="EffectBox" type="Area2D" parent="."]
+visible = false
+collision_layer = 4
+collision_mask = 5
+script = ExtResource("2_da64k")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="EffectBox"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_3c1ts")
+debug_color = Color(0.933333, 0.258824, 0, 0.419608)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_j528i")
+autoplay = "default"
+
+[node name="Instantiater2D" type="Node2D" parent="."]
+visible = false
+script = ExtResource("5_tc70y")
+
+[node name="ExplosionFire" parent="Instantiater2D" instance=ExtResource("5_40dqh")]
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+visible = false
+position = Vector2(2.08616e-07, 1.43051e-06)
+scale = Vector2(1.6, 1.6)
+script = ExtResource("6_1lseq")
+
+[connection signal="collided_wall" from="." to="." method="turn_wall"]
+[connection signal="killed_character" from="EffectBox" to="." method="queue_free"]
+[connection signal="killed_character" from="EffectBox" to="Instantiater2D" method="instantiate_all"]

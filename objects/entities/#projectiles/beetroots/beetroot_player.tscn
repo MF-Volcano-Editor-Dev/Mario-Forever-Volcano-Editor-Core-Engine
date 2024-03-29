@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://fkrokt7nq55e"]
+
+[ext_resource type="PackedScene" uid="uid://ctemgabn5weiy" path="res://engine/objects/entities/#projectiles/beetroots/beetroot_base.tscn" id="1_ria57"]
+[ext_resource type="Script" path="res://engine/scripts/components/attack/class_attacker.gd" id="2_dqubc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_it8d3"]
+size = Vector2(16, 32)
+
+[node name="BeetrootPlayer" instance=ExtResource("1_ria57")]
+
+[node name="EffectBox" type="Area2D" parent="." index="2"]
+visible = false
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EffectBox" index="0"]
+shape = SubResource("RectangleShape2D_it8d3")
+debug_color = Color(1, 0, 0.0901961, 0.419608)
+
+[node name="Attacker" type="Node" parent="EffectBox" index="1"]
+script = ExtResource("2_dqubc")
+id = 6
+metadata/_edit_pinned_properties_ = [&"id"]
+
+[connection signal="bumped_over" from="." to="EffectBox" method="queue_free"]
+[connection signal="attacked_target" from="EffectBox/Attacker" to="." method="bump"]

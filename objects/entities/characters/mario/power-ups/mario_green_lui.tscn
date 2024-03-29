@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://etl2pig40wms"]
+
+[ext_resource type="PackedScene" uid="uid://oi5vyigqsaq1" path="res://engine/objects/entities/characters/mario/power-ups/mario_big.tscn" id="1_qv73g"]
+[ext_resource type="SpriteFrames" uid="uid://rj2xd5rkaigr" path="res://engine/objects/entities/characters/mario/power-ups/animations/anim_mario_green_lui.tres" id="2_u530u"]
+[ext_resource type="Script" path="res://engine/scripts/entities/characters/mario/mario_phantom.gd" id="3_jixen"]
+
+[node name="MarioGreenLui" instance=ExtResource("1_qv73g")]
+powerup_id = &"green_lui"
+down_to_powerup_id = &"big"
+powerup_level = 2
+metadata/_edit_pinned_properties_ = [&"powerup_id", &"down_to_powerup_id", &"powerup_level"]
+
+[node name="AnimatedSprite2D" parent="." index="4"]
+sprite_frames = ExtResource("2_u530u")
+
+[node name="Phantom2D" type="Node2D" parent="AnimatedSprite2D" index="1"]
+script = ExtResource("3_jixen")
+source_path = NodePath("..")
+sync_props = Array[StringName]([&"animation", &"frame"])
+root_path = NodePath("../../..")
+metadata/_edit_pinned_properties_ = [&"source_path", &"root_path", &"sync_props"]
+
+[node name="NonClimbing" parent="StateMachine" index="0"]
+jumping_acceleration_static = 1500.0
+jumping_acceleration_dynamic = 1500.0
+metadata/_edit_pinned_properties_ = [&"jumping_acceleration_static", &"jumping_acceleration_dynamic"]

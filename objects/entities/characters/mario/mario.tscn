@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=3 uid="uid://dm1au2ar8wp71"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/characters/mario/mario.gd" id="1_es2gk"]
+[ext_resource type="PackedScene" uid="uid://d2a3jxasggppj" path="res://engine/objects/entities/characters/mario/power-ups/mario_small.tscn" id="2_04tbc"]
+[ext_resource type="PackedScene" uid="uid://oi5vyigqsaq1" path="res://engine/objects/entities/characters/mario/power-ups/mario_big.tscn" id="3_ck1o5"]
+[ext_resource type="PackedScene" uid="uid://dh2wi5r4ubr2x" path="res://engine/objects/entities/characters/#deaths/mario_death.tscn" id="4_bceee"]
+[ext_resource type="PackedScene" uid="uid://jjcm44c8tds3" path="res://engine/objects/entities/characters/mario/power-ups/mario_fireball.tscn" id="4_l4gr0"]
+[ext_resource type="PackedScene" uid="uid://eohpty3ehpcp" path="res://engine/objects/entities/characters/mario/power-ups/mario_beetroot.tscn" id="6_j62c3"]
+[ext_resource type="Script" path="res://engine/scripts/components/visible_on_screen/visible_on_screen_directional.gd" id="6_u31oc"]
+[ext_resource type="PackedScene" uid="uid://etl2pig40wms" path="res://engine/objects/entities/characters/mario/power-ups/mario_green_lui.tscn" id="7_mehkr"]
+
+[node name="Mario" type="EntityBody2D" groups=["character", "enemy_toucher", "platform_stompable", "shell_kickable"]]
+gravity_scale = 1.0
+collision_mask = 2
+floor_snap_length = 12.0
+platform_on_leave = 1
+script = ExtResource("1_es2gk")
+nickname = &"Mario"
+metadata/_edit_pinned_properties_ = [&"nickname"]
+
+[node name="MarioSmall" parent="." instance=ExtResource("2_04tbc")]
+
+[node name="MarioBig" parent="." instance=ExtResource("3_ck1o5")]
+process_mode = 4
+visible = false
+
+[node name="MarioFireball" parent="." instance=ExtResource("4_l4gr0")]
+process_mode = 4
+visible = false
+
+[node name="MarioBeetroot" parent="." instance=ExtResource("6_j62c3")]
+process_mode = 4
+visible = false
+
+[node name="MarioGreenLui" parent="." instance=ExtResource("7_mehkr")]
+process_mode = 4
+visible = false
+
+[node name="MarioDeath" parent="." groups=["character_death"] instance=ExtResource("4_bceee")]
+process_mode = 4
+visible = false
+
+[node name="VisibleOnScreenNotifierDirectional2D" type="VisibleOnScreenNotifier2D" parent="."]
+visible = false
+position = Vector2(0, -40)
+rect = Rect2(-8, -8, 16, 16)
+script = ExtResource("6_u31oc")
+direction = 8
+with_global_transform = true
+_is_initialized = true
+metadata/_edit_pinned_properties_ = [&"direction", &"with_global_transform"]
+
+[connection signal="screen_exited_directionally" from="VisibleOnScreenNotifierDirectional2D" to="." method="_on_falling_to_death"]

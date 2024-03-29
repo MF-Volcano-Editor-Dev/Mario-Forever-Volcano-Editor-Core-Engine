@@ -1,0 +1,125 @@
+[gd_scene load_steps=15 format=3 uid="uid://c1cyvchajcocn"]
+
+[ext_resource type="Script" path="res://engine/scripts/entities/bonuses/blocks/question_block.gd" id="1_blomh"]
+[ext_resource type="Texture2D" uid="uid://ck2leckdnk1m" path="res://engine/assets/gfx/objects/entities/bonus/blocks/question_block.png" id="2_ernwg"]
+[ext_resource type="Texture2D" uid="uid://dm1d7d58iemnb" path="res://engine/assets/gfx/objects/entities/bonus/blocks/hittable_empty.png" id="3_oburv"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/on_ready_visible.gd" id="4_vs0v7"]
+[ext_resource type="Script" path="res://engine/scripts/entities/bonuses/blocks/question_block_tool.gd" id="5_xipw3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4o21w"]
+size = Vector2(32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vu5gb"]
+atlas = ExtResource("2_ernwg")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yxst0"]
+atlas = ExtResource("2_ernwg")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ah0ds"]
+atlas = ExtResource("2_ernwg")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sfudq"]
+atlas = ExtResource("3_oburv")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0o40n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vu5gb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yxst0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ah0ds")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yxst0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sfudq")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_45u3s"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_docu5"]
+resource_name = "hit"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -6), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x58u5"]
+_data = {
+"RESET": SubResource("Animation_45u3s"),
+"hit": SubResource("Animation_docu5")
+}
+
+[node name="QuestionBlock" type="AnimatableBody2D"]
+collision_layer = 10
+collision_mask = 5
+script = ExtResource("1_blomh")
+animated_sprite_path = NodePath("AnimatedSprite2D")
+visible_node_path = NodePath("AnimatedSprite2D")
+invisible_collision_layer = 64
+metadata/_edit_pinned_properties_ = [&"animated_sprite_path", &"visible_node_path"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_4o21w")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_0o40n")
+autoplay = "default"
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+visible = false
+position = Vector2(1.43051e-06, 1.43051e-06)
+scale = Vector2(1.6, 1.6)
+script = ExtResource("4_vs0v7")
+
+[node name="Tool" type="Node2D" parent="."]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("5_xipw3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_x58u5")
+}
+
+[connection signal="bumped" from="." to="AnimationPlayer" method="play" binds= [&"hit"]]
