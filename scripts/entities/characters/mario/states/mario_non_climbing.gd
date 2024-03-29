@@ -195,7 +195,7 @@ func _swim(delta: float) -> void:
 #endregion
 
 #region == Animations ==
-func _animation(_delta: float) -> void:
+func _animation(delta: float) -> void:
 	if !_animated_sprite:
 		return
 	
@@ -220,7 +220,7 @@ func _animation(_delta: float) -> void:
 			var real_vel: Vector2 = _character.velocity
 			if !real_vel.slide(_character.get_floor_normal()).is_zero_approx() && !_character.is_on_wall():
 				_animated_sprite.play(&"walk")
-				_animated_sprite.speed_scale = clampf(absf(_character.velocality.x) * get_process_delta_time() * 3.5, 0, 5)
+				_animated_sprite.speed_scale = clampf(absf(_character.velocality.x) * delta * (1 / get_physics_process_delta_time() / 50) * 4, 0, 5)
 			else:
 				_animated_sprite.play(&"default")
 	elif _character.is_in_group(&"state_swimming"):

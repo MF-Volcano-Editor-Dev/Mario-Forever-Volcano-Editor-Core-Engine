@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cmmc0ekq48ety"]
+[gd_scene load_steps=9 format=3 uid="uid://cmmc0ekq48ety"]
 
 [ext_resource type="PackedScene" uid="uid://crnx40c7hevum" path="res://engine/objects/uis/huds/level_hud.tscn" id="1_brdbf"]
 [ext_resource type="Script" path="res://engine/scripts/scenes/room.gd" id="1_p1njg"]
@@ -8,11 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://cui35mog5pwf8" path="res://engine/objects/units/general/unit_level_completion.tscn" id="4_an7ri"]
 [ext_resource type="PackedScene" uid="uid://mlw61ix1dmoo" path="res://engine/objects/units/general/unit_coin_to_life.tscn" id="4_vw81q"]
 [ext_resource type="TileSet" uid="uid://7f4u48gspyof" path="res://engine/assets/tilesets/overworld.tres" id="7_6y41o"]
-[ext_resource type="PackedScene" uid="uid://ber4ghptyioeg" path="res://engine/objects/entities/areas/fluid/water/water.tscn" id="9_2nvxi"]
-[ext_resource type="PackedScene" uid="uid://bc57wwa6ibirx" path="res://engine/objects/entities/generators/generating_areas/generator_area_flame.tscn" id="10_euj8s"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7h2pi"]
-size = Vector2(1152, 480)
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_p1njg")
@@ -43,14 +38,3 @@ metadata/_edit_lock_ = true
 [node name="Mario" parent="." instance=ExtResource("3_2xf2e")]
 position = Vector2(64, 400)
 current_powerup = &"fireball"
-
-[node name="Water" parent="." instance=ExtResource("9_2nvxi")]
-offset_top = 456.0
-offset_right = 1472.0
-offset_bottom = 776.0
-
-[node name="GeneratorAreaFlame" parent="." instance=ExtResource("10_euj8s")]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GeneratorAreaFlame"]
-position = Vector2(704, 240)
-shape = SubResource("RectangleShape2D_7h2pi")
