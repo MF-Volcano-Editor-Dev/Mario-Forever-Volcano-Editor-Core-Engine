@@ -1,4 +1,4 @@
-@icon("res://icons/instantiater_2d.svg")
+@icon("res://engine/icons/instantiater_2d.svg")
 class_name Instantiater2D extends Component2D
 
 ## A 2D component used for instantiating children [CanvasItem]s.

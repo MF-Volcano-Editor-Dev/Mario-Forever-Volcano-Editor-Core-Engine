@@ -1,5 +1,5 @@
 @tool
-@icon("res://icons/state_machine.svg")
+@icon("res://engine/icons/state_machine.svg")
 class_name StateMachine extends Component
 
 ## A node that provides services for state management

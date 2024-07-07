@@ -1,4 +1,4 @@
-@icon("res://icons/state.svg")
+@icon("res://engine/icons/state.svg")
 class_name State extends Component
 
 ## Abstract class of nodes used as the children of one [StateMachine] to provide implementation of each state.

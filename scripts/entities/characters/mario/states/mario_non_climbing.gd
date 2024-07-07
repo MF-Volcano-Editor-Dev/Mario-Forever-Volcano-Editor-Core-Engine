@@ -64,10 +64,8 @@ func _state_process(delta: float) -> void:
 		_jump(delta)
 		_swim(delta)
 		_climbing_check()
-	
-	_animation.call_deferred(delta) # Called at the end of a frame to make sure the animation will be correctly played if the character is walking against a wall
 
-func _state_physics_process(_delta: float) -> void:
+func _state_physics_process(delta: float) -> void:
 	if _character.is_in_group(&"state_frozen"):
 		return
 	
@@ -76,6 +74,8 @@ func _state_physics_process(_delta: float) -> void:
 		_character.move_and_slide()
 		_character.correct_onto_floor()
 		_character.correct_on_wall_corner()
+	
+	_animation.call_deferred(delta) # Called at the end of a frame to make sure the animation will be correctly played if the character is walking against a wall
 
 
 func _climbing_check() -> void:

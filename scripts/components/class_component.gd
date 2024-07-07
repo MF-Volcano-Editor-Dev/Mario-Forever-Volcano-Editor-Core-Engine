@@ -1,4 +1,4 @@
-@icon("res://icons/component.svg")
+@icon("res://engine/icons/component.svg")
 class_name Component extends Node
 
 ## Abstract base class of such nodes that provides extra functions for other nodes, or help these nodes with some process.

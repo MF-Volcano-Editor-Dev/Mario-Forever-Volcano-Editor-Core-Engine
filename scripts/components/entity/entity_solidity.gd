@@ -1,4 +1,4 @@
-@icon("res://icons/solid_entity.svg")
+@icon("res://engine/icons/solid_entity.svg")
 @tool
 class_name EntitySolidity extends Component
 

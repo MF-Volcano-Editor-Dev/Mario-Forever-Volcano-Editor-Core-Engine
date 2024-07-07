@@ -1,5 +1,5 @@
 @tool
-@icon("res://icons/enemy_touch_stomp.svg")
+@icon("res://engine/icons/enemy_touch_stomp.svg")
 class_name EnemyStompable extends EnemyTouch
 
 ## Component inheriting [EnemyTouch], but allows the toucher to stomp onto the [member Component.root] ([Area2D]).

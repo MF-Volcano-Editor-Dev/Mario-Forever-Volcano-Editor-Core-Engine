@@ -1,5 +1,5 @@
 @tool
-@icon("res://icons/enemy_touch.svg")
+@icon("res://engine/icons/enemy_touch.svg")
 class_name EnemyTouch extends Component
 
 ## Component used for [Area2D] to provide collision interaction with other objects that is interactable with this component (touchers). 

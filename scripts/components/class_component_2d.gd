@@ -1,4 +1,4 @@
-@icon("res://icons/component_2d.svg")
+@icon("res://engine/icons/component_2d.svg")
 class_name Component2D extends Node2D
 
 ## Abstract base class of [Component], with features from [Node2D].

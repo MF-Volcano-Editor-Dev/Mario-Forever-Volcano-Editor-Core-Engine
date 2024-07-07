@@ -1,5 +1,5 @@
 @tool
-@icon("res://icons/attacker.svg")
+@icon("res://engine/icons/attacker.svg")
 class_name Attacker extends Component
 
 ## Used as a child of [Area2D] to provide collision reaction like an projectile. Usually works with [Attackee].

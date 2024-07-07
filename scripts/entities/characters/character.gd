@@ -1,4 +1,4 @@
-@icon("res://icons/character_entity_2d.svg")
+@icon("res://engine/icons/character_entity_2d.svg")
 class_name Character extends EntityBody2D
 
 ## Abstract class of controllable characters
