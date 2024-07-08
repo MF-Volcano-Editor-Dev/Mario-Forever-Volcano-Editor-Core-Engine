@@ -20,7 +20,7 @@ func change_scene_to_path(path: String, with_transmission: bool = true) -> void:
 	get_tree().change_scene_to_file(path)
 	
 	if with_transmission:
-		Transmission.circle_transmission(get_viewport_rect().size / 2, 0.5)
+		Transmission.circle_transmission(get_viewport_rect().size / 2, 0.5, false)
 
 ## Changes the scene to a certain scene, by passing in a [PackedScene] that contains it.
 func change_scene_to_packed(packed: PackedScene, with_transmission: bool = true) -> void:
@@ -33,7 +33,7 @@ func change_scene_to_packed(packed: PackedScene, with_transmission: bool = true)
 	get_tree().change_scene_to_packed(packed)
 	
 	if with_transmission:
-		Transmission.circle_transmission(get_viewport_rect().size / 2, 0.5)
+		Transmission.circle_transmission(get_viewport_rect().size / 2, 0.5, false)
 
 ## Reloads current scene.[br]
 ## [br]
