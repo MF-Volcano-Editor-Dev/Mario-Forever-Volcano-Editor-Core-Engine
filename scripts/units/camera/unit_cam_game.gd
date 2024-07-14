@@ -29,7 +29,7 @@ signal camera_get_transited_to ## Emitted when the camera is transited to. (pass
 ## If set to 0, the process will be hard switching and no smooth transition will happen.
 @export_range(0, 50, 0.001, "suffix:px/s") var transition_initial_speed: float
 
-var _initialized: bool # Used to initialize the properties to be overridden
+@export_storage var _initialized: bool # Used to initialize the properties to be overridden
 
 var _on_transition_execution: bool
 var _on_transition: bool
@@ -83,17 +83,6 @@ func _property_get_revert(property: StringName) -> Variant:
 		&"limit_bottom":
 			return ProjectSettings.get_setting_with_override(&"display/window/size/viewport_height")
 	return
-
-func _get_property_list() -> Array[Dictionary]:
-	var properties: Array[Dictionary] = []
-	properties.append({
-		name = &"_initialized", # Keeps the name same as `_initialized`
-		type = TYPE_BOOL,
-		hint = PROPERTY_HINT_NONE,
-		hint_string = "",
-		usage = PROPERTY_USAGE_NO_EDITOR # Make the property exported so that the properties won't get overridden by `_ready()`
-	})
-	return properties
 #endregion
 
 #region == Built-in Process ==

@@ -7,7 +7,9 @@ class_name State extends Component
 ## The [State] serves the state machine and provides realization of each state, so this is abstract and needs overriding to completely get the state machine system run as expected.[br]
 ## [State] also offers special virtual methods beginning with [code]_state_[/code]. [method _state_enter] and [method _state_exit] are called respectively at the moment the state becomes current one, or the state goes back to non-current one.
 
+@warning_ignore("unused_signal")
 signal state_entered ## Emitted when this node becomes current state.
+@warning_ignore("unused_signal")
 signal state_exited ## Emitted when this node ends up being current.
 
 ## Id of the state.[br]

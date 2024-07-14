@@ -35,8 +35,7 @@ func change_scene_to_packed(packed: PackedScene, with_transmission: bool = true)
 	if with_transmission:
 		Transmission.circle_transmission(get_viewport_rect().size / 2, 0.5, false)
 
-## Reloads current scene.[br]
-## [br]
+## Reloads current scene.[br][br]
 ## [b]Note:[/b] This won't emit [signal scene_changed]!
 func reload_current_scene(with_transmission: bool = false) -> void:
 	if with_transmission:
@@ -46,10 +45,9 @@ func reload_current_scene(with_transmission: bool = false) -> void:
 	get_tree().reload_current_scene()
 	
 	if with_transmission:
-		Transmission.circle_transmission(get_viewport_rect().size / 2, 0.5)
+		Transmission.circle_transmission(get_viewport_rect().size / 2, 0.5, false)
 
-## Unloads current scene.[br]
-## [br]
+## Unloads current scene.[br][br]
 ## [b]Note:[/b] This won't emit [signal scene_changed]!
 func unload_current_scene(with_transmission: bool = false) -> void:
 	if with_transmission:
@@ -59,4 +57,4 @@ func unload_current_scene(with_transmission: bool = false) -> void:
 	get_tree().unload_current_scene()
 	
 	if with_transmission:
-		Transmission.circle_transmission(get_viewport_rect().size / 2, 0.5)
+		Transmission.circle_transmission(get_viewport_rect().size / 2, 0.5, false)

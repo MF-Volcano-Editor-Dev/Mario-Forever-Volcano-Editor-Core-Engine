@@ -53,13 +53,14 @@ func death_effect_start() -> void:
 	get_tree().create_timer(2, false, false, true).timeout.connect(func() -> void:
 		if !Character.Getter.get_characters(tree).is_empty():
 			return
-		Transmission.circle_transmission(death_canvas_pos)
+		if Character.Data.lives > 0: # Only lives greater than 0 can trigger circular transmission
+			Transmission.circle_transmission(death_canvas_pos)
 	)
 	
 	await sound.finished
 	await get_tree().create_timer(1, false).timeout
-	# TODO: After-death executions
 	
+	# After-death executions
 	remove_from_group(&"character_death")
 	if tree.get_nodes_in_group(&"character_death").is_empty(): # Prevent from quick restart when there are two or more characters who die in different time
 		Events.EventCharacter.current_game_over(tree)

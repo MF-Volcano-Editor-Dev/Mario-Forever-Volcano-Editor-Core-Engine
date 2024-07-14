@@ -34,7 +34,7 @@ func _ready() -> void:
 		await Sound.play_1d(sound_game_over, self).finished
 		await get_tree().create_timer(1, false).timeout
 		
-		# TODO: After-game-over executions
+		# == TODO: After-game-over executions == #
 	)
 	
 	Character.Data.init_data()

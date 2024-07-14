@@ -46,8 +46,8 @@ static func play(tree: SceneTree, music_stream: AudioStream, channel: int, mode:
 		_musics[channel] = m
 		
 		# Pauses the music when characters are on starman, and resumes when all get their starmen off
-		Events.EventCharacter.get_signals().character_on_starman.connect(Music.pause.bind(channel))
-		Events.EventCharacter.get_signals().character_off_starman.connect(Music.resume.bind(channel))
+		Events.EventCharacter.get_signals().character_on_starman.connect(Music.pause.bind(channel), CONNECT_REFERENCE_COUNTED)
+		Events.EventCharacter.get_signals().character_off_starman.connect(Music.resume.bind(channel), CONNECT_REFERENCE_COUNTED)
 		
 		# Stops music if some events are triggered
 		Events.EventMusic.get_signals().music_all_stop.connect(func() -> void:

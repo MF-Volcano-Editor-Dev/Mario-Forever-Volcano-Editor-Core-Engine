@@ -19,5 +19,4 @@ func circle_transmission(canvas_position: Vector2, duration: float = 1, fade_in_
 	
 	circle_trans_anim.play(&"circle_trans", -1, 1 / duration * (1 if fade_in_or_fade_out else -1), !fade_in_or_fade_out)
 	await circle_trans_anim.animation_finished
-	circle_trans_anim.play(&"RESET")
 	circular_trans_done.emit()

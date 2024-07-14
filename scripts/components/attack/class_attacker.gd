@@ -7,8 +7,11 @@ class_name Attacker extends Component
 ## This is used as a child node of [Area2D] so that it may automatically connect the collision detection to process of attacking [Attackee].
 ## Usually works with [Attackee] and see it for more details.
 
+@warning_ignore("unused_signal")
 signal attacked_target(target: Attackee) ## Emitted when the area collides with another one containing [Attackee] and the interaction with the [Attackee] is successful.
+@warning_ignore("unused_signal")
 signal attack_succeeded ## Emitted when the enemy attacked gets damaged successfully. [br][b]Called by [EnemyKillingProcess2D].[/b]
+@warning_ignore("unused_signal")
 signal attack_failed ## Emitted when the enemy attacked defended the attacker. [br][b]Called by [EnemyKillingProcess2D].[/b]
 
 ## Id of the attacker. See [enum DataList.AttackId], [member Attackee.filter_ids] and [enum Attackee.FilterMode] for details.

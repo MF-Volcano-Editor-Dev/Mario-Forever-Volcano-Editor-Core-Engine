@@ -6,6 +6,7 @@ class_name StateMachine extends Component
 ##
 ## To drive the state machine, you should first add [State] under this node as the children and then specify a [member current_state]
 
+@warning_ignore("unused_signal")
 signal state_changed ## Emitted when [member current_state] gets changed
 
 ## Current [State] of the state machine
