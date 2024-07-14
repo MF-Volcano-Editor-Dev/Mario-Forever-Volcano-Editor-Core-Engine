@@ -1,1 +1,1 @@
-This is the kernel part of [Thunder Editor Refactored](https://github.com/Thunder-Engine-Dev/Mario-Forever-Thunder-Editor-Refactored). See it for more details
+This is the kernel part of [Volcano Editor](https://github.com/MF-Volcano-Editor-Dev/Mario-Forever-Volcano-Editor). See it for more details
