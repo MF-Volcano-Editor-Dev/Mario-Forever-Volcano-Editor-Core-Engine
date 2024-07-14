@@ -1,6 +1,7 @@
-[gd_resource type="TileSet" load_steps=23 format=3 uid="uid://7f4u48gspyof"]
+[gd_resource type="TileSet" load_steps=25 format=3 uid="uid://7f4u48gspyof"]
 
 [ext_resource type="Texture2D" uid="uid://c2xfexiy1rnqh" path="res://engine/assets/gfx/tiles/overworld/overworld_classic.png" id="1_pavnc"]
+[ext_resource type="Texture2D" uid="uid://dsvhl8ew36br1" path="res://engine/assets/gfx/tiles/overworld/pipe_green.png" id="1_q8i2x"]
 [ext_resource type="Texture2D" uid="uid://3f6efhfdu374" path="res://engine/assets/gfx/tiles/overworld/fence.png" id="2_4ev3b"]
 [ext_resource type="Texture2D" uid="uid://ngfj3e7qgbeb" path="res://engine/assets/gfx/tiles/overworld/overworld_new.png" id="2_afou4"]
 [ext_resource type="Texture2D" uid="uid://bavp4weq2pj45" path="res://engine/assets/gfx/tiles/overworld/hard_block.png" id="3_e0hp1"]
@@ -409,30 +410,6 @@ texture_region_size = Vector2i(32, 32)
 8:4/0/terrains_peering_bit/top_side = 0
 8:4/0/terrains_peering_bit/top_right_corner = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ctfup"]
-resource_name = "fence"
-texture = ExtResource("2_4ev3b")
-texture_region_size = Vector2i(32, 32)
-0:0/size_in_atlas = Vector2i(2, 1)
-0:0/0 = 0
-0:0/0/texture_origin = Vector2i(-16, 0)
-0:0/0/z_index = -9
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ch0m4"]
-resource_name = "blocks"
-texture = ExtResource("3_e0hp1")
-texture_region_size = Vector2i(32, 32)
-0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-1:0/0 = 0
-1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, 16, -16, 16)
-2:0/0 = 0
-2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(16, -16, -16, 16, 16, 16)
-3:0/0 = 0
-3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, 16, 16, -16)
-4:0/0 = 0
-4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(16, -16, -16, 16, -16, -16)
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gblu6"]
 resource_name = "neo_ground"
 texture = ExtResource("2_afou4")
@@ -691,6 +668,33 @@ texture_region_size = Vector2i(32, 32)
 5:5/0/terrains_peering_bit/bottom_side = 1
 5:5/0/terrains_peering_bit/left_side = 1
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ch0m4"]
+resource_name = "blocks"
+texture = ExtResource("3_e0hp1")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, 16, -16, 16)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(16, -16, -16, 16, 16, 16)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, 16, 16, -16)
+4:0/0 = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(16, -16, -16, 16, -16, -16)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k7ym1"]
+texture = ExtResource("1_q8i2x")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hhtrl"]
 resource_name = "cloud"
 texture = ExtResource("3_p0p53")
@@ -769,6 +773,15 @@ texture_region_size = Vector2i(64, 32)
 0:0/0/texture_origin = Vector2i(-16, 0)
 0:0/0/z_index = -9
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ctfup"]
+resource_name = "fence"
+texture = ExtResource("2_4ev3b")
+texture_region_size = Vector2i(32, 32)
+0:0/size_in_atlas = Vector2i(2, 1)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(-16, 0)
+0:0/0/z_index = -9
+
 [resource]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 10
@@ -778,14 +791,15 @@ terrain_set_0/terrain_0/name = "Classic Ground"
 terrain_set_0/terrain_0/color = Color(0, 0.737255, 0.54902, 1)
 terrain_set_0/terrain_1/name = "Neo Ground"
 terrain_set_0/terrain_1/color = Color(0.827451, 0.105882, 0, 1)
-sources/1 = SubResource("TileSetAtlasSource_s2s3b")
-sources/2 = SubResource("TileSetAtlasSource_gblu6")
-sources/3 = SubResource("TileSetAtlasSource_hhtrl")
-sources/4 = SubResource("TileSetAtlasSource_womdf")
-sources/5 = SubResource("TileSetAtlasSource_2ui2v")
-sources/6 = SubResource("TileSetAtlasSource_xnjn5")
-sources/7 = SubResource("TileSetAtlasSource_ea32i")
-sources/8 = SubResource("TileSetAtlasSource_f6bpw")
-sources/9 = SubResource("TileSetAtlasSource_1fdx0")
-sources/10 = SubResource("TileSetAtlasSource_ctfup")
-sources/11 = SubResource("TileSetAtlasSource_ch0m4")
+sources/0 = SubResource("TileSetAtlasSource_s2s3b")
+sources/1 = SubResource("TileSetAtlasSource_gblu6")
+sources/2 = SubResource("TileSetAtlasSource_hhtrl")
+sources/3 = SubResource("TileSetAtlasSource_womdf")
+sources/4 = SubResource("TileSetAtlasSource_2ui2v")
+sources/5 = SubResource("TileSetAtlasSource_xnjn5")
+sources/6 = SubResource("TileSetAtlasSource_ea32i")
+sources/7 = SubResource("TileSetAtlasSource_f6bpw")
+sources/8 = SubResource("TileSetAtlasSource_1fdx0")
+sources/9 = SubResource("TileSetAtlasSource_ctfup")
+sources/10 = SubResource("TileSetAtlasSource_ch0m4")
+sources/11 = SubResource("TileSetAtlasSource_k7ym1")
