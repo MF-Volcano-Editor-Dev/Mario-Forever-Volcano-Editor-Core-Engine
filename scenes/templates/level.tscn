@@ -29,7 +29,9 @@ editor_draw_limits = true
 script = ExtResource("4_6nwtf")
 _initialized = true
 
-[node name="TileMap" type="TileMapLayer" parent="."]
+[node name="Tiles" type="Node2D" parent="."]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Tiles"]
 tile_map_data = PackedByteArray(0, 0, 1, 0, 13, 0, 1, 0, 0, 0, 3, 0, 0, 0, 2, 0, 13, 0, 1, 0, 2, 0, 3, 0, 0, 0)
 tile_set = ExtResource("7_6y41o")
 metadata/_edit_lock_ = true
