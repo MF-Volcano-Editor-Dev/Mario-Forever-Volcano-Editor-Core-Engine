@@ -30,11 +30,12 @@ script = ExtResource("4_6nwtf")
 _initialized = true
 
 [node name="Tiles" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="TileMapLayer" type="TileMapLayer" parent="Tiles"]
 tile_map_data = PackedByteArray(0, 0, 1, 0, 13, 0, 1, 0, 0, 0, 3, 0, 0, 0, 2, 0, 13, 0, 1, 0, 2, 0, 3, 0, 0, 0)
 tile_set = ExtResource("7_6y41o")
-metadata/_edit_lock_ = true
 
 [node name="Mario" parent="." instance=ExtResource("3_2xf2e")]
 position = Vector2(64, 400)

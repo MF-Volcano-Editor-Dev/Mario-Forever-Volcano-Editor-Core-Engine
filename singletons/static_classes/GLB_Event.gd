@@ -26,7 +26,9 @@ class EventCharacter:
 		signal character_dead(id: int) ## Emitted when a characters dies.
 		signal all_characters_dead ## Emitted when all characters are dead.
 		signal game_over ## Emitted when event "game over" is triggered.
+		@warning_ignore("unused_signal")
 		signal character_on_starman ## Emitted when a character gets starman.
+		@warning_ignore("unused_signal")
 		signal character_off_starman ## Emitted when a character stops starman.
 	
 	static var _signals: Signals = Signals.new()
@@ -65,6 +67,7 @@ class EventTimeDown:
 	## Subclass of [Events.EventTimeDown] that helps store signals.
 	class Signals:
 		signal time_down_paused ## Emitted when making the timer pause.
+		@warning_ignore("unused_signal")
 		signal time_down_resume ## Emitted when making the timer resume.
 	
 	static var _signals: Signals = Signals.new()
@@ -77,8 +80,11 @@ class EventTimeDown:
 class EventGame:
 	## Subclass of [Events.EventTimeDown] that helps store signals.
 	class Signals:
+		@warning_ignore("unused_signal")
 		signal completed_level ## Emitted when a level gets completed.
+		@warning_ignore("unused_signal")
 		signal completion_summary_triggered ## Emitted when a level is going to start summary during the process of completion. (Completion Stage 1)
+		@warning_ignore("unused_signal")
 		signal completion_accomplished ## Emitted when a level is accomplished. (Completion Stage 2)
 	
 	static var _signals: Signals = Signals.new()

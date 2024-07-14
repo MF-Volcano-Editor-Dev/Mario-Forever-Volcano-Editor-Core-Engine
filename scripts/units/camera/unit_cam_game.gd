@@ -5,6 +5,7 @@ class_name GameCamera2D extends Camera2D
 ##
 ## For autoscroll usage, please see [AutoScrollCamera2D]
 
+@warning_ignore("unused_signal")
 signal camera_done_transition ## Emitted when the camera done transition. (positive)
 signal camera_get_transited_to ## Emitted when the camera is transited to. (passive)
 
