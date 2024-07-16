@@ -53,6 +53,7 @@ animations = [{
 }]
 
 [node name="PiranhaBlue" type="CharacterBody2D"]
+z_index = -5
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_ohptw")
@@ -88,7 +89,7 @@ sprite_frames = SubResource("SpriteFrames_gvff2")
 autoplay = "default"
 
 [node name="Sprite2D" type="Sprite2D" parent="AnimatedSprite2D"]
-position = Vector2(1, 24)
+position = Vector2(0, 24)
 texture = ExtResource("5_2pve8")
 
 [node name="EnemyKillingProcess" type="Node2D" parent="."]
@@ -96,6 +97,7 @@ visible = false
 script = ExtResource("6_hybee")
 
 [node name="PiranhaBlueDeath" parent="EnemyKillingProcess" instance=ExtResource("7_geupa")]
+script = null
 
 [node name="Scores" parent="EnemyKillingProcess" groups=["instantiate_no_success_combo"] instance=ExtResource("8_clvqr")]
 text = "200"

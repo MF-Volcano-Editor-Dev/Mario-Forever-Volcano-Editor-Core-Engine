@@ -38,7 +38,7 @@ texture = ExtResource("2_gdeja")
 offset = Vector2(-2, 0)
 script = ExtResource("2_vqah5")
 flip_position_x = true
-flip_rotaiton_speed = 400.0
+flip_rotaiton_speed = 6.98132
 metadata/_edit_pinned_properties_ = [&"flip_rotaiton_speed"]
 
 [node name="VisibleOnScreenNotifierDirectional2D" type="VisibleOnScreenNotifier2D" parent="."]

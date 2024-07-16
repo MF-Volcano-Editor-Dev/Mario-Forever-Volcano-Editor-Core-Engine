@@ -41,13 +41,13 @@ var _ellipse: Ellipse = Ellipse.new() # This should be declared first
 		if !Engine.is_editor_hint():
 			return
 		queue_redraw()
-@export_range(-18000, 18000, 0.001, "suffix:°/s") var frequency: float = 50:
+@export_range(-PI*50, PI*50, 0.1, "radians_as_degrees", "suffix:°/s") var frequency: float = 0.872665:
 	set(value):
 		frequency = value
 		if !Engine.is_editor_hint():
 			return
 		queue_redraw()
-@export_range(-180, 180, 0.001, "degrees") var phase: float:
+@export_range(-PI, PI, 0.1, "radians_as_degrees") var phase: float:
 	set(value):
 		phase = value
 		if !Engine.is_editor_hint():
@@ -55,13 +55,13 @@ var _ellipse: Ellipse = Ellipse.new() # This should be declared first
 		queue_redraw()
 @export var random_phase: bool
 @export_group("Track and Rotation")
-@export_range(-18000, 18000, 0.001, "suffix:°/s") var track_rotation_speed: float:
+@export_range(-PI*50, PI*50, 0.1, "radians_as_degrees", "suffix:°/s") var track_rotation_speed: float:
 	set(value):
 		track_rotation_speed = value
 		if !Engine.is_editor_hint():
 			return
 		queue_redraw()
-@export_range(-180, 180, 0.001, "degrees") var track_angle: float:
+@export_range(-PI, PI, 0.1, "radians_as_degrees") var track_angle: float:
 	set(value):
 		track_angle = value
 		_ellipse.rotation = deg_to_rad(track_angle)
@@ -79,7 +79,7 @@ var _preview_initial_values: Dictionary = {
 func _init() -> void:
 	_ellipse.center = position
 	_ellipse.amplitude = amplitude
-	_ellipse.rotation = deg_to_rad(track_angle)
+	_ellipse.rotation = track_angle
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
@@ -102,7 +102,7 @@ func _ready() -> void:
 		if ins is CircularMovementObject2D:
 			ins.amplitude = amplitude
 			ins.frequency = frequency
-			ins.phase = wrapf(phase + index * (360.0 / float(items.size())), -180, 180)
+			ins.phase = wrapf(phase + index * (TAU / float(items.size())), -PI, PI)
 			ins.track_rotation_speed = track_rotation_speed
 			ins.track_angle = track_angle
 		
@@ -174,8 +174,8 @@ func _process(delta: float) -> void:
 
 
 func _rotate(delta: float) -> void:
-	phase = wrapf(phase + frequency * delta, -180, 180)
-	track_angle = wrapf(track_angle + track_rotation_speed * delta, -180, 180)
+	phase = wrapf(phase + frequency * delta, -PI, PI)
+	track_angle = wrapf(track_angle + track_rotation_speed * delta, -PI, PI)
 
 func _get_point(index: int, size: int) -> Vector2:
-	return _ellipse.get_point(deg_to_rad(phase + index * (360.0 / float(size))))
+	return _ellipse.get_point(phase + index * (TAU / float(size)))

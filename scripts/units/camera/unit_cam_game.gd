@@ -97,10 +97,6 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		_init_overridden_properties()
 		return
-	else:
-		while _delay_of_beginning_smooth_transition > 0:
-			_delay_of_beginning_smooth_transition -= 1
-			await get_tree().process_frame
 
 func _draw() -> void:
 	if !Engine.is_editor_hint():
@@ -148,6 +144,9 @@ func _focus() -> void:
 	global_position = Character.Getter.get_average_global_position(get_tree(), global_position)
 
 func _transition(delta: float) -> void:
+	if _delay_of_beginning_smooth_transition > 0:
+		_delay_of_beginning_smooth_transition -= 1
+	
 	if is_current():
 		return
 	

@@ -33,7 +33,7 @@ debug_color = Color(0.980392, 0.133333, 0, 0.419608)
 texture = ExtResource("2_hjjtj")
 script = ExtResource("3_erg2q")
 flip_position_x = true
-flip_rotaiton_speed = 400.0
+flip_rotaiton_speed = 7.19948
 
 [node name="VisibleOnScreenNotifierDirectional2D" type="VisibleOnScreenNotifier2D" parent="."]
 visible = false

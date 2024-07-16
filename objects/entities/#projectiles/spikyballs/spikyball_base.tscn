@@ -36,7 +36,7 @@ debug_color = Color(0.980392, 0.133333, 0, 0.419608)
 texture = ExtResource("2_farfi")
 script = ExtResource("3_en4ew")
 flip_position_x = true
-flip_rotaiton_speed = 1200.0
+flip_rotaiton_speed = 6.28319
 metadata/_edit_pinned_properties_ = [&"flip_rotaiton_speed"]
 
 [node name="Phantom2D" type="Node2D" parent="Sprite2D"]

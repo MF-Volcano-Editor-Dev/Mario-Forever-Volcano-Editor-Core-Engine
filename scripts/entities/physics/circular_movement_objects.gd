@@ -16,21 +16,21 @@ class_name CircularMovementObject2D extends Node2D
 ## Amplitude (X-axis and Y-axis) of the route
 @export var amplitude: Vector2 = Vector2.ONE * 150
 ## Frequency of chaning phase (Angular speed of the object)
-@export_range(-18000, 18000, 0.001, "suffix:°/s") var frequency: float = 50
+@export_range(-18000, 18000, 0.1, "radians_as_degrees", "suffix:°/s") var frequency: float = 0.872665
 ## Phase of the route (Angle between the position of the object to the center and the positive X-axis)
-@export_range(-180, 180, 0.001, "degrees") var phase: float
+@export_range(-180, 180, 0.1, "radians_as_degrees") var phase: float
 ## If [code]true[/code], then the [member phase] will be automatically initialized from -180° to 180°
 @export var random_phase: bool
 @export_subgroup("Track Rotation")
 ## Rotation speed of the route
-@export_range(-18000, 18000, 0.001, "suffix:°/s") var track_rotation_speed: float
+@export_range(-18000, 18000, 0.1, "radians_as_degrees", "suffix:°/s") var track_rotation_speed: float
 ## Rotation of the route
-@export_range(-180, 180, 0.001, "degrees") var track_angle: float
+@export_range(-180, 180, 0.1, "radians_as_degrees") var track_angle: float
 @export_subgroup("Special Radius")
 ## Maximum of amplitude. [b]Only works when [member amplitude_changing_speed] is greater than zero![/b]
 @export var amplitude_max: Vector2 = Vector2.ONE * 200
 ## Changing speed of [member amplitude]. This is an [b]average[/b] value!
-@export_range(0, 1, 0.001, "or_greater", "hide_slider", "suffix:px/s") var amplitude_changing_speed: float
+@export_range(0, 2500, 0.1, "or_greater", "hide_slider", "suffix:px/s") var amplitude_changing_speed: float
 ## Mode of changing amplitude. See [enum Tween.TransitionType]
 @export var amplitude_changing_mode := Tween.TRANS_LINEAR
 @export_group("Facing")
@@ -44,14 +44,17 @@ var _ellipse: Ellipse = Ellipse.new()
 func _ready() -> void:
 	_ellipse.center = position
 	_update_amplitude_changing()
+	
+	if random_phase:
+		phase = randf_range(-PI, PI)
 
 func _process(delta: float) -> void:
 	_update()
 	
-	phase = wrapf(phase + frequency * delta, -180, 180)
-	track_angle = wrapf(track_angle + track_rotation_speed * delta, -180, 180)
+	phase = wrapf(phase + frequency * delta, -PI, PI)
+	track_angle = wrapf(track_angle + track_rotation_speed * delta, -PI, PI)
 	
-	var arc_phase := deg_to_rad(phase)
+	var arc_phase := phase
 	position = _ellipse.get_point(arc_phase)
 	
 	match facing_mode:
@@ -68,10 +71,7 @@ func _process(delta: float) -> void:
 
 func _update() -> void:
 	_ellipse.amplitude = amplitude
-	_ellipse.rotation = deg_to_rad(track_angle)
-	
-	if random_phase:
-		phase = randf_range(-180, 180)
+	_ellipse.rotation = track_angle
 
 func _update_amplitude_changing() -> void:
 	if amplitude_changing_speed > 0:

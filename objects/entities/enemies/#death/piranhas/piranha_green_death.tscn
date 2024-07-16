@@ -1,10 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://bev5s4tli31dl"]
 
-[ext_resource type="Script" path="res://scripts/entities/enemies/#death/enemy_death.gd" id="1_gb4nk"]
-[ext_resource type="Texture2D" uid="uid://c1qrpffgh84e7" path="res://assets/gfx/objects/entities/enemies/piranha/piranha_head_green.png" id="2_ung4r"]
-[ext_resource type="Script" path="res://scripts/#universal/sprite_flip_facing_h.gd" id="3_kijc2"]
-[ext_resource type="Texture2D" uid="uid://b608qc3ovtk5f" path="res://assets/gfx/objects/entities/enemies/piranha/piranha_stem_orange.png" id="4_27cjb"]
-[ext_resource type="Script" path="res://scripts/components/visible_on_screen/visible_on_screen_directional.gd" id="4_dtmo0"]
+[ext_resource type="Script" path="res://engine/scripts/entities/enemies/#death/enemy_death.gd" id="1_gb4nk"]
+[ext_resource type="Texture2D" uid="uid://c1qrpffgh84e7" path="res://engine/assets/gfx/objects/entities/enemies/piranha/piranha_head_green.png" id="2_ung4r"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/sprite_flip_facing_h.gd" id="3_kijc2"]
+[ext_resource type="Texture2D" uid="uid://b608qc3ovtk5f" path="res://engine/assets/gfx/objects/entities/enemies/piranha/piranha_stem_orange.png" id="4_27cjb"]
+[ext_resource type="Script" path="res://engine/scripts/components/visible_on_screen/visible_on_screen_directional.gd" id="4_dtmo0"]
+
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3hcme"]
 radius = 16.0

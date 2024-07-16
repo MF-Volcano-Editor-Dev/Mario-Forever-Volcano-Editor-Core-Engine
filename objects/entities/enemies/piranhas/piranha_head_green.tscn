@@ -48,6 +48,7 @@ animations = [{
 }]
 
 [node name="PiranhaHeadGreen" type="Node2D"]
+z_index = -5
 
 [node name="EffectBox" type="Area2D" parent="."]
 visible = false

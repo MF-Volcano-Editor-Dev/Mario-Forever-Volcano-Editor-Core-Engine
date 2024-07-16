@@ -53,6 +53,7 @@ animations = [{
 }]
 
 [node name="PiranhaGrey" type="CharacterBody2D"]
+z_index = -5
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_du8y5")
@@ -86,7 +87,7 @@ sprite_frames = SubResource("SpriteFrames_bbxnh")
 autoplay = "default"
 
 [node name="Sprite2D" type="Sprite2D" parent="AnimatedSprite2D"]
-position = Vector2(1, 24)
+position = Vector2(0, 24)
 texture = ExtResource("5_4olp2")
 
 [node name="EnemyKillingProcess" type="Node2D" parent="."]
@@ -95,6 +96,7 @@ script = ExtResource("6_4bwfb")
 defense_damage_level = 1
 
 [node name="PiranhaGreenDeath" parent="EnemyKillingProcess" groups=["instantiate_no_failure"] instance=ExtResource("7_va5lw")]
+script = null
 
 [node name="Scores" parent="EnemyKillingProcess" groups=["instantiate_no_success_combo"] instance=ExtResource("8_pibha")]
 text = "200"

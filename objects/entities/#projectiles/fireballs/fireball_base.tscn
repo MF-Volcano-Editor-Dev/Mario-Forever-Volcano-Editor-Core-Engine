@@ -71,7 +71,7 @@ lifetime = 0.1
 texture = ExtResource("2_ym67n")
 script = ExtResource("4_0ihwn")
 flip_position_x = true
-flip_rotaiton_speed = 650.0
+flip_rotaiton_speed = 7.19948
 metadata/_edit_pinned_properties_ = [&"flip_rotaiton_speed"]
 
 [node name="Instantiater2D" type="Node2D" parent="."]

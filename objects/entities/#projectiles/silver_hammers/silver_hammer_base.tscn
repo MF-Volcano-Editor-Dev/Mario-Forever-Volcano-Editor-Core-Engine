@@ -41,7 +41,7 @@ texture = ExtResource("3_trn6e")
 offset = Vector2(-2, 0)
 script = ExtResource("4_ts32n")
 flip_position_x = true
-flip_rotaiton_speed = 1125.0
+flip_rotaiton_speed = 13.09
 metadata/_edit_pinned_properties_ = [&"flip_rotaiton_speed"]
 
 [node name="Instantiater2D" type="Node2D" parent="."]
