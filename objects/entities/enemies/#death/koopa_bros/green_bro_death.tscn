@@ -19,5 +19,5 @@ offset = Vector2(0, -8)
 vframes = 3
 script = ExtResource("3_ao3iq")
 flip_position_x = true
-flip_rotaiton_speed = 300.0
+flip_rotaiton_speed = 9.42478
 metadata/_edit_pinned_properties_ = [&"flip_rotaiton_speed"]

@@ -2,7 +2,7 @@ class_name QuestionBlockItemAbundant extends QuestionBlockItem
 
 ## A type of [QuestionBlockItem] that contains large amount of [member QuestionBlockItem.default] items.
 ##
-##
+## 
 
 ## Limitation of getting items.[br]
 ## * Time(0): In given times, items can be hit out, and once the time is up, the item is the last one.[br]

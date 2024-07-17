@@ -16,10 +16,8 @@ shape = SubResource("CircleShape2D_3hcme")
 [node name="Sprite2D" type="Sprite2D" parent="." index="1"]
 texture = ExtResource("2_1yiha")
 script = ExtResource("3_6avny")
-flip_rotaiton_speed = 400.0
+flip_rotaiton_speed = 9.42478
 metadata/_edit_pinned_properties_ = [&"flip_rotaiton_speed"]
 
 [node name="VisibleOnScreenNotifierDirectional2D" parent="." index="2"]
-visible = false
 rect = Rect2(-16, -16, 32, 32)
-_is_initialized = true

@@ -26,4 +26,5 @@ hframes = 12
 vframes = 4
 script = ExtResource("3_lefhr")
 flip_position_x = true
-flip_rotaiton_speed = 400.0
+flip_rotaiton_speed = 9.42478
+metadata/_edit_pinned_properties_ = [&"flip_rotaiton_speed"]

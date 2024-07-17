@@ -96,7 +96,6 @@ script = ExtResource("6_4bwfb")
 defense_damage_level = 1
 
 [node name="PiranhaGreenDeath" parent="EnemyKillingProcess" groups=["instantiate_no_failure"] instance=ExtResource("7_va5lw")]
-script = null
 
 [node name="Scores" parent="EnemyKillingProcess" groups=["instantiate_no_success_combo"] instance=ExtResource("8_pibha")]
 text = "200"

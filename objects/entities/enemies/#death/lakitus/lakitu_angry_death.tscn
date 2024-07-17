@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://i5ooc30lnmbr"]
 
-[ext_resource type="PackedScene" uid="uid://oohrpdgpi7lm" path="res://objects/entities/enemies/#death/lakitus/lakitu_normal_death.tscn" id="1_sbeo2"]
-[ext_resource type="Texture2D" uid="uid://b5h4l6axs8nir" path="res://assets/gfx/objects/entities/enemies/lakitus/lakitu_angry.png" id="2_ubbw8"]
+[ext_resource type="PackedScene" uid="uid://oohrpdgpi7lm" path="res://engine/objects/entities/enemies/#death/lakitus/lakitu_normal_death.tscn" id="1_sbeo2"]
+[ext_resource type="Texture2D" uid="uid://b5h4l6axs8nir" path="res://engine/assets/gfx/objects/entities/enemies/lakitus/lakitu_angry.png" id="2_ubbw8"]
 
 [node name="LakituAngryDeath" instance=ExtResource("1_sbeo2")]
 
@@ -9,4 +9,5 @@
 texture = ExtResource("2_ubbw8")
 hframes = 4
 vframes = 17
+flip_rotaiton_speed = 4.71239
 metadata/_edit_pinned_properties_ = [&"texture"]

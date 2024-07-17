@@ -3,7 +3,7 @@ class_name AreaSection extends Control
 
 ## A rectangle area used as a section for a scene. Musics and sections are managed by this object.
 ##
-##
+## 
 
 ## If [code]true[/code], the whole scene belongs to this section.
 @export var section_full_screen: bool = true

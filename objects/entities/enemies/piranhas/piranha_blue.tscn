@@ -97,7 +97,6 @@ visible = false
 script = ExtResource("6_hybee")
 
 [node name="PiranhaBlueDeath" parent="EnemyKillingProcess" instance=ExtResource("7_geupa")]
-script = null
 
 [node name="Scores" parent="EnemyKillingProcess" groups=["instantiate_no_success_combo"] instance=ExtResource("8_clvqr")]
 text = "200"

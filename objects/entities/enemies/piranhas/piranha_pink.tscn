@@ -106,7 +106,6 @@ visible = false
 script = ExtResource("6_gym4u")
 
 [node name="PiranhaPinkDeath" parent="EnemyKillingProcess" instance=ExtResource("7_w0vtb")]
-script = null
 
 [node name="Scores" parent="EnemyKillingProcess" groups=["instantiate_no_success_combo"] instance=ExtResource("8_l4bvk")]
 text = "100"

@@ -25,7 +25,7 @@ texture = ExtResource("2_3lf4a")
 vframes = 4
 frame = 3
 script = ExtResource("3_tmohk")
-flip_rotaiton_speed = 400.0
+flip_rotaiton_speed = 9.42478
 metadata/_edit_pinned_properties_ = [&"flip_rotaiton_speed"]
 
 [node name="VisibleOnScreenNotifierDirectional2D" type="VisibleOnScreenNotifier2D" parent="."]

@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://b608qc3ovtk5f" path="res://engine/assets/gfx/objects/entities/enemies/piranha/piranha_stem_orange.png" id="4_27cjb"]
 [ext_resource type="Script" path="res://engine/scripts/components/visible_on_screen/visible_on_screen_directional.gd" id="4_dtmo0"]
 
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_3hcme"]
 radius = 16.0
 
@@ -27,7 +26,7 @@ texture = ExtResource("2_ung4r")
 offset = Vector2(-1, -16)
 hframes = 4
 script = ExtResource("3_kijc2")
-flip_rotaiton_speed = 400.0
+flip_rotaiton_speed = 9.42478
 metadata/_edit_pinned_properties_ = [&"flip_rotaiton_speed"]
 
 [node name="Stem" type="Sprite2D" parent="Head"]
@@ -42,7 +41,6 @@ scale = Vector2(1, 1.5)
 rect = Rect2(-16, -16, 32, 32)
 script = ExtResource("4_dtmo0")
 direction = 8
-with_global_transform = null
 _is_initialized = true
 
 [connection signal="screen_exited_directionally" from="VisibleOnScreenNotifierDirectional2D" to="." method="queue_free"]

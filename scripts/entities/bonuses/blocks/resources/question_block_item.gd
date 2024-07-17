@@ -2,7 +2,7 @@ class_name QuestionBlockItem extends Resource
 
 ## Resources contains an default item and fallback option for [QuestionBlock2D]
 ##
-##
+## 
 
 ## Default item
 @export var default: PackedScene

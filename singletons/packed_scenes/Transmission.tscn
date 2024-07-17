@@ -73,7 +73,6 @@ _data = {
 
 [node name="Transmission" type="CanvasLayer"]
 layer = 110
-visible = false
 script = ExtResource("1_m6k2p")
 
 [node name="TransCircle" type="ColorRect" parent="."]
