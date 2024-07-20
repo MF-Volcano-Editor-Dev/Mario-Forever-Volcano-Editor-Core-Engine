@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-@onready var circle_trans_anim: AnimationPlayer = $TransCircle/TransAnim
+@onready var circle_trans_anim: AnimationPlayer = $TransCircleAnim
 @onready var circle_trans: ColorRect = $TransCircle
 
 signal circular_trans_done ## Emitted when circular transmission is accomplished.

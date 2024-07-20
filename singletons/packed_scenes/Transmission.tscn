@@ -86,8 +86,7 @@ grow_vertical = 2
 size_flags_horizontal = 4
 color = Color(0, 0, 0, 1)
 
-[node name="TransAnim" type="AnimationPlayer" parent="TransCircle"]
-root_node = NodePath("../..")
+[node name="TransCircleAnim" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_a5jce")
 }

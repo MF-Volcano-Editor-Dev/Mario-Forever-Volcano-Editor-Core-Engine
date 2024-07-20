@@ -28,6 +28,8 @@ signal powerup_exited ## Emitted when the powerup exits from being current.
 @export_node_path("AnimatedSprite2D") var animated_sprite_path: NodePath = ^"AnimatedSprite2D"
 ## Path to [AnimatedPlayer] of the powerup to help control the character's shapes.
 @export_node_path("AnimationPlayer") var shape_controller_path: NodePath = ^"ShapeController"
+## Path to [StateMachine]
+@export_node_path("StateMachine") var state_machine_path: NodePath = ^"StateMachine"
 @export_group("Physics")
 ## Overrides [member EntityBody2D.gravity_scale] of the character.[br]
 ## [br]
@@ -73,6 +75,7 @@ signal powerup_exited ## Emitted when the powerup exits from being current.
 		rst.append(collision_shape)
 	return rst
 ).call()
+@onready var state_machine: StateMachine = get_state_machine()
 @onready var character: Mario = get_parent()
 
 
@@ -127,4 +130,7 @@ func get_animated_sprite() -> AnimatedSprite2D:
 
 func get_shape_controller() -> AnimationPlayer:
 	return get_node_or_null(shape_controller_path)
+
+func get_state_machine() -> StateMachine:
+	return get_node_or_null(state_machine_path)
 #endregion

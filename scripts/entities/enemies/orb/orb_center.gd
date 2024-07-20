@@ -15,9 +15,9 @@ enum _OrbsPlacement {
 @export var orbs_placement: _OrbsPlacement = _OrbsPlacement.NONE:
 	set = set_orbs_placement
 @export_subgroup("Bar")
-@export_range(0, 1, 0.001, "or_greater", "hide_slider", "suffix:px") var size: float = 32
+@export_range(0, 1, 0.1, "or_greater", "hide_slider", "suffix:px") var size: float = 32
 @export_subgroup("Circle")
-@export_range(-180, 180, 0.001, "degrees") var initial_phase: float
+@export_range(-180, 180, 0.1, "radians_as_degrees") var initial_phase: float
 
 var _orb_data: Array[OrbData]
 
@@ -52,15 +52,15 @@ func _run_orbs(delta: float) -> void:
 		var f := orb.frequency * delta
 		var t := orb.track_rotation_speed * delta
 		
-		orb.phase = wrapf(orb.phase + f, -180, 180)
-		orb.track_angle = wrapf(orb.track_angle + t, -180, 180)
+		orb.phase = wrapf(orb.phase + f, -PI, PI)
+		orb.track_angle = wrapf(orb.track_angle + t, -PI, PI)
 
 func _update_orb_pos(orb: CircularMovementObject2D) -> void:
-	var ang := deg_to_rad(orb.phase)
+	var ang := orb.phase
 	orb.position = Vector2(
 		orb.amplitude.x * cos(ang),
 		orb.amplitude.y * sin(ang)
-	).rotated(deg_to_rad(orb.track_angle))
+	).rotated(orb.track_angle)
 
 
 func set_preview(value: bool) -> void:

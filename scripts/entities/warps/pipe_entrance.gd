@@ -61,6 +61,8 @@ func _entrance(key_dir: Vector2i, character: Character) -> void:
 		i.global_position = character.global_position
 		i.z_index -= 2
 		# Freezes the character
+		if i is Mario:
+			i.get_current_powerup().get_state_machine().change_state(&"non_climbing")
 		i.add_to_group(&"state_frozen")
 		# Defines animation direction
 		if key_dir.x != 0: 

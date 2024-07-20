@@ -88,7 +88,6 @@ visible = false
 script = ExtResource("7_4t6s7")
 
 [node name="KoopaBlue" parent="EnemyKillingProcess" groups=["instantiate_no_attack"] instance=ExtResource("8_a75l0")]
-velocality = Vector2(100, -1.36424e-12)
 
 [node name="ShellKoopaBlueDeath" parent="EnemyKillingProcess" groups=["instantiate_no_stomp"] instance=ExtResource("9_m4pxg")]
 

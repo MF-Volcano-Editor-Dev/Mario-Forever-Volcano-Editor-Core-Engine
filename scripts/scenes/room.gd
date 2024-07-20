@@ -5,6 +5,8 @@ class_name GameRoom2D extends Node2D
 ##
 
 func _ready() -> void:
+	await get_tree().process_frame
+	
 	var trans_spot_start := get_viewport_rect().get_center()
 	
 	var tree := get_tree()

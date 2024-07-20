@@ -21,6 +21,9 @@ func _ready() -> void:
 ## Called by entrance.
 ## @deprecated
 func exit(character: Character) -> void:
+	if character is Mario:
+		character.get_current_powerup().get_state_machine().change_state(&"non_climbing")
+	
 	if direction in [0, 1]:
 		character.add_to_group(&"state_pipe_v")
 	else:
