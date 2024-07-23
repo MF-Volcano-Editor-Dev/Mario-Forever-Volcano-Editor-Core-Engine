@@ -1,3 +1,4 @@
+// By Grau
 shader_type canvas_item;
 
 // The color that flashes when highlighting the sprite

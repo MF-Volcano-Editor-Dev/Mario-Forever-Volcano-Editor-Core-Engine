@@ -2,15 +2,15 @@
 extends AnimatableBody2D
 
 @export_category("Bullet Launhcer Base")
-@export_range(0, 1, 0.001, "or_greater", "suffix:px") var gird_height: float = 32:
+@export_range(0, 128, 0.001, "or_greater", "suffix:px") var gird_height: float = 32:
 	set(value):
 		gird_height = value
 		height = gird_height * height_of_girds
-@export_range(0, 1, 0.001, "or_greater", "suffix:girds") var height_of_girds: float = 1:
+@export_range(0, 64, 0.001, "or_greater", "suffix:girds") var height_of_girds: float = 1:
 	set(value):
 		height_of_girds = value
 		height = gird_height * height_of_girds
-@export_range(0, 1, 0.001, "or_greater", "suffix: px") var height: float = 32:
+@export_range(0, 256, 0.001, "or_greater", "suffix: px") var height: float = 32:
 	set = set_height
 @export_group("Sprite")
 @export var flip_h: bool:

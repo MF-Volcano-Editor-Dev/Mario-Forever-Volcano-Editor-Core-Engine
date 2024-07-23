@@ -40,7 +40,7 @@ animations = [{
 [node name="KoopaTroopaGreen" type="Node2D"]
 script = ExtResource("1_42kg5")
 amplitude = Vector2(0, 75)
-frequency = 1.74533
+frequency = 1.309
 random_phase = true
 facing_mode = 3
 metadata/_edit_pinned_properties_ = [&"amplitude", &"facing_mode", &"random_phase", &"frequency"]

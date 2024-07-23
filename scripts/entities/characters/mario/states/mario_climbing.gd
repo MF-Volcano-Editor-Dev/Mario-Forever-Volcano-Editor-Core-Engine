@@ -30,6 +30,9 @@ func _state_exited() -> void:
 	_state_non_climbing.animated_sprite.scale.x = _character.direction
 
 func _state_process(delta: float) -> void:
+	if _character.is_in_group(&"state_frozen"):
+		return
+	
 	_shape()
 	_climb()
 	_animation(delta)
@@ -56,6 +59,9 @@ func _shape() -> void:
 		_state_non_climbing._shape_controller.play(&"RESET")
 
 func _climb() -> void:
+	if _character.is_in_group(&"state_uncontrollable"):
+		return
+	
 	if !_state_non_climbing:
 		return
 	_dir = Vector2(_character.get_udlr_directions(&"left", &"right", &"up", &"down"))

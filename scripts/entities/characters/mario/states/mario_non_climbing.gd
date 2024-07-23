@@ -58,12 +58,14 @@ func _ready() -> void:
 		_animated_sprite.animation_looped.connect(_on_animation_looped)
 
 func _state_process(delta: float) -> void:
-	if !_character.is_in_group(&"state_frozen"):
-		_crouch() # Should be executed before all the following methods to make sure the following ones can be executed as expected
-		_walk()
-		_jump(delta)
-		_swim(delta)
-		_climbing_check()
+	if _character.is_in_group(&"state_frozen"):
+		return
+	
+	_crouch() # Should be executed before all the following methods to make sure the following ones can be executed as expected
+	_walk()
+	_jump(delta)
+	_swim(delta)
+	_climbing_check()
 
 func _state_physics_process(delta: float) -> void:
 	_animation.call_deferred(delta) # Called at the end of a frame to make sure the animation will be correctly played if the character is walking against a wall
@@ -71,11 +73,10 @@ func _state_physics_process(delta: float) -> void:
 	if _character.is_in_group(&"state_frozen"):
 		return
 	
-	if !_character.is_in_group(&"state_immovable"):
-		_character.calculate_gravity()
-		_character.move_and_slide()
-		_character.correct_onto_floor()
-		_character.correct_on_wall_corner()
+	_character.calculate_gravity()
+	_character.move_and_slide()
+	_character.correct_onto_floor()
+	_character.correct_on_wall_corner()
 
 
 func _climbing_check() -> void:
@@ -89,6 +90,8 @@ func _climbing_check() -> void:
 #region == Movement ==
 func _crouch() -> void:
 	if !_powerup:
+		return
+	if _character.is_in_group(&"state_uncontrollable"):
 		return
 	if _character.is_in_group(&"state_completed"):
 		return
@@ -124,7 +127,7 @@ func _walk() -> void:
 	if _character.is_in_group(&"state_completed") || (!crh_walkable && crh):
 		lr = 0 # If the character has completed the level, then the input will be interfered
 	# Deceleration
-	if !lr:
+	if !lr || _character.is_in_group(&"state_uncontrollable"):
 		if !is_zero_approx(_character.velocality.x):
 			var dc: float = deceleration * (deceleration_scale_crouch if crh else 1.0) # Deceleration
 			_character.decelerate_with_friction(dc)
@@ -150,6 +153,8 @@ func _walk() -> void:
 			_character.remove_from_group(&"state_turning_back")
 
 func _jump(delta: float) -> void:
+	if _character.is_in_group(&"state_uncontrollable"):
+		return
 	if _character.is_in_group(&"state_completed"):
 		return
 	if _character.is_in_group(&"state_swimming"):
@@ -174,6 +179,8 @@ func _jump(delta: float) -> void:
 		_character.jump((jumping_acceleration_dynamic if absf(_character.velocality.x) >= 10 else jumping_acceleration_static) * delta, true)
 
 func _swim(delta: float) -> void:
+	if _character.is_in_group(&"state_uncontrollable"):
+		return
 	if _character.is_in_group(&"state_completed"):
 		_character.remove_from_group(&"state_swimming")
 		return
