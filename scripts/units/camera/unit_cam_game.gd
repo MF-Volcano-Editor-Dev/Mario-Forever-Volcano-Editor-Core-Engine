@@ -26,12 +26,17 @@ signal camera_get_transited_to ## Emitted when the camera is transited to. (pass
 @export var focus_characters: bool = true:
 	set = set_focus_characters
 @export_group("Transition", "transition_")
-## Initial speed of smooth transition between two cameras.[br]
+## Duration of smooth transition between two cameras.[br]
 ## If set to 0, the process will be hard switching and no smooth transition will happen.
-@export_range(0, 50, 0.001, "suffix:px/s") var transition_initial_speed: float
+@export_range(0, 2, 0.1, "suffix:s") var transition_duration: float
+## Transition method of smooth transition
+@export var transition_method: Tween.TransitionType = Tween.TransitionType.TRANS_SINE
+## Transition ease type of smooth transition
+@export var transition_ease: Tween.EaseType = Tween.EaseType.EASE_IN_OUT
 
 @export_storage var _initialized: bool # Used to initialize the properties to be overridden
 
+var _ease_count: float
 var _on_transition_execution: bool
 var _on_transition: bool
 var _shaking: Tween
@@ -143,7 +148,7 @@ func _focus() -> void:
 	
 	global_position = Character.Getter.get_average_global_position(get_tree(), global_position)
 
-func _transition(delta: float) -> void:
+func _transition(_delta: float) -> void:
 	if _delay_of_beginning_smooth_transition > 0:
 		_delay_of_beginning_smooth_transition -= 1
 	
@@ -164,76 +169,74 @@ func _transition(delta: float) -> void:
 	if characters_amount_in < characters.size():
 		return
 	
-	if transition_initial_speed <= 0 || _delay_of_beginning_smooth_transition: # To prevent from smooth transition at the beginning of the game (Visually safe for check point)
+	if transition_duration <= 0 || _delay_of_beginning_smooth_transition: # To prevent from smooth transition at the beginning of the game (Visually safe for check point)
 		_hard_transition()
 	else:
-		_smooth_transition(delta)
+		_smooth_transition()
 
 func _hard_transition() -> void:
 	enabled = true
 	make_current()
 
-func _smooth_transition(delta: float) -> void:
+func _smooth_transition() -> void:
+	if Character.Getter.get_characters(get_tree()).is_empty():
+		return
 	if _on_transition:
 		return
 	
 	_on_transition = true
 	
-	var acam := get_viewport().get_camera_2d() # Active camera, [NOTE]: NOT the target camera!
-	var acam_limrect := get_limit_rect(acam) # Limit rect of the active camera
-	var acam_pos: Vector2 = acam.global_position # Global position before the activate camera starts transition
-	var hvp_size: Vector2 = get_viewport_rect().size / 2 # Half of viewport size
+	# Creates a transitional camera
+	var tcam := Camera2D.new() # Transitional camera
+	var prev_cam := get_viewport().get_camera_2d()
+	var prev_cam_pos := prev_cam.get_screen_center_position()
+	add_sibling(tcam)
 	
-	acam.global_position = acam.get_screen_center_position()
-	if acam is GameCamera2D:
-		acam._on_transition_execution = true
+	# Sets transitional camera properties
+	tcam.global_position = prev_cam_pos
+	tcam.make_current()
+	tcam.force_update_scroll()
 	
-	# Extends the limitations of the active camera to make sure the transition works as usual
-	acam.limit_left = int(roundf(minf(acam.global_position.x - hvp_size.x, limit_left)))
-	acam.limit_right = int(roundf(maxf(acam.global_position.x + hvp_size.x, limit_right)))
-	acam.limit_top = int(roundf(minf(acam.global_position.y - hvp_size.y, limit_top)))
-	acam.limit_bottom = int(roundf(maxf(acam.global_position.y + hvp_size.y, limit_bottom)))
+	# Sets limits
+	var hvp := get_viewport_rect().size / 2
+	tcam.limit_left = mini(int(prev_cam_pos.x - hvp.x), limit_left)
+	tcam.limit_right = maxi(int(prev_cam_pos.x + hvp.x), limit_right)
+	tcam.limit_top = mini(int(prev_cam_pos.y - hvp.y), limit_top)
+	tcam.limit_bottom = maxi(int(prev_cam_pos.y + hvp.y), limit_bottom)
+	var tcam_limit_init: PackedFloat32Array = [
+		float(tcam.limit_left),
+		float(tcam.limit_right),
+		float(tcam.limit_top),
+		float(tcam.limit_bottom)
+	]
 	
-	# Shrinks the edges of limitation; thus the camera will get smoothly transited by them.
-	var speed := transition_initial_speed * delta
-	var threshold := int(roundf(transition_initial_speed / 2))
-	while is_inside_tree() && \
-		(absi(acam.limit_left - limit_left) > threshold || \
-		absi(acam.limit_right - limit_right) > threshold || \
-		absi(acam.limit_top - limit_top) > threshold || \
-		absi(acam.limit_bottom - limit_bottom) > threshold):
-			acam.limit_left = int(roundf(lerpf(acam.limit_left, limit_left, speed)))
-			acam.limit_right = int(roundf(lerpf(acam.limit_right, limit_right, speed)))
-			acam.limit_top = int(roundf(lerpf(acam.limit_top, limit_top, speed)))
-			acam.limit_bottom = int(roundf(lerpf(acam.limit_bottom, limit_bottom, speed)))
-			acam.force_update_scroll()
-			await get_tree().physics_frame
+	# Transition
+	var tw := create_tween().set_trans(transition_method).set_ease(transition_ease)
+	tw.tween_property(self, ^"_ease_count", 1.0, transition_duration)
+	while is_inside_tree() && _ease_count < 1:
+		var t := Character.Getter.get_average_global_position(get_tree())
+		tcam.global_position = prev_cam_pos.lerp(t, _ease_count)
+		tcam.limit_left = int(roundf(lerpf(tcam_limit_init[0], limit_left, _ease_count)))
+		tcam.limit_right = int(roundf(lerpf(tcam_limit_init[1], limit_right, _ease_count)))
+		tcam.limit_top = int(roundf(lerpf(tcam_limit_init[2], limit_top, _ease_count)))
+		tcam.limit_bottom = int(roundf(lerpf(tcam_limit_init[3], limit_bottom, _ease_count)))
+		tcam.force_update_scroll()
+		await get_tree().physics_frame
+	_ease_count = 0
 	
-	# Then manages to track to the characters' average global position smoothly
-	acam.global_position = acam.get_screen_center_position()
-	while is_inside_tree() && \
-		acam.global_position.is_equal_approx(Character.Getter.get_average_global_position(get_tree(), acam.global_position)):
-			acam.global_position = acam.global_position.move_toward(Character.Getter.get_average_global_position(get_tree(), acam.global_position), speed)
-			acam.force_update_scroll()
-			await get_tree().physics_frame
+	# Deletes transitional camera
+	tcam.enabled = false
+	tcam.queue_free()
+	
+	# Enables this camera and activates it
+	enabled = true
+	make_current()
+	global_position = Character.Getter.get_average_global_position(get_tree())
+	force_update_scroll()
 	
 	# Done transition
 	_on_transition = false
 	camera_get_transited_to.emit()
-	if acam is GameCamera2D:
-		acam._on_transition_execution = false
-		acam.camera_done_transition.emit()
-	
-	global_position = acam.global_position
-	acam.global_position = acam_pos
-	acam.limit_left = acam_limrect.position.x
-	acam.limit_right = acam_limrect.end.x
-	acam.limit_top = acam_limrect.position.y
-	acam.limit_bottom = acam_limrect.end.y
-	force_update_scroll()
-	
-	enabled = true
-	make_current()
 #endregion
 
 

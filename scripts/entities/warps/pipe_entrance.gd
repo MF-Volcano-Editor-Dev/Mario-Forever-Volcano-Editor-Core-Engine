@@ -65,9 +65,9 @@ func _entrance(key_dir: Vector2i, character: Character) -> void:
 			i.get_current_powerup().get_state_machine().change_state(&"non_climbing")
 		i.add_to_group(&"state_frozen")
 		# Defines animation direction
-		if key_dir.x != 0: 
+		if key_dir.x != 0 && direction in [2, 3]: 
 			i.add_to_group(&"state_pipe_h")
-		if key_dir.y != 0:
+		if key_dir.y != 0 && direction in [0, 1]:
 			i.add_to_group(&"state_pipe_v")
 		
 		# Slide the character to the proper place
