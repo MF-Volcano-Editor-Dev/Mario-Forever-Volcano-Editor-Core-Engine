@@ -197,7 +197,6 @@ visible = false
 position = Vector2(15, 4)
 texture = ExtResource("6_a4icd")
 script = ExtResource("5_8eonw")
-flip_position_x = true
 
 [node name="Thrower" type="Node2D" parent="."]
 visible = false

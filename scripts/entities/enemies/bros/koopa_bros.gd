@@ -51,6 +51,7 @@ var _jumping_below: Vector2
 var _jumping_result: bool
 var _is_jumping: bool
 var _is_attacking: bool
+var _dir: int # -1 or 1 only
 
 var _step: int:
 	set = set_step
@@ -91,16 +92,15 @@ func _physics_process(_delta: float) -> void:
 	
 	# Animation & Auto-detected directions
 	var np := Character.Getter.get_nearest(get_tree(), global_position) # Nearest player
-	if !np:
-		return
-	var dir := Transform2DAlgo.get_direction_to_regardless_transform(global_position, np.global_position, global_transform)
+	if np:
+		_dir = Transform2DAlgo.get_direction_to_regardless_transform(global_position, np.global_position, global_transform)
 	if _is_attacking:
 		if !_animation.has_animation(&"attack_l") && !_animation.has_animation(&"attack_r"):
 			_animation.play(&"attack")
 		else:
-			_animation.play(&"attack_l" if dir < 0 else &"attack_r")
+			_animation.play(&"attack_l" if _dir < 0 else &"attack_r")
 	
-	set_meta(&"facing", dir) # Useful for sprite_flip_facing_h.gd
+	set_meta(&"facing", _dir) # Useful for sprite_flip_facing_h.gd
 
 
 func set_step(value: int) -> void:

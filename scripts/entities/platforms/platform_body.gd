@@ -52,6 +52,8 @@ func fall() -> void:
 
 
 func _detect_being_stomped() -> void:
+	if !is_instance_valid(_vision_detector):
+		return
 	if !_vision_detector.is_on_screen():
 		return
 	
