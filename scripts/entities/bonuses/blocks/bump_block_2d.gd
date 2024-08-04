@@ -1,7 +1,7 @@
 class_name BumpBlock2D extends AnimatableBody2D
 
 ## Abstract class used for blocks that are interactable with other [PhysicsBody2D] by bumping.
-##
+## 
 ## [Bumper2D] in the following node groups may effect this object in different manners:[br]
 ## * [code]bumper_head[/code]: The bumper can hit the block from the [u]bottom[/u] of this object.[br]
 ## * [code]bumper_feet[/code]: The bumper can hit the block from the [u]top[/u] of this object.[br]

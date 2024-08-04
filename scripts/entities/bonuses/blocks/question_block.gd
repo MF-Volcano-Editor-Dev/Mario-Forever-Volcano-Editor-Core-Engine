@@ -1,7 +1,7 @@
 class_name QuestionBlock2D extends BumpBlock2D
 
 ## A kind of bumpable block which may provide items by getting hit.
-##
+## 
 ## This requires items to be categorized in the node group named [code]item[/code], and move them under this node to become its children nodes.[br]
 ## [br]
 ## [b]Note 1:[/b] Do NOT rescale this object, and be careful to rotate it, because all items will be created with the same [member Node2D.global_transform] as the one of this.
