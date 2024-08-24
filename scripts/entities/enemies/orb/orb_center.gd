@@ -134,7 +134,7 @@ func set_orbs_placement(value: _OrbsPlacement) -> void:
 					continue
 				orbs.append(i)
 			for j in orbs:
-				j.phase = initial_phase + orbs.find(j) * 360.0 / orbs.size()
+				j.phase = initial_phase + orbs.find(j) * TAU / orbs.size()
 			print("[Orbs] Became an orbs circle")
 	
 	orbs_placement = _OrbsPlacement.NONE
