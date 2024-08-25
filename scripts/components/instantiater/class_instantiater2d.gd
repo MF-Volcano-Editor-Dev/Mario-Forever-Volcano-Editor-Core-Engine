@@ -48,7 +48,7 @@ func _instantiate(instance: CanvasItem, as_child_of_root: bool = false, filter_n
 				ins.rotation = trans.get_rotation()
 				ins.scale = trans.get_scale()
 			else:
-				ins.global_transform = global_transform * ins.transform
+				ins.global_transform = global_transform
 			
 			if as_child_of_root:
 				root.add_child(ins)
