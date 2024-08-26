@@ -42,19 +42,20 @@ func _instantiate(instance: CanvasItem, as_child_of_root: bool = false, filter_n
 	if root:
 		var ins := instance.duplicate()
 		(func() -> void:
-			if ins is Control: # Control doesn't have `transform` or `global_transform` property
-				var trans: Transform2D = global_transform * ins.get_transform()
-				ins.position = trans.get_origin()
-				ins.rotation = trans.get_rotation()
-				ins.scale = trans.get_scale()
-			else:
-				ins.global_transform = global_transform
-			
 			if as_child_of_root:
 				root.add_child(ins)
 			else:
 				root.add_sibling(ins)
 				ins.get_parent().move_child(ins, root.get_index() + 1)
+			
+			# Sets the transform after instantiation to prevent parent-children transform bugs.
+			if ins is Control: # Control doesn't have `transform` or `global_transform` property
+				ins.set_global_position(global_position)
+				ins.rotation += global_rotation
+				ins.scale *= global_scale
+				print(ins.get_global_transform())
+			else:
+				ins.global_transform = global_transform * ins.transform
 			
 			instance_created.emit(ins) # This will be emitted before the previous piece of codes being executed
 		).call_deferred()

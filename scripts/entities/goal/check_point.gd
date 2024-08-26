@@ -49,8 +49,9 @@ func _ready() -> void:
 	Events.EventCharacter.get_signals().game_over.connect(_on_clear_data)
 	
 	# Activated when the register is checked and able to show activation animation
-	if id in _checked_checkpoints && auto_activated_once_checked:
+	if id in _checked_checkpoints && (auto_activated_once_checked || (!auto_activated_once_checked && id == _current_checkpoint)):
 		_activated = true
+		_animation_swing.play(&"checked")
 	
 	# Deferred call to spawn the character here
 	(func() -> void:

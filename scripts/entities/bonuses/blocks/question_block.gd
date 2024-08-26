@@ -76,9 +76,11 @@ func _abundant_items_creation(items_index: int, bumper: Bumper2D, offset: Vector
 
 func _hit(ins: PackedScene, offset: Vector2 = Vector2.ZERO) -> void:
 	var i := ins.instantiate()
-	i.global_transform = global_transform.translated_local(offset)
-	add_sibling.call_deferred(i)
-	get_parent().move_child.call_deferred(i, get_index())
+	(func():
+		add_sibling(i)
+		i.global_transform = global_transform.translated_local(offset)
+		get_parent().move_child(i, get_index())
+	).call_deferred()
 	
 	var hit := Callable(i, &"hit")
 	if hit.is_valid():

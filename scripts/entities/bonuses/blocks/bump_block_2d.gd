@@ -91,8 +91,10 @@ func bump(bumper: Bumper2D, touch_spot: Vector2) -> void:
 				heights.append(shape_owner_get_shape(i, j).get_rect().size.y / 2)
 		
 		var h := _HeadHit.instantiate()
-		h.global_transform = global_transform.translated_local(Vector2.UP * heights.max())
-		add_sibling.call_deferred(h)
+		(func():
+			add_sibling.call_deferred(h)
+			h.global_transform = global_transform.translated_local(Vector2.UP * heights.max())
+		).call_deferred()
 	
 	get_tree().physics_frame.connect(func() -> void:
 		_up = Vector2.ZERO
