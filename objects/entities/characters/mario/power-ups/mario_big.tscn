@@ -170,7 +170,6 @@ position = Vector2(0, -12)
 shape = ExtResource("2_fs0vx")
 
 [node name="Head" type="Area2D" parent="."]
-visible = false
 collision_mask = 50
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
@@ -181,7 +180,7 @@ shape = ExtResource("3_dulmo")
 debug_color = Color(0.878431, 0.341176, 0, 0.419608)
 
 [node name="HeadDetc" type="ShapeCast2D" parent="Head/HeadCB" groups=["bumper_head"]]
-position = Vector2(0, 2)
+position = Vector2(0, 1)
 shape = ExtResource("4_u23v3")
 target_position = Vector2(0, 0)
 margin = 0.5

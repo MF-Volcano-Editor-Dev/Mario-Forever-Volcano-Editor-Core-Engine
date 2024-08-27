@@ -1,5 +1,5 @@
 @tool
-extends Label
+extends Node2D
 
 @export_category("Counter")
 ## Number to display
@@ -18,15 +18,29 @@ extends Label
 	set(value):
 		suffix = value
 		amount = amount # Triggers the setter of `amount` to update the text
+@export_group("Font")
+@export var font: Font
+@export_range(0, 20, 0.01, "or_greater", "suffix:px") var char_average_weight: float = 8
 @export_group("Sound")
 @export var sound_appear: AudioStream
+
+var text: String
 
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 	
-	_movement()
+	_movement.call_deferred()
+
+func _draw() -> void:
+	if !font:
+		return
+	
+	draw_string(font, -Vector2(160, font.get_height() / 2.0), text, HORIZONTAL_ALIGNMENT_CENTER, 320)
+
+func _process(_delta: float) -> void:
+	queue_redraw()
 
 
 func _movement() -> void:

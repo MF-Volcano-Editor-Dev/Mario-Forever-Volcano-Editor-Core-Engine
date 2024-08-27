@@ -49,7 +49,6 @@ visible = false
 script = ExtResource("4_q0tne")
 
 [node name="Scores" parent="Instantiater2D" instance=ExtResource("5_ra1iw")]
-text = "1000"
 amount = 1000
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]

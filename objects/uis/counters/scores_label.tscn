@@ -1,20 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://d28wktlfkunys"]
 
-[ext_resource type="LabelSettings" uid="uid://bmp7x6mynklq7" path="res://engine/objects/uis/counters/scores_label_font.tres" id="1_cteg3"]
 [ext_resource type="Script" path="res://engine/scripts/uis/counters/scores_label.gd" id="2_ao7xj"]
+[ext_resource type="FontFile" uid="uid://8iriiin3t4hc" path="res://engine/assets/fonts/score.png" id="2_m8y3d"]
 
-[node name="Scores" type="Label"]
+[node name="Scores" type="Node2D"]
 z_index = 50
-offset_left = -4.0
-offset_top = -8.0
-offset_right = 4.0
-offset_bottom = 8.0
-pivot_offset = Vector2(4, 8)
-text = "0
-"
-label_settings = ExtResource("1_cteg3")
-horizontal_alignment = 1
-autowrap_mode = 2
-max_lines_visible = 1
 script = ExtResource("2_ao7xj")
-metadata/_edit_pinned_properties_ = [&"text"]
+font = ExtResource("2_m8y3d")
