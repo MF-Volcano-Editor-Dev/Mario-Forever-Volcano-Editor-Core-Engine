@@ -170,6 +170,7 @@ position = Vector2(0, -12)
 shape = ExtResource("2_fs0vx")
 
 [node name="Head" type="Area2D" parent="."]
+visible = false
 collision_mask = 50
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
