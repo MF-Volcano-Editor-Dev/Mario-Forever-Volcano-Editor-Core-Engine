@@ -1,0 +1,84 @@
+[gd_scene load_steps=11 format=3 uid="uid://drgifv7tkssn4"]
+
+[ext_resource type="Texture2D" uid="uid://b8un2tbmu7c6q" path="res://engine/assets/gfx/objects/entities/facilities/spring_board.png" id="1_i5fw3"]
+[ext_resource type="Script" path="res://engine/scripts/entities/facilities/spring_board.gd" id="1_y1gfj"]
+[ext_resource type="Script" path="res://engine/scripts/#universal/on_ready_visible.gd" id="3_nngto"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oa1gn"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ea33j"]
+size = Vector2(32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jfyku"]
+atlas = ExtResource("1_i5fw3")
+region = Rect2(0, 0, 31, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_swtli"]
+atlas = ExtResource("1_i5fw3")
+region = Rect2(0, 48, 31, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w373w"]
+atlas = ExtResource("1_i5fw3")
+region = Rect2(0, 96, 31, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wntrq"]
+atlas = ExtResource("1_i5fw3")
+region = Rect2(0, 144, 31, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8h6j7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jfyku")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_swtli")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w373w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wntrq")
+}],
+"loop": false,
+"name": &"squashed",
+"speed": 15.0
+}]
+
+[node name="SpringBoard" type="EntityBody2D"]
+gravity_scale = 0.3
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("1_y1gfj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_oa1gn")
+
+[node name="JumpingCheck" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 5
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpingCheck"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_ea33j")
+debug_color = Color(0.990945, 0, 0.271946, 0.42)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_8h6j7")
+autoplay = "default"
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+visible = false
+position = Vector2(0.5, -8)
+scale = Vector2(1.55, 2.4)
+script = ExtResource("3_nngto")
