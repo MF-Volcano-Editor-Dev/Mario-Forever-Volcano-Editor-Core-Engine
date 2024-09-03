@@ -41,13 +41,13 @@ var _ellipse: Ellipse = Ellipse.new() # This should be declared first
 		if !Engine.is_editor_hint():
 			return
 		queue_redraw()
-@export_range(-PI*50, PI*50, 0.1, "radians_as_degrees", "suffix:°/s") var frequency: float = 0.872665:
+@export_range(-180*50, 180*50, 0.1, "radians_as_degrees", "suffix:°/s") var frequency: float = 0.872665:
 	set(value):
 		frequency = value
 		if !Engine.is_editor_hint():
 			return
 		queue_redraw()
-@export_range(-PI, PI, 0.1, "radians_as_degrees") var phase: float:
+@export_range(-180, 180, 0.1, "radians_as_degrees") var phase: float:
 	set(value):
 		phase = value
 		if !Engine.is_editor_hint():
@@ -55,13 +55,13 @@ var _ellipse: Ellipse = Ellipse.new() # This should be declared first
 		queue_redraw()
 @export var random_phase: bool
 @export_group("Track and Rotation")
-@export_range(-PI*50, PI*50, 0.1, "radians_as_degrees", "suffix:°/s") var track_rotation_speed: float:
+@export_range(-180*50, 180*50, 0.1, "radians_as_degrees", "suffix:°/s") var track_rotation_speed: float:
 	set(value):
 		track_rotation_speed = value
 		if !Engine.is_editor_hint():
 			return
 		queue_redraw()
-@export_range(-PI, PI, 0.1, "radians_as_degrees") var track_angle: float:
+@export_range(-180, 180, 0.1, "radians_as_degrees") var track_angle: float:
 	set(value):
 		track_angle = value
 		_ellipse.rotation = deg_to_rad(track_angle)
@@ -86,7 +86,7 @@ func _ready() -> void:
 		return
 	
 	if random_phase:
-		phase = randf_range(-180, 180)
+		phase = randf_range(-PI, PI)
 	
 	var index: int = 0
 	for i in items:

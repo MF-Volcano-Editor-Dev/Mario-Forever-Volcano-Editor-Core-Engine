@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CircularMIGeneratorTemplate" load_steps=5 format=3 uid="uid://xi5o3q3oyymv"]
+
+[ext_resource type="Texture2D" uid="uid://c8m4kwu3g4ofn" path="res://engine/assets/gfx/objects/entities/bonus/items/coin.png" id="1_3hx05"]
+[ext_resource type="PackedScene" uid="uid://da8osf4x77m36" path="res://engine/objects/entities/bonuses/items/coin.tscn" id="2_gg8vo"]
+[ext_resource type="Script" path="res://engine/scripts/entities/generators/circular_generator_template.gd" id="3_f7crc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tl5xc"]
+atlas = ExtResource("1_3hx05")
+region = Rect2(0, 0, 32, 32)
+
+[resource]
+script = ExtResource("3_f7crc")
+packed_scene = ExtResource("2_gg8vo")
+icon = SubResource("AtlasTexture_tl5xc")

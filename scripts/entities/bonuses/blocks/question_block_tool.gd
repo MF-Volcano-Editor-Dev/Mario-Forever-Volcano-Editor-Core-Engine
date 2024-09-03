@@ -17,7 +17,8 @@ func _draw() -> void:
 	if _par.items.is_empty():
 		return
 	
-	_par.modulate.a = 1.0 if _par.block_visible else 0.5
+	if Engine.is_editor_hint():
+		_par.modulate.a = 1.0 if _par.block_visible else 0.5
 	
 	var first_item := _par.items[0]
 	if !first_item:

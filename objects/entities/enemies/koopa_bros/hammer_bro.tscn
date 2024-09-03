@@ -121,6 +121,7 @@ flip_position_x = true
 position = Vector2(8, -8)
 remote_path = NodePath("../../Thrower")
 script = ExtResource("6_ntkvb")
+flip_position_x = true
 
 [node name="Weapon" type="Sprite2D" parent="Sprite2D"]
 visible = false
@@ -143,7 +144,6 @@ script = ExtResource("6_vqftw")
 [node name="GreenBroDeath" parent="EnemyKillingProcess" instance=ExtResource("10_e5g1v")]
 
 [node name="Scores" parent="EnemyKillingProcess" groups=["instantiate_no_success_combo"] instance=ExtResource("9_tkg85")]
-text = "200"
 amount = 200
 metadata/_edit_pinned_properties_ = [&"amount"]
 
