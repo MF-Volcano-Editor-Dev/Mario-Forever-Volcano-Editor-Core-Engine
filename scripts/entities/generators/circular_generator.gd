@@ -157,20 +157,13 @@ func _process(delta: float) -> void:
 	
 	_rotate(delta)
 	
-	var index: int = 0
-	
 	for i in _circular_movement_objects:
 		if !is_instance_valid(i):
-			i = null
 			nulls += 1
 			continue
-		elif i is CircularMovementObject2D:
-			index += 1
-			continue
 		
+		var index := _circular_movement_objects.find(i)
 		i.position =_get_point(index, _circular_movement_objects.size())
-		
-		index += 1
 
 
 func _rotate(delta: float) -> void:

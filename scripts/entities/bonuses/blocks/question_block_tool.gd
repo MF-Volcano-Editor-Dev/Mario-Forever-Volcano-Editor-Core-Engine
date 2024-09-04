@@ -7,8 +7,10 @@ var _par: QuestionBlock2D
 
 func _ready() -> void:
 	if !Engine.is_editor_hint():
+		get_parent().modulate.a = 1.0
 		queue_free()
 		return
+	
 	visibility_changed.connect(set_process.bind(visible))
 
 func _draw() -> void:
@@ -17,8 +19,7 @@ func _draw() -> void:
 	if _par.items.is_empty():
 		return
 	
-	if Engine.is_editor_hint():
-		_par.modulate.a = 1.0 if _par.block_visible else 0.5
+	_par.modulate.a = 0.5 if !_par.block_visible else 1.0
 	
 	var first_item := _par.items[0]
 	if !first_item:

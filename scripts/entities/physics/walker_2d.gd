@@ -25,7 +25,10 @@ enum InitDirection {
 func _ready() -> void:
 	if initial_direction != InitDirection.BY_VELOCITY:
 		initialize_direction.call_deferred() # Called in a deferred manner to ensure the direction will be correctly set no matter where the node is in the scene tree
-
+	# Used to ensure the deferredly created objects gets their speed corrected.
+	(func():
+		velocality = velocality
+	).call_deferred()
 
 func _physics_process(_delta: float) -> void:
 	calculate_gravity()

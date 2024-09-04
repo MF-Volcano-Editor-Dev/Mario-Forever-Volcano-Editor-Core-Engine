@@ -60,7 +60,6 @@ metadata/_edit_pinned_properties_ = [&"immune_to_ids"]
 [node name="BulletBillDeath" parent="EnemyKillingProcess" groups=["instantiate_no_failure"] instance=ExtResource("6_tqoyq")]
 
 [node name="Scores" parent="EnemyKillingProcess" groups=["instantiate_no_failure", "instantiate_no_success_combo"] instance=ExtResource("9_sua3s")]
-text = "100"
 amount = 100
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenNotifier2D" parent="."]
