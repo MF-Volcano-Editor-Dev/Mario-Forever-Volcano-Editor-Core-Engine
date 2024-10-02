@@ -48,7 +48,7 @@ region = Rect2(0, 32, 64, 32)
 atlas = ExtResource("2_7nwep")
 region = Rect2(0, 64, 64, 32)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_t3s02"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_oqeyp"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -96,9 +96,8 @@ texture = ExtResource("2_a657v")
 lifetime = 0.5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_t3s02")
+sprite_frames = SubResource("SpriteFrames_oqeyp")
 autoplay = "default"
-frame_progress = 0.584398
 script = ExtResource("3_tn1tb")
 
 [node name="VisibleOnScreenNotifierDirectional2D" type="VisibleOnScreenNotifier2D" parent="."]

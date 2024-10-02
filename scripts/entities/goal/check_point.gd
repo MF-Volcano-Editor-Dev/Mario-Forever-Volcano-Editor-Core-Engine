@@ -58,6 +58,8 @@ func _ready() -> void:
 		if id == _current_checkpoint:
 			for i in Character.Getter.get_characters(get_tree()):
 				i.global_position = global_position
+			
+			spawned_characters.emit()
 	).call_deferred()
 
 
@@ -75,6 +77,8 @@ func _on_character_checked(body: Node2D) -> void:
 		_animation_effect.play(&"checked")
 		
 		get_tree().create_timer(1.5, false).timeout.connect(_sound)
+		
+		checkpoint_checked.emit()
 	# Register the check point
 	if !id in _checked_checkpoints:
 		_checked_checkpoints.append(id)

@@ -1,15 +1,46 @@
-[gd_scene load_steps=3 format=3 uid="uid://fjy05w2ma1lj"]
+[gd_scene load_steps=8 format=3 uid="uid://fjy05w2ma1lj"]
 
 [ext_resource type="PackedScene" uid="uid://dsiafdub20w5h" path="res://engine/objects/entities/#projectiles/flame/flame_base.tscn" id="1_nt0hk"]
 [ext_resource type="Script" path="res://engine/scripts/components/enemy/class_enemy_touch.gd" id="2_kc6e5"]
+[ext_resource type="Texture2D" uid="uid://3k6tdx4ohaor" path="res://engine/assets/gfx/objects/entities/projectiles/bowser_flame.png" id="3_736x8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d3j40"]
+atlas = ExtResource("3_736x8")
+region = Rect2(0, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aki54"]
+atlas = ExtResource("3_736x8")
+region = Rect2(0, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v0fqh"]
+atlas = ExtResource("3_736x8")
+region = Rect2(0, 64, 64, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hiciv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d3j40")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aki54")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v0fqh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
 
 [node name="FlameEnemy" instance=ExtResource("1_nt0hk")]
-velocality = Vector2(250, 0)
-velocity = Vector2(250, 0)
-velocity = Vector2(250, 0)
 
 [node name="EffectBox" parent="." index="1"]
 collision_mask = 1
 
 [node name="EnemyTouch" type="Node" parent="EffectBox" index="1"]
 script = ExtResource("2_kc6e5")
+
+[node name="AnimatedSprite2D" parent="." index="3"]
+sprite_frames = SubResource("SpriteFrames_hiciv")
+frame_progress = 0.0

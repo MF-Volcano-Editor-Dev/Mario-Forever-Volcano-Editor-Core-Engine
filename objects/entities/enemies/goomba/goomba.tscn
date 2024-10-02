@@ -103,7 +103,6 @@ position = Vector2(0, 8)
 [node name="GoombaDeath" parent="EnemyKillingProcess" groups=["instantiate_no_stomp"] instance=ExtResource("9_au68h")]
 
 [node name="Scores" parent="EnemyKillingProcess" groups=["instantiate_no_success_combo"] instance=ExtResource("6_ejjdu")]
-text = "100"
 amount = 100
 metadata/_edit_pinned_properties_ = [&"amount"]
 

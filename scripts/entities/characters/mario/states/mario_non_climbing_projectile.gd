@@ -20,6 +20,8 @@ func _state_process(delta: float) -> void:
 	
 	if _character.is_in_group(&"state_frozen"):
 		return
+	if _character.is_in_group(&"state_uncontrollable"):
+		return
 	if _character.is_in_group(&"state_crouching"):
 		return
 	if _character.is_in_group(&"state_completed"):
