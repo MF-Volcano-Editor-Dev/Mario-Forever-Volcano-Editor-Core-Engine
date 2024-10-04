@@ -86,11 +86,8 @@ func _on_level_completed() -> void:
 	
 	await get_tree().create_timer(1, false).timeout
 	
-	Transmission.circle_transmission(Transmission.circle_trans.get_viewport_rect().get_center(), 1)
-	await Transmission.circular_trans_done
-	
 	if next_scene:
-		get_tree().change_scene_to_file(next_scene)
+		Scenes.change_scene_to_path(next_scene)
 	else:
 		printerr("[LevelCompletion] Invalid or empty next_scene!")
 
