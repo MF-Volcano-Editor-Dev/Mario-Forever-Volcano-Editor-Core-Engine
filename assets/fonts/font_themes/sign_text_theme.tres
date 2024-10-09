@@ -1,6 +1,6 @@
 [gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://s7ludydwdbvn"]
 
-[ext_resource type="FontFile" uid="uid://cywsu2xy8lesq" path="res://assets/fonts/comix_heavy.ttf" id="1_n3m17"]
+[ext_resource type="FontFile" uid="uid://cywsu2xy8lesq" path="res://engine/assets/fonts/comix_heavy.ttf" id="1_n3m17"]
 
 [resource]
 line_spacing = -1.0

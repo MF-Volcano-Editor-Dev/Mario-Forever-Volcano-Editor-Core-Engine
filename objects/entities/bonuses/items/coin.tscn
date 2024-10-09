@@ -102,8 +102,9 @@ script = ExtResource("3_012et")
 [node name="CoinEffect" parent="Instantiater2D" instance=ExtResource("4_i83v2")]
 
 [node name="Scores" parent="Instantiater2D" instance=ExtResource("6_05kln")]
+change_relevant_data = false
 amount = 200
-metadata/_edit_pinned_properties_ = [&"amount"]
+metadata/_edit_pinned_properties_ = [&"amount", &"change_relevant_data"]
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
 visible = false

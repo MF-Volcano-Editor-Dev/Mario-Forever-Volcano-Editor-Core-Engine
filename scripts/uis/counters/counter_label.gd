@@ -22,7 +22,6 @@ extends Node2D
 		amount = amount # Triggers the setter of `amount` to update the text
 @export_group("Font")
 @export var font: Font
-@export_range(0, 20, 0.01, "or_greater", "suffix:px") var char_average_weight: float = 8
 @export_group("Sound")
 @export var sound_appear: AudioStream
 
