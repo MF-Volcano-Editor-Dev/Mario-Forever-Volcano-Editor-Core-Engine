@@ -6,6 +6,7 @@
 
 [node name="Lives" instance=ExtResource("1_rgqai")]
 script = ExtResource("3_8jntk")
+amount = 1
 suffix = "UP"
 font = ExtResource("3_qxjmo")
 char_average_weight = 10.0

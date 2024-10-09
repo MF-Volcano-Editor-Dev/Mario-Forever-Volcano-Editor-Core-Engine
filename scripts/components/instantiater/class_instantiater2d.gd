@@ -50,6 +50,7 @@ func _instantiate(instance: CanvasItem, as_child_of_root: bool = false, filter_n
 			
 			if ins is Node2D:
 				ins.global_transform = global_transform * ins.transform
+				#print("Instance Name: %s, transform: %s" % [ins.name, ins.global_transform])
 			elif ins is Control:
 				var trans: Transform2D = global_transform * ins.get_transform()
 				ins.global_position = global_position + ins.position

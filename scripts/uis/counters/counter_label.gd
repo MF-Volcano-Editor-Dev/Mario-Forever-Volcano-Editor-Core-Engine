@@ -13,6 +13,8 @@ extends Node2D
 		if amount < 0:
 			text = text.replacen("-", "") + str(suffix)
 			modulate = Color(1, 0.25, 0, modulate.a)
+		
+		queue_redraw()
 ## Suffix of the number to display
 @export_placeholder("Suffix") var suffix: String:
 	set(value):
@@ -28,19 +30,20 @@ var text: String
 
 
 func _ready() -> void:
+	amount = amount # Triggers setter to initialize its visual effect
+	
 	if Engine.is_editor_hint():
 		return
 	
 	_movement.call_deferred()
+	
+	queue_redraw()
 
 func _draw() -> void:
 	if !font:
 		return
 	
-	draw_string(font, -Vector2(160, font.get_height() / 2.0), text, HORIZONTAL_ALIGNMENT_CENTER, 320)
-
-func _process(_delta: float) -> void:
-	queue_redraw()
+	draw_string(font, -Vector2(160, 0), text, HORIZONTAL_ALIGNMENT_CENTER, 320)
 
 
 func _movement() -> void:
@@ -48,7 +51,7 @@ func _movement() -> void:
 	
 	Sound.play_2d(sound_appear, self)
 	
-	var tw: Tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	var tw := create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	tw.tween_property(self, ^"position", position + 64 * Vector2.UP, 0.75)
 	tw.tween_interval(0.5)
 	tw.tween_property(self, ^"modulate:a", 0, 0.25)

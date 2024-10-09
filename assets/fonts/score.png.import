@@ -1,6 +1,6 @@
 [remap]
 
-importer="dt.abfi"
+importer="font_data_image"
 type="FontFile"
 uid="uid://8iriiin3t4hc"
 path="res://.godot/imported/score.png-2efb7222decf75958351be8aa675e65c.fontdata"
@@ -12,6 +12,14 @@ dest_files=["res://.godot/imported/score.png-2efb7222decf75958351be8aa675e65c.fo
 
 [params]
 
-ranges=PackedStringArray("0", "9")
-letter_spacing=-1
-mipmaps=false
+character_ranges=PackedStringArray("\'0\'-\'9\'")
+kerning_pairs=PackedStringArray("1 0 -3", "0 0 -2", "23456789 0 -2", "12 23 -2", "3 4 -1", "45678 56789 -2")
+columns=10
+rows=1
+image_margin=Rect2i(0, 0, 0, 0)
+character_margin=Rect2i(0, 0, 0, 0)
+ascent=0
+descent=0
+fallbacks=[]
+compress=true
+scaling_mode=2
