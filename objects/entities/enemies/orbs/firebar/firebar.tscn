@@ -15,5 +15,5 @@ metadata/_edit_pinned_properties_ = [&"size", &"orb_prefix"]
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_78yml")
 script = ExtResource("3_abals")
-flip_rotaiton_speed = 650.0
+flip_rotaiton_speed = 7.19948
 metadata/_edit_pinned_properties_ = [&"texture", &"flip_rotaiton_speed"]

@@ -239,7 +239,6 @@ func _smooth_transition() -> void:
 	camera_get_transited_to.emit()
 #endregion
 
-
 ## Shakes the camera.
 func shake(max_amplitude: Vector2, times: int, duration: float = 0.03, trans: Tween.TransitionType = Tween.TRANS_SINE) -> void:
 	if _shaking:
